@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/modules/laydate/default/laydate.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/map.css">
+    <link rel="stylesheet" href="../css/modules/layer/default/layer.css">
+    <style>
+        .layui-form-item {
+            clear: none;
+        }
+
+        .layui-table-cell {
+            height: inherit;
+        }
+
+        .changeS {
+            position: fixed;
+            right: 5px;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="layui-row lrow">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a href="javascript:;">当前位置</a>
+            <a href="../index.html" target="_top">首页</a>
+            <a href="javascript:;">数据报表</a>
+            <a href="javascript:;">月报表</a>
+
+        </span>
+    </div>
+    <div class="padd"></div>
+    <form class="layui-form" lay-filter="example">
+        <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择企业</label>
+            <div class="layui-input-block">
+
+                <select name="mcodes" lay-filter="qy" id="qylist">
+                    <option value="" selected>请选择</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">日期</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" id="etime" name="etime" autocomplete="off">
+            </div>
+        </div>
+        <div class="layui-form-item" id="hide">
+            <div class="layui-input-block">
+                <button class="layui-btn  layui-btn-radius  layui-btn-normal " lay-submit lay-filter="sub">查询</button>
+                <!-- <button type="reset" class="layui-btn  layui-btn-radius  layui-btn-normal  ">重置</button> -->
+            </div>
+        </div>
+
+    </form>
+
+
+    <div class="layui-form" style="clear: both;">
+        <table id="demo" lay-filter="demo">
+
+
+        </table>
+
+    </div>
+    <div id="page"></div>
+</div>
+<script src="../js/layui.js"></script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xxs" lay-event="detail">详情</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xxs" lay-event="export">导出</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-xxs" lay-event="del" id="delhide">删除</a>
+</script>
+
+<script>
+
+    layui.use(['form', 'layer', 'laydate', 'laypage', 'element', 'table'], function () {
+        var element = layui.element;
+        var laypage = layui.laypage;
+        var laydate = layui.laydate;
+        var table = layui.table;
+        var form = layui.form;
+        var $ = layui.$;
+
+        var time = new Date();
+        time.setTime(time.getTime());
+        var m2 = time.getMonth() + 1
+        if (m2 <= 9) {
+            m2 = "0" + m2;
+        }
+        var s2 = time.getFullYear() + "-" + m2
+        var monthNum = 2; //要减的月数(6)自己定义
+        var dateArr = s2.split('-'); //s2当前时间
+        var year = dateArr[0]; //获取当前日期的年份
+        var month = dateArr[1]; //获取当前日期的月份
+        var day = dateArr[2]; //获取当前日期的日
+
+
+        var year2 = year;
+        var month2 = parseInt(month) - monthNum;
+        if (month2 < 0) {
+            var m2 = Math.abs(month2)
+            if (m2 < 12) {
+                year2 = parseInt(year2) - 1
+            } else if (m2 > 12 || m2 == 12) {
+                year2 = parseInt(year2) - parseInt(m2 / 12)
+            }
+            // year2 = parseInt(year2) - parseInt(month2 / 12 == 0 ? 1 : parseInt(month2) / 12);
+            month2 = 12 - (m2 % 12) + 1;
+        }
+
+        if (month2 < 10) {
+
+            month2 = '0' + (month2 + 1);
+        }
+        var t2 = year2 + '-' + month2
+        $('#etime').val(t2)
+
+        form.on('submit(sub)', function (data) {
+
+            table.reload('tableid', {
+                where: {
+                    datatime: layui.$('#etime').val(),
+                    mn: layui.$('#qylist').val(),
+                } //设定异步数据接口的额外参数，任意设
+            });
+
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+
+        });
+
+        //第一个实例
+        //获取企业列表
+        $.ajax({
+            url: httpUrl + 'manage/erpsnamelist',
+
+            data: {
+                deptid: localStorage.getItem('deptid')
+            },
+            dataType: 'json',
+            success: function (data) {
+
+                var data = data.data;
+                var str = '';
+                for (var i = 0; i < data.length; i++) {
+                    str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
+                }
+                layui.$('#qylist').append(str);
+                form.render();
+                rder($('#qylist').val())
+            }
+        });
+        function rder(mn) {
+
+            table.render({
+                elem: '#demo',
+                height: 'full-130'
+                , url: httpUrl + 'report_forms/hdsMonthreport' //数据接口
+                , limit: 10000
+                , where: {
+                    datatime: layui.$('#etime').val(),
+                    mn: mn
+                }
+                , cols: [[ //表头
+                    { field: 'id', style: 'display:none;', type: 'space', width: '0%', minWidth: '0%' },
+                    { field: 'uname', title: '企业名称' }
+                    , { field: 'reportName', title: '报表名称' }
+                    , { field: 'reportDate', title: '生成时间' }
+                    , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 260 }
+
+                ]],
+                id: 'tableid',
+                done: function (res, curr, count) {
+
+                    layui.$('th').css({
+                        'background-color': '#4265ed',
+                        'color': '#fff',
+                        'font-weight': 'bold',
+                        'text-align': 'center'
+                    })
+                    layui.$('td').css({
+                        'text-align': 'center'
+                    })
+                    //            layui.$('#mcodes').empty();
+                    //            var data = res.mcodes;
+                    //            layui.$('#erpsname').text(res.erpsname);
+                    //            var str = '<option value="" selected>请选择</option>';
+                    //            for (var i = 0; i < data.length; i++) {
+                    //                str += '<option value="' + data[i].mcode + '">' + data[i].uname + '</option>';
+                    //            }
+                    //
+                    //            layui.$('#mcodes').append(str);
+
+                    form.render();
+                    layui.$('th').css({ 'background-color': '#1492ff', 'color': '#fff', 'font-weight': 'bold' });
+                }
+            });
+        }
+        //监听行工具事件
+        table.on('tool(demo)', function (obj) {
+
+            var data = obj.data;
+            //            console.log(data);
+            var url = '';
+            for (var index in data) {
+                url += '/' + index + '=' + data[index]
+            }
+            url += '/dateC=' + $('#etime').val()
+
+            if (obj.event === 'del') {
+                layer.confirm('确定删除', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.ajax({
+                        url: httpUrl + 'report_forms/updateYearAndMonthReport',
+                        type: 'post',
+                        data: {
+                            id: data.id
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+
+                            if (data.code == 0) {
+                                layer.msg('删除成功', { time: 1000, icon: 1 }, function () {
+                                    window.location.href = 'monthreportform.html'
+                                });
+
+                            } else {
+                                layer.msg('删除失败', { time: 1000, icon: 2 });
+                            }
+
+                        }
+                    })
+
+                }, function () {
+                    layer.msg('取消删除', { time: 1000, icon: 2 });
+                });
+
+            } else if (obj.event === 'detail') {
+                window.location.href = 'monthRepdetail.html#/' + url;
+            } else if (obj.event === 'export') {
+
+                if ('ActiveXObject' in window) {
+                    var urlReport = httpUrl + 'report_forms/hdsMonreport?mn=' + data.mn + '&datatime=' + layui.$('#etime').val()
+                } else {
+                    var urlReport = httpUrl + 'report_forms/hdsMonreport?mn=' + data.mn + '&datatime=' + layui.$('#etime').val()
+                }
+                window.location.href = urlReport;
+            }
+        });
+        laydate.render({
+            elem: '#etime'
+            , type: 'month'
+        });
+    });
+</script>
+</body>
+
+</html>

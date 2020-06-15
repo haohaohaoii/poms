@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/modules/laydate/default/laydate.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/map.css">
+    <style>
+
+    </style>
+</head>
+
+<div class="container">
+    <div class="layui-row lrow">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a href="javascript:;">当前位置</a>
+            <a href="../index.html" target="_top">首页</a>
+            <a href="javascript:;">历史数据</a>
+        </span>
+    </div>
+    <div class="padd"></div>
+    <form class="layui-form">
+        <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+        <div class="layui-form-item">
+            <label class="layui-form-label">企业</label>
+            <div class="layui-input-block">
+                <select name="qy" lay-filter="qy">
+                    <option value="-1" selected>请选择</option>
+                    <option value="0">写作</option>
+                    <option value="1">阅读</option>
+                    <option value="2">游戏</option>
+                    <option value="3">音乐</option>
+                    <option value="4">旅行</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">设备</label>
+            <div class="layui-input-block">
+                <select name="seb" lay-filter="seb">
+                    <option value="-1" selected>请选择</option>
+                    <option value="0">写作</option>
+                    <option value="1">阅读</option>
+                    <option value="2">游戏</option>
+                    <option value="3">音乐</option>
+                    <option value="4">旅行</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">开始时间</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" id="stime" name="stime" placeholder="yyyy-MM-dd">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">结束时间</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" id="etime" name="etime" placeholder="yyyy-MM-dd">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn  layui-btn-radius  layui-btn-normal " lay-submit lay-filter="sub">查询</button>
+                <button type="reset" class="layui-btn  layui-btn-radius  layui-btn-normal  ">重置</button>
+            </div>
+        </div>
+
+    </form>
+
+
+    <div class="layui-form" style="clear: both;">
+        <table id="demo"></table>
+
+
+
+
+    </div>
+    <div id="page"></div>
+</div>
+<script src="../js/layui.js"></script>
+<!--<script src="../js/laydate/laydate.js"></script>-->
+<script>
+
+    layui.use(['form', 'laydate', 'layer', 'laypage', 'element', 'table'], function () {
+        var element = layui.element;
+        var laypage = layui.laypage;
+        var router = layui.router();
+        var laydate = layui.laydate;
+        var table = layui.table;
+        var form = layui.form;
+        form.render();
+        console.log(form);
+
+        //        form.on('select(qy)', function(data){
+        //            console.log(data.elem); //得到select原始DOM对象
+        //            console.log(data.value); //得到被选中的值
+        //            console.log(data.othis); //得到美化后的DOM对象
+        //        });
+        //        form.on('select(seb)', function(data){
+        //            console.log(data.elem); //得到select原始DOM对象
+        //            console.log(data.value); //得到被选中的值
+        //            console.log(data.othis); //得到美化后的DOM对象
+        //        });
+        form.on('submit(sub)', function (data) {
+            console.log(data.elem) //被执行事件的元素DOM对象，一般为button对象
+            console.log(data.form) //被执行提交的form对象，一般在存在form标签时才会返回
+            console.log(data.field) //当前容器的全部表单字段，名值对形式：{name: value}
+            table.reload('tableid', {
+                where: data.field //设定异步数据接口的额外参数，任意设
+
+                , page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+
+        });
+        //第一个实例
+        table.render({
+            elem: '#demo'
+            , height: 'full-220'
+            , url: httpUrl + '../js/list.json' //数据接口
+            , limit: 10,
+            where: { token: 'sasasas', id: 123 },
+            request: {
+                pageName: 'curr' //页码的参数名称，默认：page
+                , limitName: 'nums' //每页数据量的参数名，默认：limit
+            }
+            , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                layout: ['prev', 'page', 'count', 'next'] //自定义分页布局
+                , curr: 1 //设定初始在第 1 页
+                , groups: 7 //只显示 1 个连续页码
+                , first: '首页' //不显示首页
+                , last: '末页' //不显示尾页
+                //                    ,jump: function(obj, first){
+                //                    //obj包含了当前分页的所有参数，比如：
+                //                    console.log(obj)
+                //                    console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                //                    console.log(obj.limit); //得到每页显示的条数
+                //
+                //                    //首次不执行
+                //                    if(!first){
+                //                        //do something
+                //                    }
+                //                }
+
+            } //开启分页
+            , cols: [[ //表头
+
+                { field: 'id', title: 'ID', width: '5%', fixed: 'left' }
+                , { field: 'username', title: '用户名' }
+                , { field: 'sex', title: '性别' }
+                , { field: 'city', title: '城市' }
+                , { field: 'sign', title: '签名' }
+                , { field: 'experience', title: '积分' }
+                , { field: 'score', title: '评分' }
+                , { field: 'classify', title: '职业' }
+                , { field: 'wealth', title: '财富' }
+            ]],
+            id: 'tableid',
+            done: function (res, curr, count) {
+                tableList = res.data;
+                layui.$('th').css({ 'background-color': '#1492ff', 'color': '#fff', 'font-weight': 'bold' })
+            }
+        });
+        laydate.render({
+            elem: '#stime'
+            , type: 'date'
+        });
+        laydate.render({
+            elem: '#etime'
+            , type: 'date'
+        });
+        console.log(router.search.mn);
+
+
+
+    });
+</script>
+</body>
+
+</html>

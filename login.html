@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>新乡流量监控平台</title>
+  <link rel="stylesheet" href="./css/layui.css">
+  <link rel="stylesheet" href="./css/reset.css">
+  <style>
+    body {
+      background: #f1f2f7;
+    }
+  </style>
+</head>
+
+<div class="container">
+  <div class="top">
+  </div>
+  <div class="con">
+    <div class="left">
+      <p><img src="images/img/logo_blue.png" style="width: 60px; height: 63px;"></p>
+
+      <form action="" class="">
+
+        <div class="layadmin-user-login-box layadmin-user-login-body layui-form">
+          <div class="layui-row">
+            <div class="layui-form-item login-form-item">
+              <label class="layadmin-user-login-icon layui-icon layui-icon-username"></label>
+              <input type="text" name="username" id="username" lay-verify="required" placeholder="请输入用户名"
+                class="layui-input" autocomplete="off">
+            </div>
+          </div>
+          <div class="layui-row">
+            <div class="layui-form-item login-form-item">
+              <label class="layadmin-user-login-icon layui-icon layui-icon-password"></label>
+              <input type="password" name="pwd" id="pwd" lay-verify="required" placeholder="请输入密码"
+                class="layui-input pwd" autocomplete="off">
+            </div>
+          </div>
+        </div>
+
+        <input type="button" value="登录" id="login">
+      </form>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <p class="msg"><span>郑州富铭环保科技股份有限公司</span> <span>河南省郑州市金水区牛顿国际四楼</span> <span class="span">联系电话：0371-60999985</span>
+    </p>
+    <p class="icp">2019@郑州富铭环保科技股份有限公司</p>
+  </div>
+</div>
+<script src="./js/layui.js"></script>
+<script>
+  //JavaScript代码区域
+
+
+  layui.use('element', function () {
+    var element = layui.element;
+    layui.$("#pwd").keyup(function (event) {
+      var e = (event) ? event : window.event;
+
+      if (e.keyCode == 13) {
+        layui.$('#login').click()
+      }
+    });
+    layui.$('#login').click(function () {
+      var $ = layui.$;
+      $.ajax({
+        url: httpUrl + 'manage/login',
+        type: 'post',
+        data: {
+          username: $('#username').val(),
+          userpwd: $('#pwd').val()
+        },
+        dataType: '',
+        success: function (res) {
+
+          localStorage.clear();
+          if (res.code === 0) {
+
+            window.location.href = './index.html#/';
+            localStorage.setItem('userid', res.userid);
+            localStorage.setItem('rolelimit', res.rolelimit);
+            localStorage.setItem('deptid', res.deptid);
+            localStorage.setItem('username', $('#username').val());
+            localStorage.setItem('realname', res.erpsname);
+            localStorage.setItem('token', res.token);
+          } else {
+            alert(res.message);
+          }
+        }
+
+      })
+
+    })
+  });
+</script>
+</body>
+
+</html>

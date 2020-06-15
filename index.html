@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="./js/layui.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>新乡涉水企业全过程监控平台</title>
+  <link rel="stylesheet" href="./css/layui.css">
+  <link rel="stylesheet" href="./css/reset.css">
+  <style>
+    .red {
+      background: red;
+    }
+
+    #qymsg1 {
+      display: none;
+    }
+
+    #alertpwd {
+      display: none;
+      width: 358px;
+      height: 243px;
+      margin-left: calc(50% - 214px);
+      margin-top: calc(50% - 600px);
+      position: absolute;
+      z-index: 9999;
+      background: #ffffff;
+      box-shadow: 0 0 5px #4265ed;
+      padding-top: 20px;
+    }
+
+    #zz {
+      display: none;
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background: rgba(0, 0, 0, 0.5);
+      top: 0;
+      left: 0;
+      z-index: 9998;
+    }
+
+    .ull .hidden {
+      display: none;
+    }
+
+    .ull li {
+      list-style: none;
+      color: #000000 !important;
+      /*background: #e7f3ff;*/
+    }
+
+    .ull li>ul {
+      display: none;
+    }
+
+    .ull span {
+      display: block;
+      width: 100%;
+      min-height: 40px;
+      line-height: 40px;
+      box-sizing: border-box;
+      cursor: pointer;
+
+    }
+
+    .search {
+      height: 30px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+
+    }
+
+    .search input {
+      width: 265px;
+      margin: 0 auto;
+      display: block;
+      height: 30px;
+      border: 0 none;
+      background: #f0eff5 url("images/img/search.png") no-repeat right 12px center;
+      padding-left: 20px;
+      box-sizing: border-box;
+      background-size: 5%;
+    }
+
+    .province {
+      font-size: 16px;
+      padding-left: 45px;
+      color: #242422;
+      background: url("images/img/listico.png") no-repeat left 20px center, url("images/img/lselecton.png") no-repeat right 12px center;
+      background-size: 6%, 5%;
+    }
+
+    .province.on {
+      /*background:red;*/
+      background: url("images/img/listico.png") no-repeat left 20px center, url("images/img/lselecton.png") no-repeat right 12px center;
+      background-size: 6%, 5%;
+    }
+
+    .city {
+      font-size: 16px;
+      padding-left: 52px;
+      color: #585858;
+      background: url("images/img/lselecton.png") no-repeat right 12px center;
+      background-size: 5%;
+    }
+
+    .city.on {
+      background: url("images/img/lselecton.png") no-repeat right 12px center;
+      background-size: 5%;
+    }
+
+    .enterprise {
+      font-size: 16px !important;
+      padding-left: 61px !important;
+      display: block !important;
+      width: 84% !important;
+      color: #656565 !important;
+      height: 40px !important;
+      line-height: 40px !important;
+      box-sizing: border-box;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    li.on {
+      background: #e7f3ff;
+    }
+
+    li.ona {
+      background: #e0ecf8;
+    }
+
+    li.ona a {
+      color: #006cc7 !important;
+    }
+
+    .enterprise:hover {
+      color: #006cc7;
+    }
+
+    .layui-side:after {
+      content: '';
+      width: 20px;
+      height: 100%;
+      display: block;
+      position: absolute;
+      right: -22px;
+      top: 0;
+      background: #ffffff url("images/img/flex.png") no-repeat center;
+      border-top-left-radius: 0px;
+      border-top-right-radius: 25px;
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 25px;
+      box-shadow: 0 0 5px #e9e9e9;
+    }
+
+    #chos {
+      display: block;
+      width: 20px;
+      position: absolute;
+      top: 47%;
+      height: 50px;
+      /*background: red;*/
+      z-index: 9;
+      right: -20px;
+      cursor: pointer;
+    }
+
+    #flexbox {
+      position: absolute;
+      top: 150px;
+      left: -100%;
+      width: 100px;
+      height: 40px;
+      z-index: 9999;
+      background: url("images/img/show.png") no-repeat left center;
+      background-size: contain;
+      cursor: pointer;
+
+    }
+
+    .logo {
+      background: url("images/img/logotitie.png") no-repeat left 63px top 21px;
+      height: 100%;
+      display: block;
+      line-height: 72px;
+      padding-left: 50px;
+      background-size: 8.8%;
+    }
+
+    .searchbar {
+      width: 265px;
+      background: #ffffff;
+      position: absolute;
+      left: 10px;
+      border-top: 0 none;
+      border-left: 1px solid #f0eff5;
+      border-right: 1px solid #f0eff5;
+      border-bottom: 1px solid #f0eff5;
+      box-sizing: border-box;
+
+    }
+
+    .searchbar li {
+      height: 30px;
+      line-height: 30px;
+      padding-left: 20px;
+      color: #585858;
+      cursor: pointer;
+    }
+
+    .searchbar li:hover {
+      background: #f0eff5;
+
+    }
+
+    .layui-btn-xs {
+      height: 30px;
+      line-height: 30px;
+      margin-top: 20px;
+      margin-right: 10px;
+    }
+
+    .ull a {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .ull a:hover {
+      color: #006cc7;
+    }
+  </style>
+</head>
+<div id="alertpwd">
+  <form class="layui-form layuiform " action="" lay-filter="example">
+    <div class="layui-form-item">
+      <label class="layui-form-label">原始密码</label>
+      <div class="layui-input-inline">
+        <input id="oldpwd" type="password" name="originalpwd" placeholder="请输入原始密码" autocomplete="off"
+          class="layui-input"><b>*</b>
+        <p id="oldpwdts" style="font-size: 10px;text-align: end;color: red;position: absolute;right: 0;"></p>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">新密码</label>
+      <div class="layui-input-inline">
+        <input id="pwd" type="password" name="pwd" placeholder="请输入新密码" autocomplete="off" class="layui-input"><b>*</b>
+        <p id="pwdts" style="font-size: 10px;text-align: end;color: red;position: absolute;right: 0;"></p>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">确认密码</label>
+      <div class="layui-input-inline">
+        <input id="nwepwd" type="password" name="userpwd" placeholder="请确认密码" autocomplete="off"
+          class="layui-input"><b>*</b>
+        <p id="nwepwdts" style="font-size: 10px;text-align: end;color: red;position: absolute;right: 0;"></p>
+      </div>
+    </div>
+
+
+    <div class="layui-form-item">
+      <div class="layui-input-block">
+        <button class="layui-btn layui-btn-normal layui-btn-xs" lay-submit="" lay-filter="sub">保存</button>
+        <button class="layui-btn layui-btn-normal layui-btn-xs" id="ext" type="button">返回</button>
+      </div>
+    </div>
+  </form>
+
+</div>
+
+<body class="layui-layout-body" style="min-width: 1000px;">
+  <div id="zz"></div>
+  <div id="flexbox"></div>
+  <div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+      <div class="layui-logo"><a class="logo" href="./index.html" style="color: #fff">企业全过程监控系统</a></div>
+      <!-- 头部区域（可配合layui已有的水平导航） -->
+
+      <ul class="layui-nav layui-layout-left" lay-filter="navdom" id="hideqy">
+
+      </ul>
+      <ul class="layui-nav layui-layout-right" style="right: 0px;">
+        <li class="layui-nav-item" id="qymsg1"><a id="qymsg2" href="iframe/estmsg.html" target="ifrm">历史数据</a></li>
+        <li class="layui-nav-item user">
+          <a href="iframe/userinfo.html" target="ifrm" id="qymes">
+            <img src="images/img/user.png" class="layui-nav-img" id="username">
+          </a>
+        </li>
+        <li class="layui-nav-item edit"><a id="epwd" href="javascript:;">修改密码</a></li>
+        <li class="layui-nav-item gout"><a href="login.html">&nbsp;&nbsp;退出</a></li>
+      </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black" id="qy">
+      <span id="chos"></span>
+      <div class="layui-side-scroll layui-bg-black">
+        <div class="search">
+          <input type="text" id="search" autocomplete="off" placeholder="请输入想搜的内容">
+          <ul class="searchbar">
+
+          </ul>
+        </div>
+        <ul class="ull">
+          <!--<li class="on"><span class="province on">河南省</span>-->
+          <!--<ul  style="display: block">-->
+          <!--<li><span class="city">新乡市</span>-->
+          <!--<ul style="display: block">-->
+          <!--<li class="ona"><a class="enterprise" href="http://www.baidu.com" target="ifrm">新乡化工一厂</a></li>-->
+          <!--<li><a class="enterprise" href="http://www.baidu.com"  target="ifrm">新乡化工一厂</a></li>-->
+          <!--<li><a class="enterprise" href="http://www.baidu.com"  target="ifrm">新乡化工一厂</a></li>-->
+          <!--</ul>-->
+          <!--</li>-->
+          <!--</ul>-->
+          <!--</li>-->
+          <!--<li><span class="province">贵州省</span>-->
+          <!--<ul>-->
+          <!--<li><span class="city">新乡市</span>-->
+          <!--<ul >-->
+          <!--<li><a class="enterprise" href="http://www.baidu.com"  target="ifrm">新乡化工一厂</a></li>-->
+          <!--<li><a class="enterprise" href="http://www.baidu.com"  target="ifrm">新乡化工一厂</a></li>-->
+          <!--<li><a class="enterprise" href="http://www.baidu.com"  target="ifrm">新乡化工一厂</a></li>-->
+          <!--</ul>-->
+          <!--</li>-->
+          <!--</ul>-->
+          <!--</li>-->
+
+
+        </ul>
+
+        <!--<img id="log" src="images/img/logo.png" alt="">-->
+      </div>
+    </div>
+
+    <div class="layui-body">
+      <!-- 内容主体区域 -->
+      <!--<div style="padding: 15px;">内容主体区域</div>-->
+      <iframe id="ifrm" name="ifrm" src="" frameborder="0">
+      </iframe>
+    </div>
+
+    <!--<div class="layui-footer">-->
+    <!--&lt;!&ndash; 底部固定区域 &ndash;&gt;-->
+    <!--© layui.com - 底部固定区域-->
+    <!--</div>-->
+    <div id="dipy" onclick="dy()"
+      style="width: 100%;height: 100%;position: absolute;top: 0;display: none;background: rgba(0,0,0,0.5);z-index: 999;">
+    </div>
+
+
+  </div>
+
+  <script>
+    var useriid = localStorage.getItem('userid');
+
+    function dy() {
+      $('.rightcamera').remove();
+      $('.leftcamera').remove();
+      var dipy = document.getElementById('dipy');
+      //var ifrm=document.getElementById('ifrm').contentWindow.document||document.getElementById('ifrm').contentDocument;
+      dipy.style.display = (dipy.style.display == 'none' ? 'block' : 'none');
+      if (dipy.style.display == 'none') {
+        ifrm.window.colse();
+      }
+    }
+
+    //JavaScript代码区域
+    var obj = {
+      'L0373032600004': 'L0373032600004',
+      'L0373032600005': 'L0373032600005',
+      'L0373032600006': 'L0373032600006',
+      'L0373032600007': 'L0373032600007',
+      'L0373032600008': 'L0373032600008',
+      'L0373032600009': 'L0373032600009',
+      'L0373032600011': 'L0373032600011',
+      'L0373032600012': 'L0373032600012',
+      'L0373032600013': 'L0373032600013',
+      'L0373032600014': 'L0373032600014',
+      'L0373032600015': 'L0373032600015',
+      'L0373032600016': 'L0373032600016',
+      'L0373032666666': 'L0373032666666',
+      'L0373032600017': 'L0373032600017',
+      'L0373032600018': 'L0373032600018'
+    };
+
+
+    function camer(camerstr, camerobj) {
+      $('.leftcamera').remove()
+      $('.rightcamera').remove()
+      $('body').append(camerstr);
+      $('.leftcamera').hide();
+      var num = 1;
+      $('.leftcamera').click(function () {
+        $('.rightcamera').show();
+        if (num <= 1) {
+          $('.leftcamera').hide();
+          return false
+        } else {
+          $('.leftcamera').show();
+          ifrm.window.pvideo(-1, camerobj, --num);
+        }
+
+      });
+      $('.rightcamera').click(function () {
+        $('.leftcamera').show();
+        if (num >= Object.keys(camerobj).length - 1) {
+          $('.rightcamera').hide();
+          return false
+        } else {
+          $('.rightcamera').show();
+
+          ifrm.window.pvideo(-1, camerobj, ++num);
+        }
+      })
+    }
+
+    function at(cls) {
+
+      var parent = $('.ull').find('.' + cls).parent().parent().parent().parent().parent();
+      var province = $('.ull').find('.' + cls).parent().parent();
+      if (!parent.hasClass('on')) {
+        $('.ull').find('.' + cls).parent().parent().parent().parent().parent().find('.province').click()
+      }
+      if (province.css('display') == 'none') {
+        $('.ull').find('.' + cls).parent().parent().parent().find('.city').click();
+      }
+      if ($('.ull').find('.' + cls).parent().hasClass('ona') == false) {
+        $('.ull').find('.' + cls).click();
+      }
+    }
+
+
+    //单个企业登录
+    function city(num, citynum) {
+      var cityname = (num == 1 ? 'province' : 'city');
+      ifrm.location.reload()
+      ifrm.location.replace('iframe/home.html#/' + cityname + '=' + citynum);
+      ifrm.location.reload()
+      ifrm.location.replace('iframe/home.html#/' + cityname + '=' + citynum);
+      return false
+    }
+    layui.use(['form', 'laydate', 'layer', 'laypage', 'element', 'table'], function () {
+
+      //alert(1)
+      window.$ = layui.jquery;
+      var $ = layui.jquery;
+      var form = layui.form;
+      var layer = layui.layer;
+      var element = layui.element;
+      var router = layui.router();
+      window.editpwd = function () {
+        $('#alertpwd').css({
+          display: 'block'
+        })
+        $('#zz').css({
+          display: 'block'
+        })
+      }
+      if (localStorage.getItem('username') == 'xxzhadmin') {
+        $('.layui-header').css({
+          display: 'none'
+        })
+        $('#qy').css({
+          top: 0
+        })
+        $('.layui-body').css({
+          top: 0
+        })
+      }
+      $.ajax({
+        url: httpUrl + 'menu/navigationMenu',
+        type: 'post',
+        data: {
+          roleid: localStorage.getItem('rolelimit')
+        },
+        dataType: 'json',
+        success: function (data) {
+
+          //                console.log(data.data);
+          var mo = data.data
+          var model = []
+          if (localStorage.rolelimit == 1) {
+            for (var k = 0; k < mo.length; k++) {
+              if (mo[k].pmenu.menu_name === "信息管理" && mo[k].pmenu.menu_link === "javascript:;") {
+                model[0] = mo[k]
+              } else if (mo[k].pmenu.menu_name === "数据查询" && mo[k].pmenu.menu_link === "index.html") {
+                model[1] = mo[k]
+              }
+              else if (mo[k].pmenu.menu_name === "数据报表" && mo[k].pmenu.menu_link === "javascript:;") {
+                model[2] = mo[k]
+              }
+              else if (mo[k].pmenu.menu_name === "状态监控" && mo[k].pmenu.menu_link === "javascript:;") {
+                model[3] = mo[k]
+              } else if (mo[k].pmenu.menu_name === "系统设置" && mo[k].pmenu.menu_link === "javascript:;") {
+                model[4] = mo[k]
+              }
+            }
+          } else {
+            model = data.data
+          }
+
+
+          console.log(model)
+          var menu = ''
+          for (var i = 0; i < model.length; i++) {
+            menu += '<li class="layui-nav-item ">' +
+              ' <a href="' + model[i].pmenu.menu_link + '">' + model[i].pmenu.menu_name + '</a>'
+            if (model[i].smenu.length != 0) {
+              menu += '<dl class="layui-nav-child">'
+              for (var k = 0; k < model[i].smenu.length; k++) {
+                menu += '<dd><a href="' + model[i].smenu[k].menu_link + '" target="ifrm">' + model[i].smenu[k].menu_name + '</a></dd>'
+              }
+              menu += '</dl>'
+            }
+            menu += '</li>'
+          }
+          $('#hideqy').append(menu);
+          $('.layui-nav-item dd').removeClass('layui-this');
+          element.init();
+          element.render();
+          //                //监听导航点击
+
+          $('.layui-nav-item ').hover(function () {
+            $(this).find('dl').show(300)
+          }, function () {
+            $(this).find('dl').hide(300)
+          });
+
+
+        }
+      });
+      //            搜索
+      $('#search').on('input propertychange', function () {
+
+        $.ajax({
+          url: httpUrl + 'manage/likeByEname',
+          type: 'post',
+          data: {
+            ename: $('#search').val()
+          },
+          dataType: 'json',
+          success: function (data) {
+            $('.searchbar').empty();
+            var str = '';
+            var model = data.data;
+            model.forEach(function (item) {
+
+              str += '<li title="' + item.ename + '" mn="' + item.mn + '">' + item.ename + '</li>'
+            });
+            $('.searchbar').append(str);
+            $('.searchbar li').click(function () {
+              var cls = $(this).attr('mn');
+              at(cls, $);
+              var url = $('.ull').find('.' + cls).attr('href');
+              window.open(url, 'ifrm');
+              $('.searchbar').empty();
+              $('#search').val('')
+            })
+
+          }
+        })
+      });
+
+
+      $('#chos').click(function () {
+        $('.layui-side').animate({ 'marginLeft': '-100%' })
+        $('.layui-body').animate({ left: '0' }, function () {
+          $('#flexbox').animate({ left: '0' })
+        })
+      });
+
+      $('#flexbox').click(function () {
+        $('#flexbox').animate({ left: '-100%' }, function () {
+          $('.layui-side').animate({ 'marginLeft': '0' })
+          $('.layui-body').animate({ left: '310px' })
+        })
+
+      });
+
+
+      $('#epwd').click(function () {
+        editpwd()
+      })
+
+      $('#ext').click(function () {
+        $('.layuiform').find('input').val('');
+        $('.layuiform').find('p').text('');
+        $('#alertpwd').css({
+          display: 'none'
+        })
+        $('#zz').css({
+          display: 'none'
+        })
+      })
+
+      //监听提交
+      form.on('submit(sub)', function (data) {
+        data.field.userid = useriid;
+        $.ajax({
+          url: httpUrl + 'users/updatepwd',
+          type: 'post',
+          data: data.field,
+          dataType: 'json',
+          success: function (data) {
+            //                    console.log(data);
+            if (data.code === 0) {
+
+              alert(data.message);
+              top.location.href = '../index.html#/';
+              top.location.reload(true);
+            } else {
+              if (data.code == 1) {
+                $('#oldpwdts').text(data.message);
+              } else {
+                $('#oldpwdts').text('');
+              }
+              if (data.code == 2) {
+                $('#pwdts').text(data.message);
+              } else {
+                $('#pwdts').text('');
+              }
+              if (data.code == 3) {
+                $('#nwepwdts').text(data.message);
+              } else {
+                $('#nwepwdts').text('');
+              }
+
+            }
+          }
+        });
+        return false;
+      });
+
+
+      $('.gout').click(function () {
+        localStorage.clear();
+
+      });
+      layui.$('#username').after(localStorage.getItem('realname'));
+      layui.$('#user').css({
+        display: localStorage.getItem('rolelimit') != 1 ? 'none' : ''
+      })
+      var element = layui.element;
+      var router = layui.router();
+      // console.log(router.search.rolelimit);
+      layui.$.ajax({
+        url: httpUrl + 'manage/qsiteAllByMenuTreeArea',
+        data: {
+          rolelimit: localStorage.getItem('rolelimit'),
+          deptid: localStorage.getItem('deptid')
+        },
+        type: 'get',
+        dataType: 'json',
+        success: function (data) {
+
+          var model = data.data.province;
+          var str = '';
+          for (var i = 0; i < model.length; i++) {
+            str += '<li class="' + (i == -1 ? 'on' : '') + '"><span onclick="city(1,\'' + model[i].province + '\')" class="province ' + (i == -1 ? 'on' : '') + '">' + model[i].provincename + '</span>' +
+              '<ul  style="display:' + (i == -1 ? 'block' : '') + '">'
+
+            for (var j = 0; j < model[i].city.length; j++) {
+              str += '<li><span class="city" onclick="city(2,\'' + model[i].city[j].city + '\')">' + model[i].city[j].cityname + '</span>' +
+                '<ul style="display: ' + (i == -1 && j == -1 ? 'block' : '') + '">';
+              for (var k = 0; k < model[i].city[j].sitelist.length; k++) {
+                var mn = model[i].city[j].sitelist[k].mn;
+                var sitename = model[i].city[j].sitelist[k].ename;
+                str += '<li title="' + sitename + '" class="' + (i == -1 && j == -1 && k == -1 ? 'ona' : '') + '"><a class="enterprise ' + mn + '" href="./iframe/city/' + (obj[mn] ? obj[mn] : "l000000") + '.html#/mn=' + mn + '" target="ifrm">' + sitename + '</a></li>'
+              }
+              str += '</ul><li>'
+            }
+            str += '</ul></li>'
+
+          }
+
+          layui.$('.ull').append(str);
+          var ifrmn = model[0].city[0].sitelist[0].mn;
+
+          $('#ifrm').attr('src', './iframe/home.html');
+
+          $('#homepage').attr('href', './iframe/home.html');
+          $(function () {
+            $(".ull li >ul").addClass("hidden");
+            $(".ull span").click(function () {
+
+              $(this).find('+ul').slideToggle();
+              $(this).parent().parent().find('ul').not($(this).find("+ul")).slideUp();
+            });
+            $('.ull a').click(function () {
+
+              $(this).parents('.ull').find('li').removeClass('ona');
+              $(this).parent().addClass('ona');
+            })
+            $('.ull .province').click(function () {
+
+              $(this).parents('.ull').find('span.province').removeClass('on');
+              $(this).parent().siblings().removeClass('on');
+              $(this).parent().addClass('on');
+              $(this).addClass('on')
+            })
+            $('.city').click(function () {
+
+              //                        $('.city').removerClass('background','#e7f3ff')
+              //                        $('.city').removeClass('on')
+              $(this).toggleClass('on')
+            });
+          })
+
+          //                $('#epwd').attr('href','iframe/editpwd.html#/');
+          //单个企业登录
+          //                alert(localStorage.getItem('rolelimit'));
+          if (localStorage.getItem('rolelimit') == 5) {
+            //                    $('#qymes').attr('href','iframe/editpwd.html#/');
+            //                    $('#epwd').attr('href','iframe/editpwd.html#/');
+            $('#qy').css({
+              display: 'none'
+            })
+            $('#hideqy').css({
+              display: 'none'
+            })
+            $('#qymsg1').css({
+              display: 'inline-block'
+            })
+            $('.layui-body').css({
+              left: 0
+            });
+
+            $('#homepage').attr('href', './iframe/city/' + (obj[ifrmn] ? obj[ifrmn] : "l000000") + '.html#/mn=' + ifrmn);
+            $('#ifrm').attr('src', './iframe/city/' + (obj[ifrmn] ? obj[ifrmn] : "l000000") + '.html#/mn=' + ifrmn);
+            $.ajax({
+              url: httpUrl + 'manage/erps',
+              data: {
+                rolelimit: localStorage.getItem('rolelimit'),
+                deptid: localStorage.getItem('deptid')
+              },
+              dataType: 'json',
+              success: function (obj) {
+                var data = obj.data[0];
+                var url = '';
+                for (var index in data) {
+                  url += '/' + index + '=' + data[index]
+                }
+                //                            console.log(url);
+                //                            $('#qymsg').attr('href','iframe/eiditest.html#/'+url);
+                $('#qymsg2').attr('href', 'iframe/his.html#/mn=' + data.mn);
+                $('#qymes').attr('href', 'iframe/eiditest.html#/' + url);//个人信息 企业编辑
+                //
+              }
+            })
+          }
+        }
+      })
+    });
+
+
+  </script>
+
+</body>
+
+</html>

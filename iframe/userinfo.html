@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/modules/layer/default/layer.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        .layui-form-label {
+            /*width: 90px!important;*/
+        }
+
+        #setpwd {
+            display: none;
+        }
+
+        .layui-form-pane .layui-input-block {
+            margin-left: 0;
+            left: -1px;
+            line-height: 61px;
+            display: flex;
+            justify-content: center;
+            width: 80%;
+            top: 40px;
+        }
+
+        .layui-form-pane .layui-input-block .layui-btn {
+            height: 30px;
+            line-height: 30px;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="layui-row lrow">
+ <span class="layui-breadcrumb" lay-separator=">">
+     <a href="javascript:;">当前位置</a>
+  <a href="../index.html" target="_top">首页</a>
+<a href="javascript:;">编辑用户</a>
+</span>
+    </div>
+    <div class="padd"></div>
+    <div class="pictit"></div>
+    <div class="layui-row layui-form-pane layui-col-space5 layui-box-fm">
+        <form class="layui-form layuiform layui-fm" action="" lay-filter="example">
+            <div class="layui-form-item">
+                <label class="layui-form-label layui-label">登陆名：</label>
+                <div class="layui-input-inline layui-input-self">
+                    <input type="text" name="username" lay-verify="username" id="username" lay-verType="tips"
+                           placeholder="请输入" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label layui-label">用户真实姓名：</label>
+                <div class="layui-input-inline layui-input-self">
+                    <input type="text" name="realname" lay-verify="required" lay-verType="tips" placeholder="请输入"
+                           autocomplete="off" class="layui-input"><b>*</b>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label layui-label">用户电话：</label>
+                <div class="layui-input-inline layui-input-self">
+                    <input type="text" name="linktel" lay-verify="phone" lay-verType="tips" placeholder="请输入"
+                           autocomplete="off" class="layui-input"><b>*</b>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label layui-label">用户邮箱：</label>
+                <div class="layui-input-inline layui-input-self">
+                    <input type="text" name="emails"  lay-verify="emaill" placeholder="请输入" lay-verType="tips" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <!--<div class="layui-form-item">-->
+            <!--<label class="layui-form-label layui-label">修改密码：</label>-->
+            <!--<div class="layui-input-inline layui-input-self">-->
+            <!--<input type="text" readonly style="cursor: pointer;"  onclick="top.window.editpwd()" value="修改密码" placeholder="请输入" lay-verType="tips" autocomplete="off" class="layui-input">-->
+            <!--</div>-->
+            <!--</div>-->
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal layui-btn-xs" lay-submit="" lay-filter="sub">保存</button>
+                    <!--<button class="layui-btn layui-btn-xs" id="" onclick="top.window.editpwd();return false">修改密码</button>-->
+                    <button class="layui-btn layui-btn-normal layui-btn-xs"
+                            onclick="window.history.back(); return false">返回
+                    </button>
+                </div>
+            </div>
+        </form>
+
+
+    </div>
+</div>
+<script src="../js/layui.js"></script>
+<script>
+  //JavaScript代码区域
+  layui.use(['form', 'laydate', 'layer', 'laypage', 'element', 'table'], function () {
+    var $ = layui.jquery;
+    var form = layui.form;
+    var layer = layui.layer;
+    var element = layui.element;
+    var router = layui.router();
+    // console.log(123,obj);
+
+
+    //自定义验证规则
+    form.verify({
+      phone: [
+        /^1[34578]\d{9}$/
+        , '手机号码格式不正确'
+      ]
+      , pwd: [
+        /^[\S]{6,12}$/
+        , '密码必须6到12位，且不能出现空格'
+      ]
+      , China: [
+        /^[\u4E00-\u9FA5]+$/
+        , '请全部输入汉字'
+      ],
+      username: [
+        /^[a-zA-Z0-9_-]{4,16}$/
+        , '4到16位（字母，数字，下划线，减号）'
+      ],
+      emaill: function(value){
+          if(value!=''){
+              var reg=/^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+              if(!reg.test(value)){
+                return '邮箱格式不正确'
+              }
+
+          }
+      }
+    });
+//密码重置
+
+    $.ajax({
+      url: httpUrl + '/users/edit',
+      type: 'get',
+      data: {
+        id: localStorage.getItem('userid')
+      },
+      dataType: 'json',
+      success: function (data) {
+        var obj = data.data;
+        var editobj = {
+          "username": decodeURI(obj.username), // "name": "value"
+          "realname": decodeURI(obj.realname),
+          "linktel": decodeURI(obj.linktel),
+          "emails": decodeURI(obj.emails) == 'null' ? '' : decodeURI(obj.emails)// "name": "value"
+        };
+        form.val('example', editobj);
+
+        $('#username').attr('disabled', obj.idflag == 1 ? true : false)
+
+      }
+    });
+
+
+    //监听提交
+    form.on('submit(sub)', function (data) {
+      var relimit = [];
+      $('.relimit').each(function (i, item) {
+
+        if ($(item).is(':checked')) {
+          relimit.push($(item).val())
+        }
+      });
+      data.field.relimit = relimit;
+      data.field.id = localStorage.getItem('userid');
+      data.field.deptid = localStorage.getItem('deptid');
+      data.field.roleid = localStorage.getItem('rolelimit');
+      var real_name = data.field.realname;
+      $.ajax({
+        url: httpUrl + 'users/saveedit',
+        type: 'get',
+        data: data.field,
+        dataType: 'json',
+        success: function (data) {
+          if (data) {
+            localStorage.setItem('realname', real_name);
+            alert('修改成功');
+            top.location.href = '../index.html'
+          } else {
+            alert('修改失败');
+            return false;
+          }
+        }
+      });
+      return false;
+    });
+
+
+  });
+</script>
+</body>
+</html>

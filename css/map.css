@@ -1,0 +1,2955 @@
+.map{
+    position: relative;
+    top: 32px;
+}
+
+.map .alt{
+    position: absolute;
+    top:100px;
+    left: 400px;
+    min-width:218px;
+    min-height: 162px;
+    background: url("../images/img/alt.png") no-repeat center ;
+    /*background-size: contain;*/
+    background-size: 100% 162px;
+    z-index: 999;
+    padding: 24px 59px;
+    box-sizing: border-box;
+}
+/*逻辑图*/
+.map .altLjt{
+    position: absolute;
+    top:100px;
+    left: 400px;
+    min-width:218px;
+    min-height: 162px;
+    background: url("../images/img/alt.png") no-repeat center ;
+    /*background-size: contain;*/
+    background-size: 100% 162px;
+    z-index: 999;
+    padding: 26px 59px;
+    box-sizing: border-box;
+ 
+}
+.map .alt p{
+    /*padding:0 30px;*/
+    line-height: 30px;
+    text-align: center;
+    color:#fff;
+    margin-top: -2px;
+    text-align: left;
+}
+/*逻辑图*/
+.map .altLjt p{
+    /*padding:0 30px;*/
+    /* line-height: 20px; */
+    /* text-align: center; */
+    color:#fff;
+
+}
+.map .alt p:nth-child(1){
+    /*padding:0 30px;*/
+    margin-top: 14px;
+    white-space: nowrap;
+}
+
+.map ul li{
+
+    position: absolute;
+    width: 1.5%;
+    height:3%;
+    /*background: red;*/
+    /*background: url("../images/img/ywj.png") no-repeat center;*/
+    /*background-size: contain;*/
+    top: 12%;
+    left: 46%;
+}
+
+
+/*.map ul li:nth-child(30){*/
+
+/*top: 26%;*/
+/*left: 84.5%*/
+
+/*}*/
+/*洁神*/
+.map ul.js li:nth-child(1){
+
+    top: 47.6%;
+    left: 33.2%;
+
+}
+.map ul.js li:nth-child(2){
+    top: 48.5%;
+    left: 66.7%;
+
+}
+
+/*洁神逻辑图*/
+.map #jsl li:nth-child(1){
+
+    top: 47.5%;
+    left: 46.5%;
+
+}
+.map #jsl li:nth-child(2){
+    top: 47.5%;
+    left: 60.1%;
+
+}
+
+/*洁神摄像头*/
+.map ul.js li:nth-child(3){
+
+    top: 70.5%;
+    left: 72.5%;
+}
+.map ul.js li:nth-child(4){
+    top: 52.5%;
+    left: 32.7%;
+
+}
+.map ul.js li:nth-child(5){
+
+    top: 74.8%;
+    left: 70.7%;
+}
+.map ul.js li:nth-child(6){
+
+    top: 70.5%;
+    left: 70.7%;
+
+}
+.map ul.js li:nth-child(7){
+
+    top: 41.8%;
+    left: 68.4%;
+
+}
+.map ul.js li:nth-child(8){
+
+    top: 42.5%;
+    left: 27.9%;
+
+}
+.map ul.js li:nth-child(9){
+
+    top: 81.1%;
+    left: 37.6%;
+
+}
+.map ul.js li:nth-child(10){
+    top: 74.6%;
+    left: 72.5%;
+
+
+}
+.map ul.js li{
+
+   /*background: red;*/
+
+}
+/*海华*/
+.map ul.hh li:nth-child(1){
+
+    top: 36.6%;
+    left: 39.1%;
+
+}
+.map ul.hh li:nth-child(2){
+
+    top: 43.5%;
+    left: 67.7%;
+
+}
+.map ul.hh li:nth-child(3){
+
+    top: 36.5%;
+    left: 50.9%;
+
+}
+.map ul.hh li:nth-child(4){
+
+    top: 32.5%;
+    left: 72.7%;
+
+}
+.map ul.hh li:nth-child(5){
+
+    top: 32.5%;
+    left: 75.7%;
+
+}
+.map ul.hh li:nth-child(6){
+
+    top: 44.5%;
+    left: 28%;
+
+}
+.map ul.hh li:nth-child(7){
+
+    top: 39.5%;
+    left: 26%;
+
+}
+.map ul.hh li:nth-child(8){
+
+    top: 61.5%;
+    left: 24.7%;
+}
+.map ul.hh li:nth-child(9){
+
+    top: 86.5%;
+    left: 28.5%;
+
+}
+
+/*海华逻辑图*/
+.map #hhl li:nth-child(1){
+
+    top: 54.2%;
+    left: 47.5%;
+
+}
+.map #hhl li:nth-child(2){
+
+    top: 41%;
+    left: 36%;
+
+}
+.map #hhl li:nth-child(3){
+
+    top: 54.2%;
+    left: 36%;
+}
+
+.map #hhl li:nth-child(4){
+
+    top: 23.5%;
+    left: 24.5%;
+
+}
+.map #hhl li:nth-child(5){
+
+    top: 30%;
+    left: 24.5%;
+
+}
+.map #hhl li:nth-child(6){
+
+    top: 54.2%;
+    left: 60%;
+
+}
+.map #hhl li:nth-child(7){
+
+    top: 68%;
+    left: 18%;
+
+}
+.map #hhl li:nth-child(8){
+
+    top: 61.5%;
+    left: 24.7%;
+}
+.map #hhl li:nth-child(9){
+
+    top: 68.3%;
+    left: 83%;
+
+}
+
+/*康健逻辑图*/
+.map #kjl li:nth-child(1){
+    top: 38%;
+    left: 29.3%;
+
+}
+.map #kjl li:nth-child(2){
+
+    top: 58%;
+    left: 44.5%;
+
+}
+.map #kjl li:nth-child(3){
+
+    top: 43.5%;
+    left: 59%;
+
+}
+.map #kjl li:nth-child(4){
+
+    top: 58%;
+    left: 74.5%;
+
+}
+.map #kjl li:nth-child(5){
+    top: 25.5%;
+    left: 50%;
+
+}
+.map #kjl li:nth-child(6){
+
+    top: 25.5%;
+    left: 58%;
+
+
+}
+.map #kjl li:nth-child(7){
+
+    top: 25.5%;
+    left: 65.8%;
+
+}
+.map #kjl li:nth-child(8){
+
+    top: 82.2%;
+    left: 18%;
+}
+.map #kjl li:nth-child(9){
+    top: 58%;
+    left: 9.6%;
+}
+.map #kjl li:nth-child(10){
+    top: 18.5%;
+    left: 14.8%;
+
+}
+.map #kjl li:nth-child(11){
+    top: 22.5%;
+    left: 14.8%;
+
+}
+.map #kjl li:nth-child(12){
+    top: 20.5%;
+    left: 26%;
+
+}
+.map #kjl li:nth-child(13){
+    top: 20.5%;
+    left: 40%;
+
+}
+.map #kjl li:nth-child(14){
+    top: 50%;
+    left: 8%;
+
+}
+.map #kjl li:nth-child(15){
+    top: 38%;
+    left: 37%;
+
+}
+.map #kjl li:nth-child(16){
+    top: 43.5%;
+    left: 38.2%;
+
+}
+.map #kjl li:nth-child(17){
+    top: 65.8%;
+    left: 10.5%;
+
+}
+.map #kjl li:nth-child(18){
+    top: 31.3%;
+    left: 19%;
+
+}
+.map #kjl li:nth-child(19){
+    top: 58%;
+    left: 55%;
+
+}
+.map #kjl li:nth-child(20){
+    top: 43.5%;
+    left: 52%;
+
+}
+.map #kjl li:nth-child(21){
+    top: 81.8%;
+    left: 43%;
+
+}
+.map #kjl li:nth-child(22){
+    top: 58%;
+    left: 81.2%;
+
+}
+
+/*康健*/
+.map ul.kj li:nth-child(1){
+
+    top: 55.6%;
+    left: 43.1%;
+
+}
+.map ul.kj li:nth-child(2){
+
+    top: 39.6%;
+    left: 44.1%;
+
+}
+.map ul.kj li:nth-child(3){
+
+    top: 32.6%;
+    left: 67.4%;
+
+}
+.map ul.kj li:nth-child(4){
+
+    top: 32.6%;
+    left: 84.6%;
+
+}
+.map ul.kj li:nth-child(5){
+    top: 63.6%;
+    left: 83.5%;
+
+}
+.map ul.kj li:nth-child(6){
+
+    top: 69.6%;
+    left: 88.5%;
+
+}
+.map ul.kj li:nth-child(7){
+
+    top: 74.6%;
+    left: 89.1%;
+
+}
+.map ul.kj li:nth-child(8){
+
+    top: 36.6%;
+    left: 86.5%;
+}
+.map ul.kj li:nth-child(9){
+    top: 76.6%;
+    left: 51.3%;
+
+}
+.map ul.kj li:nth-child(10){
+    top: 87.6%;
+    left: 42.1%;
+
+}
+.map ul.kj li:nth-child(11){
+    top: 88.6%;
+    left: 47.1%;
+
+}
+.map ul.kj li:nth-child(12){
+    top: 85.6%;
+    left: 30.1%;
+
+}
+.map ul.kj li:nth-child(13){
+    top: 69.6%;
+    left: 31.1%;
+
+}
+.map ul.kj li:nth-child(14){
+    top: 80.6%;
+    left: 38.8%;
+
+}
+.map ul.kj li:nth-child(15){
+    top: 67.6%;
+    left: 40.8%;
+
+}
+.map ul.kj li:nth-child(16){
+    top: 46.6%;
+    left: 30%;
+
+}
+.map ul.kj li:nth-child(17){
+    top: 39.6%;
+    left: 36.1%;
+
+}
+.map ul.kj li:nth-child(18){
+    top: 30.3%;
+    left: 33%;
+
+}
+.map ul.kj li:nth-child(19){
+    top: 31.6%;
+    left: 44.1%;
+
+}
+.map ul.kj li:nth-child(20){
+    top: 35.6%;
+    left: 72.3%;
+
+}
+.map ul.kj li:nth-child(21){
+    top: 21.6%;
+    left: 84.5%;
+
+}
+.map ul.kj li:nth-child(22){
+    top: 54.6%;
+    left: 74.1%;
+
+}
+.map ul.kj li:nth-child(23){
+    top: 69.6%;
+    left: 37.3%;
+
+}
+.map ul.kj li:nth-child(24){
+    top: 63.6%;
+    left: 40.8%;
+
+}
+.map ul.kj li:nth-child(25){
+    top: 49.6%;
+    left: 33.1%;
+
+}
+.map ul.kj li:nth-child(26){
+    top: 36.2%;
+    left: 33.9%;
+
+}
+.map ul.kj li:nth-child(27){
+    top: 34.9%;
+    left: 43.4%;
+
+}
+.map ul.kj li:nth-child(28){
+    top: 36.6%;
+    left: 69.6%;
+
+}
+.map ul.kj li:nth-child(29){
+    top: 63.7%;
+    left: 86.1%;
+
+}
+/*康健摄像头*/
+
+.map ul.kj li:nth-child(30){
+    top: 61.7%;
+    left: 68.1%;
+
+
+}
+.map ul.kj li:nth-child(31){
+    top: 88.7%;
+    left: 7.1%;
+
+}
+.map ul.kj li:nth-child(32){
+
+    top: 65.7%;
+    left: 48.1%;
+}
+.map ul.kj li:nth-child(33){
+    top: 26.7%;
+    left: 53.5%;
+
+}
+.map ul.kj li:nth-child(34){
+    top: 62.7%;
+    left: 50.1%;
+
+}
+.map ul.kj li:nth-child(35){
+    top: 63.7%;
+    left: 73.1%;
+
+}
+.map ul.kj li:nth-child(36){
+    top: 69.7%;
+    left: 93.1%;
+
+}
+.map ul.kj li:nth-child(37){
+    top: 80.7%;
+    left: 43.1%;
+
+}
+.map ul.kj li:nth-child(38){
+    top: 90.7%;
+    left: 4.1%;
+
+}
+.map ul.kj li:nth-child(39){
+
+    top: 22.7%;
+    left: 61.5%;
+
+}
+.map ul.kj li:nth-child(40){
+    top: 43.7%;
+    left: 26.5%;
+
+}
+.map ul.kj li:nth-child(41){
+    top: 40.7%;
+    left: 76.5%;
+
+}
+.map ul.kj li:nth-child(42){
+    top: 40.3%;
+    left: 26.5%;
+
+}
+.map ul.kj li:nth-child(43){
+    top: 84.7%;
+    left: 50.1%;
+
+}
+.map ul.kj li:nth-child(44){
+    top: 39.7%;
+    left: 34.5%;
+
+}
+.map ul.kj li:nth-child(45){
+    top: 67.7%;
+    left: 29.1%;
+
+}
+.map ul.kj li:nth-child(46){
+    top: 26.7%;
+    left: 79.5%;
+
+}
+.map ul.kj li:nth-child(47){
+    top: 64.7%;
+    left: 32.5%;
+
+}
+.map ul.kj li:nth-child(48){
+    top: 90.7%;
+    left: 35.1%;
+
+}
+.map ul.kj li:nth-child(49){
+    top: 26.7%;
+    left: 73.5%;
+
+}
+.map ul.kj li:nth-child(50){
+    top: 22.7%;
+    left: 78.8%;
+
+}
+.map ul.kj li:nth-child(51){
+    top: 80.7%;
+    left: 53.1%;
+
+}
+.map ul.kj li:nth-child(52){
+    top: 68.7%;
+    left: 35.9%;
+
+}
+.map ul.kj li:nth-child(53){
+    top: 43.7%;
+    left: 28.5%;
+
+}
+/*.map ul.kj li:nth-child(49){*/
+    /*top: 63.7%;*/
+    /*left: 86.1%;*/
+
+/*}*/
+/*.map ul.kj li:nth-child(50){*/
+    /*top: 63.7%;*/
+    /*left: 86.1%;*/
+
+/*}*/
+/*.map ul.kj li:nth-child(51){*/
+    /*top: 63.7%;*/
+    /*left: 86.1%;*/
+
+/*}*/
+/*.map ul.kj li:nth-child(52){*/
+    /*top: 63.7%;*/
+    /*left: 86.1%;*/
+
+/*}*/
+/*.map ul.kj li:nth-child(53){*/
+    /*top: 63.7%;*/
+    /*left: 86.1%;*/
+
+/*}*/
+.map ul.kj li{
+    /*background: red;*/
+
+}
+
+
+
+
+
+/*》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》*/
+/*红绿蓝*/
+.map ul.hll li:nth-child(1){
+
+    top: 65.6%;
+    left: 82.6%;
+
+}
+.map ul.hll li:nth-child(2){
+
+    top: 79.6%;
+    left: 67.1%;
+
+}
+.map ul.hll li:nth-child(3){
+
+    top: 84.6%;
+    left: 92.5%;
+
+}
+.map ul.hll li:nth-child(4){
+
+    top: 88.9%;
+    left: 70.3%;
+
+}
+.map ul.hll li:nth-child(5){
+
+    top: 60.6%;
+    left: 89%;
+
+}
+.map ul.hll li:nth-child(6){
+
+    top: 66.6%;
+    left: 89.6%;
+
+}
+.map ul.hll li:nth-child(7){
+
+    top: 81.6%;
+    left: 68.1%;
+
+}
+.map ul.hll li:nth-child(8){
+
+    top: 87.6%;
+    left: 20.6%;
+
+}
+.map ul.hll li:nth-child(9){
+    top: 55.6%;
+    left: 23.1%;
+
+}
+
+/*红绿蓝逻辑图*/
+.map #hlll li:nth-child(1){
+
+    top: 26%;
+    left: 21.7%;
+
+}
+.map #hlll li:nth-child(2){
+
+    top: 60.3%;
+    left: 28.8%;
+
+}
+.map #hlll li:nth-child(3){
+
+    top: 43%;
+    left: 51.5%;
+
+}
+.map #hlll li:nth-child(4){
+
+    top: 43%;
+    left: 63%;
+
+}
+.map #hlll li:nth-child(5){
+
+    top: 26%;
+    left: 31.8%;
+
+}
+.map #hlll li:nth-child(6){
+
+    top: 37.8%;
+    left: 34%;
+
+}
+.map #hlll li:nth-child(7){
+
+    top: 60.3%;
+    left: 38.1%;
+
+}
+.map #hlll li:nth-child(8){
+
+    top: 43%;
+    left: 81.6%;
+
+}
+.map #hlll li:nth-child(9){
+    top: 81%;
+    left: 19%;
+}
+
+/*红绿蓝摄像头*/
+
+.map ul.hll li:nth-child(10){
+    top: 76.6%;
+    left: 66%;
+
+
+}
+.map ul.hll li:nth-child(11){
+    top: 14.6%;
+    left: 46.4%;
+
+
+}
+.map ul.hll li:nth-child(12){
+    top: 86.6%;
+    left: 32.1%;
+
+}
+.map ul.hll li:nth-child(13){
+    top: 86.6%;
+    left: 35.1%;
+
+}
+.map ul.hll li:nth-child(14){
+    top: 69.6%;
+    left: 90.8%;
+}
+.map ul.hll li:nth-child(15){
+    top: 82.6%;
+    left: 55.1%;
+
+}
+.map ul.hll li:nth-child(16){
+    top: 11.6%;
+    left: 19.1%;
+
+}
+.map ul.hll li:nth-child(17){
+    top: 14.6%;
+    left: 7.6%;
+
+}
+.map ul.hll li:nth-child(18){
+    top: 56.6%;
+    left: 29.1%;
+
+}
+.map ul.hll li:nth-child(19){
+    top: 59.6%;
+    left: 84.1%;
+
+}
+.map ul.hll li:nth-child(20){
+    top: 14.6%;
+    left: 77.5%;
+
+}
+.map ul.hll li:nth-child(21){
+    top: 58.6%;
+    left: 68.1%;
+
+}
+.map ul.hll li:nth-child(22){
+    top: 76.6%;
+    left: 59.7%;
+
+}
+.map ul.hll li:nth-child(23){
+    top: 77.6%;
+    left: 69.1%;
+
+}
+.map ul.hll li:nth-child(24){
+    top: 80.6%;
+    left: 42.1%;
+
+}
+.map ul.hll li:nth-child(25){
+    top: 63.6%;
+    left: 77.1%;
+
+}
+.map ul.hll li:nth-child(26){
+    top: 67.6%;
+    left: 66.1%;
+
+}
+.map ul.hll li:nth-child(27){
+    top: 89.6%;
+    left: 23.1%;
+
+}
+.map ul.hll li:nth-child(28){
+    top: 11.6%;
+    left: 21.8%;
+
+}
+.map ul.hll li:nth-child(29){
+    top: 80.6%;
+    left: 56.8%;
+
+}
+.map ul.hll li:nth-child(30){
+    top: 14.6%;
+    left: 20.1%;
+
+}
+.map ul.hll li:nth-child(31){
+    top: 88.6%;
+    left: 89.1%;
+
+}
+.map ul.hll li:nth-child(32){
+    top: 84.6%;
+    left: 91.1%;
+
+}
+
+
+/*六通实业*/
+
+.map ul.lt li:nth-child(1){
+
+    top: 79.6%;
+    left: 26.6%;
+
+}
+.map ul.lt li:nth-child(2){
+
+    top: 78.6%;
+    left: 19.2%;
+
+}
+.map ul.lt li:nth-child(3){
+
+    top: 68.6%;
+    left: 79.6%;
+
+}
+.map ul.lt li:nth-child(4){
+    top: 45.6%;
+    left: 9.4%;
+
+}
+.map ul.lt li:nth-child(5){
+
+    top: 26.6%;
+    left: 27.6%;
+
+}
+.map ul.lt li:nth-child(6){
+
+    top: 33.8%;
+    left: 17.3%;
+
+}
+.map ul.lt li:nth-child(7){
+
+    top: 19.6%;
+    left: 19.6%;
+
+}
+.map ul.lt li:nth-child(8){
+
+    top: 24.6%;
+    left: 39.6%;
+
+}
+.map ul.lt li:nth-child(9){
+
+    top: 14.1%;
+    left: 34.6%;
+
+}
+.map ul.lt li:nth-child(10){
+
+    top: 85.6%;
+    left: 29.2%;
+
+}
+.map ul.lt li:nth-child(11){
+
+    top: 60.6%;
+    left: 34.9%;
+
+}
+.map ul.lt li:nth-child(12){
+
+    top: 66.6%;
+    left: 86.6%;
+
+}
+.map ul.lt li:nth-child(13){
+
+    top: 33.6%;
+    left: 34.2%;
+
+}
+
+.map ul.lt li:nth-child(14){
+
+    top: 35.6%;
+    left: 30.2%;
+
+}
+.map ul.lt li:nth-child(15){
+
+    top: 27.6%;
+    left: 7.3%;
+
+}
+.map ul.lt li:nth-child(16){
+
+    top: 24.6%;
+    left: 13.6%;
+
+}
+.map ul.lt li:nth-child(17){
+
+    top: 19.6%;
+    left: 16.6%;
+
+}
+.map ul.lt li:nth-child(18){
+
+    top: 17.6%;
+    left: 25.3%;
+
+}
+.map ul.lt li:nth-child(19){
+
+    top: 9.2%;
+    left: 9.6%;
+
+}
+.map ul.lt li:nth-child(20){
+
+    top: 38.2%;
+    left: 7.2%;
+
+}
+.map ul.lt li:nth-child(21){
+
+    top: 62.5%;
+    left: 12.6%;
+
+}
+
+/*六通摄像头*/
+.map ul.lt li:nth-child(22){
+
+    top: 8.2%;
+    left: 10.8%;
+
+}
+.map ul.lt li:nth-child(23){
+
+    top: 11.2%;
+    left: 6.6%;
+
+}
+.map ul.lt li:nth-child(24){
+
+    top: 18.2%;
+    left: 9.6%;
+
+}
+.map ul.lt li:nth-child(25){
+
+    top: 11.2%;
+    left: 29.6%;
+
+}
+.map ul.lt li:nth-child(26){
+
+    top: 21.2%;
+    left: 29.3%;
+
+}
+.map ul.lt li:nth-child(27){
+
+    top: 25.2%;
+    left: 9.6%;
+}
+.map ul.lt li:nth-child(28){
+
+    top: 26.2%;
+    left: 42.6%;
+
+}
+.map ul.lt li:nth-child(2){
+    top: 35.2%;
+    left: 12.6%;
+
+}
+.map ul.lt li:nth-child(30){
+
+    top: 34.2%;
+    left: 36.6%;
+
+}
+.map ul.lt li:nth-child(31){
+
+    top: 42.2%;
+    left: 14.6%;
+
+}
+.map ul.lt li:nth-child(32){
+
+    top: 69.2%;
+    left: 9.6%;
+}
+.map ul.lt li:nth-child(33){
+
+    top: 60.2%;
+    left: 39.2%;
+
+}
+.map ul.lt li:nth-child(34){
+
+    top: 70.2%;
+    left: 89.6%;
+
+}
+.map ul.lt li:nth-child(35){
+
+    top: 78.2%;
+    left: 30.6%;
+
+}
+.map ul.lt li:nth-child(36){
+
+    top: 84.2%;
+    left: 35.6%;
+
+}
+
+/*六通逻辑图*/
+.map #ljt li:nth-child(1){
+
+    top: 47.5%;
+    left: 24.8%;
+
+}
+.map #ljt li:nth-child(2){
+
+    top: 47.5%;
+    left: 56%;
+
+}
+.map #ljt li:nth-child(3){
+
+    top: 73.5%;
+    left: 22%;
+
+}
+.map #ljt li:nth-child(4){
+
+    top: 36%;
+    left: 11.2%;
+
+}
+.map #ljt li:nth-child(5){
+
+    top: 36%;
+    left: 20.8%;
+
+}
+.map #ljt li:nth-child(6){
+
+    top: 36%;
+    left: 55.5%;
+
+}
+.map #ljt li:nth-child(7){
+
+    top: 36%;
+    left: 26.4%;
+
+}
+.map #ljt li:nth-child(8){
+
+    top: 36%;
+    left: 74.9%;
+
+}
+.map #ljt li:nth-child(9){
+
+    top: 47.5%;
+    left: 79.6%;
+
+
+}
+.map #ljt li:nth-child(10){
+
+    top: 47.5%;
+    left: 42%;
+
+}
+.map #ljt li:nth-child(11){
+
+    top: 62%;
+    left: 28%;
+
+}
+.map #ljt li:nth-child(12){
+
+    top: 73.5%;
+    left: 34.8%;
+
+
+}
+.map #ljt li:nth-child(13){
+
+    top: 36%;
+    left: 13%;
+
+}
+.map #ljt li:nth-child(14){
+
+    top: 36%;
+    left: 47%;
+
+}
+.map #ljt li:nth-child(15){
+
+    top: 47.5%;
+    left: 24.8%;
+
+}
+.map #ljt li:nth-child(16){
+
+    top: 36%;
+    left: 67.5%;
+
+}
+.map #ljt li:nth-child(17){
+
+    top: 36%;
+    left: 36.2%;
+
+}
+.map #ljt li:nth-child(18){
+
+    top: 47.5%;
+    left: 60.2%;
+
+
+}
+.map #ljt li:nth-child(19){
+
+    top: 47.5%;
+    left: 90%;
+
+}
+
+/*六通单元信息*/
+.map #dy li:nth-child(1){
+
+    left: 36%;
+    top: 51%;
+
+}
+
+
+/*群鹏实业*/
+
+.map ul.qp li:nth-child(1){
+
+    top: 50.6%;
+    left: 64.6%;
+
+}
+.map ul.qp li:nth-child(2){
+
+    top: 45.6%;
+    left: 49.2%;
+
+}
+.map ul.qp li:nth-child(3){
+
+    top: 35.5%;
+    left: 32%;
+
+}
+.map ul.qp li:nth-child(4){
+
+    top: 32%;
+    left: 29%;
+
+}
+.map ul.qp li:nth-child(5){
+
+    top: 50.6%;
+    left: 56.6%;
+
+}
+.map ul.qp li:nth-child(6){
+
+    top: 39.6%;
+    left: 56.6%;
+
+}
+.map ul.qp li:nth-child(7){
+
+    top: 49.6%;
+    left: 51.6%;
+
+}
+.map ul.qp li:nth-child(8){
+
+    top: 41.6%;
+    left: 30.6%;
+
+}
+.map ul.qp li:nth-child(9){
+
+    top: 26.6%;
+    left: 16.6%;
+}
+
+/*群鹏逻辑图*/
+
+.map #qpl li:nth-child(1){
+
+    top: 32.5%;
+    left: 30.5%;
+
+}
+.map #qpl li:nth-child(2){
+
+    top: 46.5%;
+    left: 32.5%;
+
+}
+.map #qpl li:nth-child(3){
+
+    top: 39.5%;
+    left: 48.2%
+
+}
+.map #qpl li:nth-child(4){
+
+    top: 39.5%;
+    left: 56.7%;
+
+}
+.map #qpl li:nth-child(5){
+
+    top: 32.5%;
+    left: 41.2%;
+
+}
+.map #qpl li:nth-child(6){
+
+    top: 75.4%;
+    left: 31%;
+
+}
+.map #qpl li:nth-child(7){
+
+    top: 46.5%;
+    left: 41%;
+
+}
+.map #qpl li:nth-child(8){
+
+    top: 60%;
+    left: 31%;
+
+}
+.map #qpl li:nth-child(9){
+
+    top: 54%;
+    left: 79.8%;
+}
+
+/*群鹏实业摄像头*/
+.map ul.qp li:nth-child(10){
+
+    top: 48.6%;
+    left: 3.6%;
+}
+.map ul.qp li:nth-child(11){
+
+    top: 46.6%;
+    left: 59.9%;
+}
+.map ul.qp li:nth-child(12){
+
+    top: 41.6%;
+    left: 50.9%;
+}
+.map ul.qp li:nth-child(13){
+
+    top: 53.6%;
+    left: 8.8%;
+}
+.map ul.qp li:nth-child(14){
+
+    top: 41.6%;
+    left: 4.6%;
+}
+.map ul.qp li:nth-child(15){
+
+    top: 63.6%;
+    left: 35.6%;
+}
+.map ul.qp li:nth-child(16){
+
+    top: 22.6%;
+    left: 22.6%;
+}
+.map ul.qp li:nth-child(17){
+
+    top: 39.6%;
+    left: 58.6%;
+}
+.map ul.qp li:nth-child(18){
+
+    top: 89.6%;
+    left: 68.6%;
+}
+
+/*博源生物*/
+
+.map ul.by li:nth-child(1){
+
+    top: 84.6%;
+    left: 22.3%;
+
+}
+.map ul.by li:nth-child(2){
+
+    top: 27.6%;
+    left: 54.6%;
+
+}
+.map ul.by li:nth-child(3){
+
+    top:30.6%;
+    left: 52.6%;
+
+}
+.map ul.by li:nth-child(4){
+
+    top: 35%;
+    left: 52.6%;
+
+}
+.map ul.by li:nth-child(5){
+
+    top: 40.6%;
+    left: 76.2%;
+
+}
+
+/*博源逻辑图*/
+
+.map #byl li:nth-child(1){
+
+    top: 33.5%;
+    left: 42.3%;
+
+}
+.map #byl li:nth-child(2){
+
+    top: 50.6%;
+    left: 42.3%;
+
+}
+.map #byl li:nth-child(3){
+
+    top: 65.5%;
+    left: 14.2%;
+
+}
+.map #byl li:nth-child(4){
+
+    top: 65.5%;
+    left: 19.8%;
+
+}
+.map #byl li:nth-child(5){
+
+    top: 42%;
+    left: 55%;
+
+}
+
+/*博源生物*/
+
+.map ul.by li:nth-child(6){
+
+    top: 42.6%;
+    left: 76.4%;
+
+}
+.map ul.by li:nth-child(7){
+
+    top: 21.6%;
+    left: 75.6%;
+
+}
+.map ul.by li:nth-child(8){
+
+    top: 71.6%;
+    left: 68.2%;
+}
+.map ul.by li:nth-child(9){
+    top: 83.6%;
+    left: 20.5%;
+
+}
+.map ul.by li:nth-child(10){
+
+    top: 37.6%;
+    left: 76.5%;
+
+}
+.map ul.by li:nth-child(11){
+
+    top: 22.6%;
+    left: 8.2%;
+
+}
+.map ul.by li:nth-child(12){
+
+    top: 31.6%;
+    left: 48.5%;
+
+}
+.map ul.by li:nth-child(13){
+
+    top: 71.6%;
+    left: 51.6%;
+
+}
+.map ul.by li:nth-child(14){
+    top: 70.6%;
+    left: 68.2%;
+
+
+}
+.map ul.by li:nth-child(15){
+
+    top: 38.6%;
+    left: 48.5%;
+}
+.map ul.by li:nth-child(16){
+
+    top: 25.6%;
+    left: 56.2%;
+
+}
+.map ul.by li:nth-child(17){
+
+    top: 29.6%;
+    left: 55.5%;
+
+}
+.map ul.by li:nth-child(18){
+
+    top: 71.6%;
+    left: 32%;
+
+}
+.map ul.by li:nth-child(19){
+    top: 34.6%;
+    left: 48.5%;
+
+}
+
+
+/*华幸生物*/
+
+.map ul.hx li:nth-child(1){
+
+    top: 39.6%;
+    left: 50.6%;
+
+}
+.map ul.hx li:nth-child(2){
+
+    top: 32.6%;
+    left: 52.2%;
+
+}
+.map ul.hx li:nth-child(3){
+
+    top: 65.6%;
+    left: 86.5%;
+
+}
+.map ul.hx li:nth-child(4){
+    top: 77.6%;
+    left: 11%;
+
+}
+.map ul.hx li:nth-child(5){
+
+    top: 89.6%;
+    left: 15.8%;
+
+}
+.map ul.hx li:nth-child(6){
+
+    top: 44.6%;
+    left: 50.2%;
+
+}
+.map ul.hx li:nth-child(7){
+
+    top: 32.6%;
+    left: 53.6%;
+
+}
+.map ul.hx li:nth-child(8){
+
+    top: 36.6%;
+    left: 69.2%;
+
+}
+.map ul.hx li:nth-child(9){
+
+    top: 67.6%;
+    left: 88.6%;
+
+}
+.map ul.hx li:nth-child(10){
+
+    top: 71.6%;
+    left: 75.2%;
+
+}
+.map ul.hx li:nth-child(11){
+
+    top: 60.6%;
+    left: 65.5%;
+
+}
+.map ul.hx li:nth-child(12){
+
+    top: 78.6%;
+    left: 57.2%;
+
+}
+.map ul.hx li:nth-child(13){
+
+    top: 68.6%;
+    left: 47.2%;
+
+}
+.map ul.hx li:nth-child(14){
+
+    top: 69.6%;
+    left: 34.2%
+
+}
+.map ul.hx li:nth-child(15){
+
+    top: 74.6%;
+    left: 13.2%;
+
+}
+.map ul.hx li:nth-child(16){
+
+    top: 72.3%;
+    left: 15.5%;
+
+}
+.map ul.hx li:nth-child(17){
+
+    top: 66.6%;
+    left: 12.2%;
+}
+.map ul.hx li:nth-child(18){
+
+    top: 27%;
+    left: 63%;
+
+}
+.map ul.hx li:nth-child(19){
+
+    top: 30.6%;
+    left: 68%;
+}
+
+/*华幸逻辑图*/
+
+.map #hxl li:nth-child(1){
+
+    top: 21.5%;
+    left: 12.2%;
+
+}
+.map #hxl li:nth-child(2){
+
+    top: 29%;
+    left: 29.5%;
+
+}
+.map #hxl li:nth-child(3){
+
+    top: 40.5%;
+    left: 12.2%;
+}
+
+
+.map #hxl li:nth-child(4){
+    top: 40.5%;
+    left: 30%;
+
+}
+.map #hxl li:nth-child(5){
+
+    top: 40.5%;
+    left: 68.5%;
+
+}
+.map #hxl li:nth-child(6){
+
+    top: 21.5%;
+    left: 27%;
+
+}
+.map #hxl li:nth-child(7){
+
+    top: 35%;
+    left: 29.5%;
+
+}
+.map #hxl li:nth-child(8){
+
+    top: 76.8%;
+    left: 24.5%;
+
+}
+.map #hxl li:nth-child(9){
+
+    top: 40.5%;
+    left: 26.4%;
+
+}
+.map #hxl li:nth-child(10){
+
+    top: 57.5%;
+    left: 24.5%;
+
+}
+.map #hxl li:nth-child(11){
+
+    top: 49%;
+    left: 26.3%;
+
+}
+.map #hxl li:nth-child(12){
+
+    top: 67.5%;
+    left: 48.5%;
+
+}
+.map #hxl li:nth-child(13){
+
+    top: 67.5%;
+    left: 24.5%;
+
+}
+.map #hxl li:nth-child(14){
+
+    top: 86%;
+    left: 24.5%;
+
+}
+.map #hxl li:nth-child(15){
+
+    top: 40.5%;
+    left: 44%;
+
+}
+.map #hxl li:nth-child(16){
+
+    top: 40.5%;
+    left: 54.5%;
+
+}
+.map #hxl li:nth-child(17){
+
+    top: 67.5%;
+    left: 87.4%;
+}
+
+/*华幸生物摄像头*/
+
+.map ul.hx li:nth-child(20){
+
+    top: 66.6%;
+    left: 90.2%;
+
+}
+.map ul.hx li:nth-child(21){
+
+    top: 86.6%;
+    left: 16.8%;
+
+}
+.map ul.hx li:nth-child(22){
+
+    top: 35.6%;
+    left: 59%;
+
+}
+.map ul.hx li:nth-child(23){
+
+    top: 66.6%;
+    left: 48.6%;
+
+}
+.map ul.hx li:nth-child(24){
+
+    top: 73.6%;
+    left: 11.2%;
+
+}
+.map ul.hx li:nth-child(25){
+
+    top: 74.6%;
+    left: 16.9%;
+
+}
+.map ul.hx li:nth-child(26){
+
+    top: 60.6%;
+    left: 43.6%;
+}
+
+
+.map ul.hx li:nth-child(27){
+
+    top: 71.3%;
+    left: 68.2%;
+}
+.map ul.hx li:nth-child(28){
+
+    top: 70.6%;
+    left: 54.6%;
+
+}
+.map ul.hx li:nth-child(29){
+
+    top: 66.6%;
+    left: 68.8%;
+
+}
+.map ul.hx li:nth-child(30){
+
+    top: 64.6%;
+    left: 12.6%;
+
+}
+.map ul.hx li:nth-child(31){
+
+    top: 64.4%;
+    left: 64.2%;
+
+}
+.map ul.hx li:nth-child(32){
+
+    top: 42.6%;
+    left: 55.6%;
+
+}
+.map ul.hx li:nth-child(33){
+
+    top: 77.6%;
+    left: 33.6%;
+
+}
+.map ul.hx li:nth-child(34){
+
+    top: 48.6%;
+    left: 55.6%;
+
+}
+.map ul.hx li:nth-child(35){
+
+    top: 61.6%;
+    left: 75.6%;
+
+}
+.map ul.hx li:nth-child(36){
+
+    top: 20.6%;
+    left: 15.3%;
+
+}
+.map ul.hx li:nth-child(37){
+
+    top: 21.6%;
+    left: 45.2%;
+
+}
+.map ul.hx li:nth-child(38){
+
+    top: 24.6%;
+    left: 14.3%;
+
+}
+.map ul.hx li:nth-child(39){
+
+    top: 29.6%;
+    left: 88.3%;
+
+}
+.map ul.hx li:nth-child(40){
+
+    top: 66.4%;
+    left: 36.6%;
+}
+.map ul.hx li:nth-child(41){
+
+    top: 62.8%;
+    left: 36.8%;
+
+}
+.map ul.hx li:nth-child(42){
+
+    top: 68.6%;
+    left: 75.6%;
+
+}
+.map ul.hx li:nth-child(43){
+
+    top: 36.6%;
+    left: 51.6%;
+
+}
+.map ul.hx li:nth-child(44){
+
+    top: 66.6%;
+    left: 79.6%;
+
+}
+.map ul.hx li:nth-child(45){
+
+    top: 83.6%;
+    left: 58.6%;
+
+}
+.map ul.hx li:nth-child(46){
+
+    top: 52.6%;
+    left: 67.6%;
+
+}
+.map ul.hx li:nth-child(47){
+
+    top: 70.6%;
+    left: 80.6%;
+
+}
+.map ul.hx li:nth-child(48){
+
+    top: 64.6%;
+    left: 58.6%;
+
+}
+.map ul.hx li:nth-child(49){
+
+    top: 75.6%;
+    left: 43%;
+
+}
+.map ul.hx li:nth-child(50){
+
+    top: 48.6%;
+    left: 50.2%;
+
+}
+
+/*台硝化工*/
+
+.map ul.tx li:nth-child(1){
+
+    top: 32.6%;
+    left: 66.2%;
+
+}
+.map ul.tx li:nth-child(2){
+
+    top: 74.4%;
+    left: 53.2%;
+
+}
+.map ul.tx li:nth-child(3){
+    top: 37.6%;
+    left: 66%;
+
+}
+.map ul.tx li:nth-child(4){
+
+    top: 34.6%;
+    left: 64.6%;
+
+}
+.map ul.tx li:nth-child(5){
+
+    top: 36.6%;
+    left: 69.6%;
+
+}
+
+/*台硝逻辑图*/
+
+.map #txl li:nth-child(1){
+
+    top: 47%;
+    left: 27.2%;
+
+}
+.map #txl li:nth-child(2){
+
+    top: 47%;
+    left: 52.6%;
+
+}
+.map #txl li:nth-child(3){
+    top: 47%;
+    left: 38.7%;
+
+}
+.map #txl li:nth-child(4){
+
+    top: 47%;
+    left: 16.2%;
+
+}
+.map #txl li:nth-child(5){
+
+    top: 47%;
+    left: 49%;
+
+}
+
+/*台硝化工摄像头*/
+
+.map ul.tx li:nth-child(6){
+
+    top: 37.6%;
+    left: 71.8%;
+
+}
+.map ul.tx li:nth-child(7){
+
+    top: 71.6%;
+    left: 53.9%;
+
+}
+.map ul.tx li:nth-child(8){
+
+    top: 81.6%;
+    left: 45.6%;
+
+}
+.map ul.tx li:nth-child(9){
+
+    top: 86.6%;
+    left: 38.6%;
+
+}
+.map ul.tx li:nth-child(10){
+
+    top: 89.6%;
+    left: 32%;
+
+}
+
+/*瑞诚科技*/
+
+.map ul.rc li:nth-child(1){
+
+    top: 22.6%;
+    left: 38.2%;
+
+}
+.map ul.rc li:nth-child(2){
+
+    top: 48.6%;
+    left: 34.2%;
+
+}
+.map ul.rc li:nth-child(3){
+
+    top: 23.6%;
+    left: 15.2%;
+
+}
+.map ul.rc li:nth-child(4){
+
+    top: 35.6%;
+    left: 28.2%
+
+}
+.map ul.rc li:nth-child(5){
+
+    top: 39.6%;
+    left: 32.5%;
+
+}
+.map ul.rc li:nth-child(6){
+
+    top: 28.6%;
+    left: 55.2%;
+}
+.map ul.rc li:nth-child(7){
+
+    top: 47.6%;
+    left: 50.8%;
+
+}
+.map ul.rc li:nth-child(8){
+
+    top: 58.6%;
+    left: 43.2%;
+
+}
+.map ul.rc li:nth-child(9){
+    top: 83.6%;
+    left: 38.2%;
+
+}
+.map ul.rc li:nth-child(10){
+
+    top: 22%;
+    left: 77%;
+
+}
+.map ul.rc li:nth-child(11){
+
+    top: 44.2%;
+    left: 50.6%;
+
+}
+.map ul.rc li:nth-child(12){
+
+    top: 54.6%;
+    left: 42.8%;
+
+}
+.map ul.rc li:nth-child(13){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+
+/*瑞诚逻辑图*/
+
+.map #rcl li:nth-child(1){
+
+    top: 50%;
+    left: 47.2%;
+
+}
+.map #rcl li:nth-child(2){
+
+    top: 69%;
+    left: 57.5%;
+
+}
+.map #rcl li:nth-child(3){
+
+    top: 46.3%;
+    left: 79%;
+
+}
+.map #rcl li:nth-child(4){
+
+    top: 46.3%;
+    left: 62.5%;    
+
+}
+.map #rcl li:nth-child(5){
+
+    top: 85.5%;
+    left: 35%;
+
+}
+.map #rcl li:nth-child(6){
+
+    top: 51.5%;
+    left: 19.8%;
+}
+.map #rcl li:nth-child(7){
+
+    top: 21.5%;
+    left: 35%;
+
+}
+.map #rcl li:nth-child(8){
+
+    top: 39%;
+    left: 35%;
+
+}
+.map #rcl li:nth-child(9){
+    top: 64%;
+    left: 35.3%;
+
+}
+
+
+/*瑞成摄像头*/
+.map ul.rc li:nth-child(14){
+
+    top: 52.6%;
+    left: 45.8%;
+
+}
+.map ul.rc li:nth-child(15){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(16){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(17){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(18){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(19){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(20){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(21){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(22){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(23){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(24){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(25){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(26){
+    top: 47.6%;
+    left: 45.8%;
+}
+.map ul.rc li:nth-child(27){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(28){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(29){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(30){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(31){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(32){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(33){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(34){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(35){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(36){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(37){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+.map ul.rc li:nth-child(38){
+
+    top: 79.6%;
+    left: 37.8%;
+
+}
+/*汇丰有限公司*/
+
+.map ul.hf li:nth-child(1){
+
+    top: 58.6%;
+    left: 66.4%;
+
+}
+.map ul.hf li:nth-child(2){
+
+    top: 37.2%;
+    left: 65.2%;
+
+}
+.map ul.hf li:nth-child(3){
+
+    top: 39.6%;
+    left: 64.5%;
+
+}
+.map ul.hf li:nth-child(4){
+
+    top: 21.6%;
+    left: 71.5%;
+
+}
+.map ul.hf li:nth-child(5){
+
+    top: 23.6%;
+    left: 73.9%;
+
+}
+.map ul.hf li:nth-child(6){
+
+    top: 21.6%;
+    left: 61.8%;
+
+}
+.map ul.hf li:nth-child(7){
+
+    top: 57.3%;
+    left: 51.5%;
+
+}
+.map ul.hf li:nth-child(8){
+
+    top: 54.6%;
+    left: 66.8%;
+
+}
+.map ul.hf li:nth-child(9){
+
+    top: 43.6%;
+    left: 62.5%;
+
+}
+.map ul.hf li:nth-child(10){
+
+    top: 48.6%;
+    left: 62.3%;
+
+}
+.map ul.hf li:nth-child(11){
+
+    top: 35.6%;
+    left: 63.2%;
+
+}
+.map ul.hf li:nth-child(12){
+
+    top: 33.6%;
+    left: 60.5%;
+}
+.map ul.hf li:nth-child(13){
+
+    top: 39.6%;
+    left: 41.8%;
+
+}
+
+/*汇丰逻辑图*/
+
+.map #hfl li:nth-child(1){
+
+    top: 57.6%;
+    left: 12.6%;
+
+}
+.map #hfl li:nth-child(2){
+
+    top: 46.2%;
+    left: 12.8%;
+
+}
+.map #hfl li:nth-child(3){
+    top: 26.2%;
+    left: 21.5%;
+
+}
+.map #hfl li:nth-child(4){
+
+    top: 83%;
+    left: 51.5%;
+
+}
+.map #hfl li:nth-child(5){
+
+    top: 52.6%;
+    left: 43.8%;
+
+}
+.map #hfl li:nth-child(6){
+
+    top: 52.6%;
+    left: 73.8%;
+
+}
+.map #hfl li:nth-child(7){
+
+    top: 83%;
+    left: 32%;
+
+}
+.map #hfl li:nth-child(8){
+
+    top: 57.2%;
+    left: 32%;
+
+
+}
+.map #hfl li:nth-child(9){
+
+    top: 37.6%;
+    left: 32%;
+
+}
+.map #hfl li:nth-child(10){
+
+    top: 68%;
+    left: 32%;
+
+}
+.map #hfl li:nth-child(11){
+
+    top: 48%;
+    left: 32%;
+
+}
+.map #hfl li:nth-child(12){
+
+    top: 26.2%;
+    left: 32%;
+
+}
+.map #hfl li:nth-child(13){
+
+    top: 52.6%;
+    left: 84%;
+
+}
+
+/*汇丰有限公司摄像头*/
+
+.map ul.hf li:nth-child(14){
+    top: 17.6%;
+    left: 54.2%;
+
+}
+.map ul.hf li:nth-child(15){
+
+    top: 28.6%;
+    left: 76.8%;
+}
+.map ul.hf li:nth-child(16){
+
+    top: 52.6%;
+    left: 68.8%;
+
+}
+.map ul.hf li:nth-child(17){
+
+    top: 54.6%;
+    left: 76.8%;
+
+}
+.map ul.hf li:nth-child(18){
+
+    top: 42.6%;
+    left: 41.8%;
+
+}
+.map ul.hf li:nth-child(19){
+
+    top: 55.6%;
+    left: 62.8%;
+
+}
+.map ul.hf li:nth-child(20){
+
+    top: 60.6%;
+    left: 50.5%;
+
+}
+.map ul.hf li:nth-child(21){
+
+    top: 32.6%;
+    left: 57.8%;
+}
+.map ul.hf li:nth-child(22){
+
+    top: 90.6%;
+    left: 79.8%;
+
+}
+.map ul.hf li:nth-child(23){
+    top: 81.6%;
+    left: 55.8%;
+
+}
+.map ul.hf li:nth-child(24){
+
+    top: 80.6%;
+    left: 76.8%;
+
+}
+.map ul.hf li:nth-child(25){
+    top: 21.6%;
+    left: 84.5%;
+
+}
+.map ul.hf li:nth-child(26){
+    top: 27.6%;
+    left: 61.3%;
+
+}
+.map ul.hf li:nth-child(27){
+    top: 30.6%;
+    left: 73.8%;
+}
+.map ul.hf li:nth-child(28){
+    top: 54.6%;
+    left: 50.8%;
+
+}
+.map ul.hf li:nth-child(29){
+
+    top: 33.6%;
+    left: 73.8%;
+
+}
+.map ul.hf li:nth-child(30){
+
+    top: 57.6%;
+    left: 49.8%;
+
+}
+.map ul.hf li:nth-child(31){
+
+    top: 43.6%;
+    left: 50.2%;
+
+}
+.map ul.hf li:nth-child(32){
+
+    top: 41.6%;
+    left: 66.8%;
+
+}
+
+/*海伦*/
+
+.map ul.hl li:nth-child(1){
+
+    top: 66.6%;
+    left: 47.4%;
+
+}
+.map ul.hl li:nth-child(2){
+
+    top: 81.6%;
+    left: 65.4%;
+
+}
+.map ul.hl li:nth-child(3){
+
+    top: 88.6%;
+    left: 78.8%;
+
+}
+.map ul.hl li:nth-child(4){
+    top: 89.6%;
+    left: 53.8%;
+
+
+}
+.map ul.hl li:nth-child(5){
+
+    top: 69.6%;
+    left: 49.8%;
+}
+.map ul.hl li:nth-child(6){
+
+    top: 53.6%;
+    left: 47.5%;
+
+}
+
+/*海伦逻辑图*/
+
+.map #hll li:nth-child(1){
+
+    top: 47%;
+    left: 69.2%;
+
+}
+.map #hll li:nth-child(2){
+
+    top: 47%;
+    left: 27.4%;
+
+}
+.map #hll li:nth-child(3){
+
+    top: 47%;
+    left: 38.4%;
+
+}
+.map #hll li:nth-child(4){
+    left: 50%;
+    top: 47%;
+
+
+}
+.map #hll li:nth-child(5){
+
+    top: 47%;
+    left: 62%;
+}
+.map #hll li:nth-child(6){
+
+    top: 47%;
+    left: 79.6%;
+
+}
+
+/*海伦摄像头*/
+
+.map ul.hl li:nth-child(7){
+
+    top: 51.6%;
+    left: 48.5%;
+
+}
+.map ul.hl li:nth-child(8){
+
+    top: 14.6%;
+    left: 46.5%;
+
+}
+.map ul.hl li:nth-child(9){
+
+    top: 64.6%;
+    left: 48.5%;
+
+}
+.map ul.hl li:nth-child(10){
+
+    top: 87.6%;
+    left: 57.8%;
+
+}
+.map ul.hl li:nth-child(11){
+
+    top: 81.6%;
+    left: 62.5%;
+
+}
+.map ul.hl li:nth-child(12){
+
+    top: 64.6%;
+    left: 48.5%;
+
+}
+.map ul.hl li:nth-child(13){
+
+    top: 83.6%;
+    left: 59.2%;
+
+}
+.map ul.hl li:nth-child(14){
+    top: 89.6%;
+    left: 80.5%;
+
+}
+/*巨人工贸*/
+
+.map ul.jr li:nth-child(1){
+    top: 61%;
+    left: 19%;
+
+}
+.map ul.jr li:nth-child(2){
+    top: 61%;
+    left: 15%;
+}
+.map ul.jr li:nth-child(3){
+    top: 84%;
+    left: 24%;
+}
+.map ul.jr li:nth-child(4){
+	top: 77%;
+    left: 24%;
+}
+.map ul.jr li:nth-child(5){
+    top: 50%;
+    left: 14%;
+}
+.map ul.jr li:nth-child(6){
+	top: 65.8%;
+    left: 24.8%;
+}
+.map ul.jr li:nth-child(7){
+    top: 77.5%;
+    left: 30.5%;
+}
+
+/*巨人逻辑图*/
+
+.map #jrl li:nth-child(1){
+    top: 50%;
+    left: 57.1%;
+
+}
+.map #jrl li:nth-child(2){
+    top: 50%;
+    left: 59.8%;    
+}
+.map #jrl li:nth-child(3){
+    top: 43%;
+    left: 23%;
+}
+.map #jrl li:nth-child(4){
+	top: 50%;
+    left: 41%;
+}
+.map #jrl li:nth-child(5){
+    top: 50%;
+    left: 69.2%;
+}
+
+/*巨人工贸摄像头*/
+
+
+.map ul.jr li:nth-child(8){
+    top: 70%;
+    left: 12%;
+}
+.map ul.jr li:nth-child(9){
+    top: 48%;
+    left: 12.5%;
+}
+.map ul.jr li:nth-child(10){
+    top: 70%;
+    left: 19%;
+}
+.map ul.jr li:nth-child(11){
+    top: 72%;
+    left: 26%;
+}
+.map ul.jr li:nth-child(12){
+    top: 19%;
+    left: 32%;
+}
+.map ul.jr li:nth-child(13){
+    top: 25%;
+    left: 56.8%;
+}
+.map ul.jr li:nth-child(14){
+    top: 90%;
+    left: 18%;
+}
+.map ul.jr li:nth-child(15){
+    top: 87%;
+    left: 63%;
+}
+.map ul.jr li:nth-child(16){
+    top: 22%;
+    left: 30.5%;
+}
+/*双新生物科技*/ 
+.map ul.ss li:nth-child(1){
+    top: 51%;
+    left: 52%;
+}
+.map ul.ss li:nth-child(2){
+    top: 49%;
+    left: 56.5%;
+}
+.map ul.ss li:nth-child(3){
+    left: 72.5%;
+    top: 25%;
+}
+.map ul.ss li:nth-child(4){
+    top: 27.5%;
+    left: 74.7%;
+}
+.map ul.ss li:nth-child(5){
+    left: 77.3%;
+    top: 35%;
+}
+.map ul.ss li:nth-child(6){
+    left: 85.2%;
+    top: 37.5%;
+}
+
+/*双新生物逻辑图*/ 
+.map #ssl li:nth-child(1){
+    top: 38.5%;
+    left: 23.5%;    
+}
+.map #ssl li:nth-child(2){
+    top: 74%;
+    left: 57%;
+}
+.map #ssl li:nth-child(3){
+    left: 49.5%;
+    top: 60.6%;
+}
+.map #ssl li:nth-child(4){
+    top: 45.5%;
+    left: 45.5%;
+}
+.map #ssl li:nth-child(5){
+    left: 64%;
+    top: 45.5%;
+}
+.map #ssl li:nth-child(6){
+    left: 75.6%;
+    top: 45.5%;
+
+}
+
+
+/*金三角*/
+.map ul.jsj li:nth-child(1){
+    left: 71.8%;
+    top: 56%;
+}
+.map ul.jsj li:nth-child(2){
+    left: 73.5%;
+    top: 86.5%;
+}
+.map ul.jsj li:nth-child(3){
+    left: 66%;
+    top: 86.5%;
+}
+
+.map ul.jsj li:nth-child(4){
+    left: 74%;
+    top: 67.5%;
+}
+.map ul.jsj li:nth-child(5){
+    left: 78.6%;
+    top: 52.1%;
+}
+
+.map ul.jsj li:nth-child(6){
+    left: 75.6%;
+    top: 57%;
+}
+
+
+/*金三角逻辑图*/
+.map #jsjl li:nth-child(1){
+    left: 56.2%;
+    top: 56%;
+}
+.map #jsjl li:nth-child(2){
+    left: 27.5%;
+    top: 33.5%;
+}
+.map #jsjl li:nth-child(3){
+    left: 27.5%;
+    top: 50.5%; 
+}
+
+.map #jsjl li:nth-child(4){
+    left: 27.5%;
+    top: 68.5%; 
+}
+.map #jsjl li:nth-child(5){
+    left: 66.5%;
+    top: 56%;
+}
+

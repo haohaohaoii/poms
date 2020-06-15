@@ -1,0 +1,58 @@
+{
+  "code": "0",
+  "msg": "SUCCESS",
+  "data": {
+
+      "L0373032600011":{
+        "indexCode": "83680591-d201-472a-ba89-5ac72f0e15fc",
+        "name": "华幸生物",
+        "treeCode": "0"
+      },
+      "L0373032600006":{
+        "indexCode": "c825fbcb-e035-44ce-acd0-f603871515bb",
+        "name": "新乡洁神",
+        "treeCode": "0"
+      },
+      "L0373032600009":{
+        "indexCode": "80875cdf-c283-464b-8a83-78728fad3419",
+        "name": "新乡汇丰染化",
+        "treeCode": "0"
+      },
+      "L0373032600012":{
+        "indexCode": "1ccb5db9-401e-49e2-9a3e-b3a88cce1c50",
+        "name": "红绿蓝颜料",
+        "treeCode": "0"
+      },
+      "L0373032666666":{
+        "indexCode": "246d5350-9c4b-44ea-8b5a-75f0ca4563b0",
+        "name": "康健化工",
+        "treeCode": "0"
+      },
+      "L0373032600008":{
+        "indexCode": "0c2ec9c3-2336-4392-8c11-fc43d2482313",
+        "name": "六通实业",
+        "treeCode": "0"
+      },
+      "L0373032600004":{
+        "indexCode": "0da46349-ae2a-4a3f-9b21-81a17c9b0738",
+        "name": "博源生物",
+        "treeCode": "0"
+      },
+      "L0373032600014":{
+        "indexCode": "0479e7eb-1093-45f3-b0b2-d4bd434cb084",
+        "name": "新乡群鹏",
+        "treeCode": "0"
+      },
+      "L0373032600005":{
+        "indexCode": "4fce5f62-abd0-4a84-865e-7b732163a502",
+        "name": "新乡台硝化工",
+        "treeCode": "0"
+      },
+      "L0373032600007":{
+        "indexCode": "492f1fed-8db6-4b76-861d-df917fa15fdf",
+        "name": "新乡海华",
+        "treeCode": "0"
+      }
+
+  }
+}

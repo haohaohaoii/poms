@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/modules/layer/default/layer.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        .layui-form-label {
+            width: 90px !important;
+        }
+
+        body>>>.layui-layer-content {
+            text-align: center !important;
+            overflow-x: hidden !important;
+        }
+
+        .layui-form-item .layui-form-checkbox[lay-skin="primary"] {
+            width: 90px;
+        }
+    </style>
+</head>
+
+<div class="container cont">
+    <div class="layui-row lrow">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a href="javascript:;">当前位置</a>
+            <a href="../index.html" target="_top">首页</a>
+            <a href="javascript:;">信息管理</a>
+            <a href="javascript:;">单元信息</a>
+            <a href="javascript:;">编辑单元</a>
+        </span>
+    </div>
+    <div class="padd"></div>
+
+    <div class="layui-row layui-col-space5">
+        <form class="layui-form layuiform" action="" lay-filter="example">
+            <div class="layui-form-item">
+                <label class="layui-form-label">企业名称:</label>
+                <div class="layui-input-inline">
+                    <select class="edit-style-01" lay-verType="tips" lay-verify="required" name="mn" lay-filter="qy"
+                        id="qylist" disabled>
+                        <option selected value="">请选择企业</option>
+                    </select><b>*</b>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">单元名称:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="unitName" lay-verify="required" lay-verType="tips" placeholder="请输入单元名称"
+                        autocomplete="off" class="layui-input"><b>*</b>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">单元编码:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="unitCode" lay-verify="required" lay-verType="tips" placeholder="请输入单元编码"
+                        autocomplete="off" class="layui-input"><b>*</b>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">上游单元:</label>
+                <div class="layui-input-inline">
+                    <select class="edit-style-01" lay-verify="required" lay-verType="tips" id="up_unit" name="upUnit">
+                        <option selected value="">请选择上游单元</option>
+
+                    </select><b>*</b>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否配对:</label>
+                <div class="layui-input-inline">
+                    <select class="edit-style-01" lay-verify="required" lay-verType="tips" name="isMate">
+                        <option selected value="">请选择是否配对</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select><b>*</b>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label" width="120px">是否下游入口:</label>
+                <div class="layui-input-inline">
+                    <select class="edit-style-01" lay-verify="required" lay-verType="tips" name="isDownEnter">
+                        <option selected value="">请选择是否下游入口</option>
+                        <option value="1">是</option>
+                        <option value="0">否</option>
+                    </select><b>*</b>
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">异常标准:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="bzVal" id="bzVal" lay-verify="required" lay-verType="tips"
+                        placeholder="请输入单元编码" autocomplete="off" class="layui-input" disabled><b>*</b>
+                </div>
+                <button type="button" class="layui-btn  layui-btn-radius  layui-btn-normal changeS" lay-filter="add"
+                    id="add">新增</button>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">进口因子:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="devsIn" id="devs_in" placeholder="请编辑进口因子" autocomplete="off"
+                        class="layui-input">
+                </div>
+                <button type="button" class="layui-btn  layui-btn-radius  layui-btn-normal changeS"
+                    lay-filter="in_editor" id="in_editor">编辑</button>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">出口因子:</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="devsOut" id="devs_out" placeholder="请编辑出口因子" autocomplete="off"
+                        class="layui-input">
+                </div>
+                <button type="button" class="layui-btn  layui-btn-radius  layui-btn-normal changeS"
+                    lay-filter="out_editor" id="out_editor">编辑</button>
+            </div>
+
+            <div class="layui-form-item" style="margin-top: 60px;">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xls" lay-submit=""
+                        lay-filter="sub">保&nbsp;&nbsp;&nbsp;&nbsp;存</button>
+                    <button class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xls"
+                        onclick="window.history.back(); return false">返回</button>
+                </div>
+            </div>
+        </form>
+
+
+
+    </div>
+</div>
+<!--进口-->
+<form class="layui-form" action="">
+    <div class="layui-form-item" style="display: none;margin: 0;" id="jink"></div>
+</form>
+<!--出口-->
+<form class="layui-form" action="">
+    <div class="layui-form-item" style="margin: 0;display: none;" id="chuk"></div>
+</form>
+
+<script src="../js/layui.js"></script>
+
+<script>
+    //layui预先加载
+    layui.use(['form', 'laydate', 'layer', 'laypage', 'element', 'table'], function () {
+        var $ = layui.jquery;
+        var form = layui.form;
+        var layer = layui.layer;
+        var element = layui.element;
+        var router = layui.router();
+        obj = router.search;
+        var eidtobj = {
+            "unitName": decodeURI(obj.unitName), // 单元名称
+            "unitCode": decodeURI(obj.unitCode), // 单元编码
+            "isMate": decodeURI(obj.isMate), // 是否配对
+            "isDownEnter": decodeURI(obj.isDownEnter), //是否下游
+            "devsIn": decodeURI(obj.devsIn), // 进口因子
+            "devsOut": decodeURI(obj.devsOut),// 出口因子
+            "mn": decodeURI(obj.mn),  //选中的企业
+            'upUnit': decodeURI(obj.unitCode),  //上游单元
+            'bzVal': decodeURI(obj.bzVal == "null" ? '' : obj.bzVal)  //异常标准
+
+        };
+        if (eidtobj.bzVal) {
+
+            $('#add').text('修改')
+            form.render();  //重新渲染表单
+        }
+        //获取企业
+        $.ajax({
+            url: httpUrl + 'manage/erpsnamelist',
+
+            data: {
+                deptid: localStorage.getItem('deptid')
+            },
+            dataType: 'json',
+            success: function (data) {
+
+                var data = data.data;
+                var str = '';
+                for (var i = 0; i < data.length; i++) {
+                    str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
+                }
+                layui.$('#qylist').append(str);
+                form.render();  //重新渲染表单
+                form.val('example', eidtobj) //表单赋值
+            }
+        });
+        getup_unit(obj.mn)
+        getJRK(obj.mn)
+        //根据选中的企业获取上游单元
+        function getup_unit(mn) {
+
+            $("#up_unit").find("option").remove();
+            $.ajax({
+                url: httpUrl + 'unitInfo/upUnit',
+
+                data: {
+                    mn: mn
+                },
+                dataType: 'json',
+                success: function (data) {
+
+                    var str = '<option selected value="">请选择上游单元</option>'
+                    var data = data.data;
+                    if (data && data.length > 0) {
+
+                        for (var i = 0; i < data.length; i++) {
+                            str += '<option value="' + data[i].unitCode + '">' + data[i].unitName + '</option>';
+
+                            // str += '<input type="checkbox" name="jink" title="' + data[i].up_unit + '" lay-skin="primary">'
+                        }
+                        layui.$('#up_unit').append(str);
+                        form.render();
+                    } else {
+                        str += '<option value="0">无</option>'
+                        layui.$('#up_unit').append(str);
+                        form.render();
+                    }
+                    form.val('example', eidtobj) //表单赋值
+
+                }
+            });
+        }
+
+        //根据mn号获取进入口数据
+        function getJRK(mn) {
+            $('#jink').empty()
+            $('#chuk').empty()
+            $('#devs_in').val('')
+            $('#devs_out').val('')
+            $.ajax({
+                url: httpUrl + 'rtds/factorList',
+
+                data: {
+                    mn: mn
+                },
+                dataType: 'json',
+                success: function (data) {
+
+                    var data = data.data;
+                    if (data && data.length > 0) {
+                        var str = '';
+                        var opt = '';
+                        var devsArr = obj.devsIn.split(",")
+                        var devsArr2 = obj.devsOut.split(",")
+                        //入口
+                        for (var i = 0; i < data.length; i++) {
+                            var flag = false;
+                            for (let k = 0; k < devsArr.length; k++) {
+                                if (data[i].mcode == devsArr[k]) {
+                                    str += '<input type="checkbox" name="jink" title="' + data[i].mcode + '" lay-skin="primary" checked>'
+                                    flag = true
+                                } else if (!flag && k == devsArr.length - 1) {
+                                    str += '<input type="checkbox" name="jink" title="' + data[i].mcode + '" lay-skin="primary">'
+                                }
+                            }
+                        }
+                        //出口
+                        for (var i = 0; i < data.length; i++) {
+                            var flag = false;
+                            for (let k = 0; k < devsArr2.length; k++) {
+                                if (data[i].mcode == devsArr2[k]) {
+                                    opt += '<input type="checkbox" name="chuk" title="' + data[i].mcode + '" lay-skin="primary" checked>'
+                                    flag = true
+                                } else if (!flag && k == devsArr2.length - 1) {
+                                    opt += '<input type="checkbox" name="chuk" title="' + data[i].mcode + '" lay-skin="primary">'
+                                }
+                            }
+                        }
+                        $('#jink').append(str);
+                        $('#chuk').append(opt)
+                        form.render()
+                    }
+                }
+            });
+        }
+
+        //新增异常标准
+        $('#add').click(function () {
+            layer.open({
+                title: '新增异常标准',
+                type: 1,
+                content: '<input style="margin: 40px;width: 190px;" id="addval" type="text" name="title" required lay-verify="required" placeholder="请输入数值" autocomplete="off" class="layui-input">',
+                btn: ['保存', '取消'],
+                btnAlign: 'c',
+                yes: function (index) {
+                    var val = $('#addval').val()
+                    $.ajax({
+                        url: httpUrl + '/unitInfo/unitExcept_add',
+
+                        data: {
+                            unitCode: obj.unitCode,
+                            mn: obj.mn,
+                            bzVal: Number(val)
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            layer.msg(data.message);
+                            $('#bzVal').val(val)
+                            layer.close(index);
+                        }
+
+                    });
+                }
+            });
+        })
+
+        //进口因子编辑
+        $('#in_editor').click(function () {
+
+            layer.open({
+                title: ['进口因子添加', 'background:#1492FF;color:white'],
+                type: 1,
+                content: $('#jink'),
+                btn: ['保存', '取消'],
+                btnAlign: 'c',
+                area: ['540px', '320px'], //宽高
+                success: function () {
+
+                    $('#jink').css('display', 'block')
+                },
+                yes: function (index) {
+                    var ipt = $('#jink').find('input')
+                    var seleVal = []
+                    $.each(ipt, function () {
+                        if (this.checked) {
+                            seleVal.push($(this).attr('title'))
+                        }
+                    })
+                    if (seleVal && seleVal.length > 0) {
+                        $('#devs_in').val(seleVal)
+                    }
+
+                    $('#jink').css('display', 'none')
+                    layer.close(index)
+                },
+                btn2: function () {
+                    $('#jink').css('display', 'none')
+                },
+                cancel: function () {
+                    $('#jink').css('display', 'none')
+                }
+
+            });
+
+        });
+        //出口因子编辑
+        $('#out_editor').click(function () {
+            layer.open({
+                type: 1,
+                title: ['出口因子添加', 'background:#1492FF;color:white'],
+                content: $('#chuk'),
+                btn: ['保存', '取消'],
+                btnAlign: 'c',
+                area: ['540px', '320px'], //宽高
+                success: function () {
+
+                    $('#chuk').css('display', 'block')
+                },
+                yes: function (index) {
+                    var ipt = $('#chuk').find('input')
+                    var seleVal = []
+                    $.each(ipt, function () {
+                        if (this.checked) {
+                            seleVal.push($(this).attr('title'))
+                        }
+                    })
+                    if (seleVal && seleVal.length > 0) {
+                        $('#devs_out').val(seleVal)
+                    }
+                    $('#chuk').css('display', 'none')
+                    layer.close(index);
+                },
+                btn2: function () {
+                    $('#chuk').css('display', 'none')
+                },
+                cancel: function () {
+                    $('#chuk').css('display', 'none')
+                }
+            });
+
+        });
+        //自定义验证规则
+        form.verify({
+            phone: [
+                /^1[34578]\d{9}$/
+                , '手机号码格式不正确'
+            ]
+            , pwd: [
+                /^[\S]{6,12}$/
+                , '密码必须6到12位，且不能出现空格'
+            ]
+            , China: [
+                /^[\u4E00-\u9FA5]+$/
+                , '请全部输入汉字'
+            ]
+        });
+
+        //监听提交
+        form.on('submit(sub)', function (data) {
+            data.field.id = obj.id
+            console.log(data.field);
+            $.ajax({
+                url: httpUrl + 'unitInfo/unitInfo_edit',
+                type: 'get',
+                data: data.field,
+                dataType: 'json',
+                success: function (data) {
+
+                    if (data) {
+                        alert(data.message);
+                        window.location.href = "locaInfor.html";
+                    }
+                    else {
+                        alert(data.message);
+                        return false;
+                    }
+                }
+            });
+            return false;
+        });
+
+
+    });
+</script>
+<script src="js/chinacity.js"></script>
+</body>
+
+</html>

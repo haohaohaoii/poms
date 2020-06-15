@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="./css/layui.css">
+    <link rel="stylesheet" href="./css/reset.css">
+    <style>
+        .red {
+            background: red;
+        }
+    </style>
+</head>
+<body class="layui-layout-body" style="min-width: 1300px;">
+<div class="layui-layout layui-layout-admin">
+    <div class="layui-header">
+        <div class="layui-logo">新乡流量监控平台</div>
+        <!-- 头部区域（可配合layui已有的水平导航） -->
+        <ul class="layui-nav layui-layout-left" lay-filter="demo">
+            <li class="layui-nav-item layui-this"><a href="#">首页</a></li>
+            <li class="layui-nav-item"><a href="#">统计分析</a></li>
+            <li class="layui-nav-item"><a href="#">企业信息管理</a></li>
+            <li class="layui-nav-item ">
+                <a href="javascript:;">系统设置</a>
+                <!--<dl class="layui-nav-child">-->
+                <!--<dd><a href="#">邮件管理</a></dd>-->
+                <!--<dd><a href="#">消息管理</a></dd>-->
+                <!--<dd><a href="#">授权管理</a></dd>-->
+                <!--</dl>-->
+            </li>
+            <li class="layui-nav-item"><a href="#">系统相关</a></li>
+        </ul>
+        <ul class="layui-nav layui-layout-right">
+            <li class="layui-nav-item user">
+                <a href="javascript:;">
+                    <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+                    admin
+                </a>
+            </li>
+            <li class="layui-nav-item gout"><a href="login.html">退了</a></li>
+        </ul>
+    </div>
+
+    <div class="layui-side layui-bg-black">
+        <div class="layui-side-scroll layui-bg-black">
+            <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+            <ul class="layui-nav layui-nav-tree " lay-shrink="all" lay-filter="sild">
+                <li class="layui-nav-item on">
+                    <a class="on" href="javascript:;">1新乡康健化工有限公司</a>
+                </li>
+                <li class="layui-nav-item">
+                    <a href="javascript:;">2新乡康健化工有限公司</a>
+                </li>
+                <li class="layui-nav-item"><a href="javascript:;">3新乡康健化工有限公司</a></li>
+                <li class="layui-nav-item"><a href="javascript:;">4新乡康健化工有限公司</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="layui-body">
+        <!-- 内容主体区域 -->
+        <!--<div style="padding: 15px;">内容主体区域</div>-->
+        <iframe id="ifrm" name="ifrm" src="iframe/home.html" frameborder="0">
+
+
+        </iframe>
+    </div>
+
+    <!--<div class="layui-footer">-->
+    <!--&lt;!&ndash; 底部固定区域 &ndash;&gt;-->
+    <!--© layui.com - 底部固定区域-->
+    <!--</div>-->
+</div>
+<script src="./js/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use('element', function () {
+        var element = layui.element;
+
+
+
+        element.on('nav(demo)', function (elem) {
+//            elem.addClass('layui-this');
+            elem.parents('li').siblings().removeClass('layui-this');
+            elem.parents('li').addClass('layui-this')
+
+        });
+
+
+
+
+
+        element.on('nav(sild)', function (elem) {
+//elem.addClass('red')
+//            console.log(elem)
+
+            elem.parents('li').siblings().removeClass('on')
+            elem.parents('li').siblings().find('a').removeClass('on')
+            elem.parents('li').addClass('on')
+            elem.addClass('on')
+        });
+
+
+
+
+
+
+
+    });
+</script>
+</body>
+</html>
+          

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/modules/laydate/default/laydate.css">
+    <link rel="stylesheet" href="../css/modules/layer/default/layer.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/map.css">
+    <style>
+        .layui-form-item {
+            clear: none;
+        }
+
+        .layui-table-cell {
+            height: inherit;
+        }
+
+        .layui-table-box {
+            border-bottom: 1px solid #ccc
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="layui-row lrow">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a href="javascript:;">当前位置</a>
+            <a href="../index.html" target="_top">首页</a>
+            <a href="javascript:;">状态监控</a>
+            <a href="javascript:;">设备状态</a>
+        </span>
+    </div>
+    <div class="padd"></div>
+    <form class="layui-form">
+        <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择企业</label>
+            <div class="layui-input-block">
+
+                <select name="mcodes" lay-filter="qy" id="qylist">
+                    <option value="" selected>请选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">开始时间</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" id="stime" name="stime" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">结束时间</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" id="etime" name="etime" autocomplete="off">
+            </div>
+        </div>
+        <div class="layui-form-item" id="hide">
+            <div class="layui-input-block">
+                <button class="layui-btn  layui-btn-radius  layui-btn-normal " lay-submit lay-filter="sub">查询</button>
+                <!-- <button type="reset" class="layui-btn  layui-btn-radius  layui-btn-normal  ">重置</button> -->
+            </div>
+        </div>
+    </form>
+
+
+    <div class="layui-form" style="clear: both;">
+        <table id="demo" lay-filter="demo"></table>
+    </div>
+    <div id="page"></div>
+</div>
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-xxs" lay-event="del">删除</a>
+</script>
+<script src="../js/layui.js"></script>
+<script>
+    layui.use(['form', 'laydate', 'layer', 'laypage', 'element', 'table'], function () {
+        var $ = layui.jquery;
+        var element = layui.element;
+        var laypage = layui.laypage;
+
+        var laydate = layui.laydate;
+        var table = layui.table;
+        var form = layui.form;
+        var layer = layui.layer;
+
+
+        //获取企业列表
+        $.ajax({
+            url: httpUrl + 'manage/erpsnamelist',
+
+            data: {
+                deptid: localStorage.getItem('deptid')
+            },
+            dataType: 'json',
+            success: function (data) {
+
+                var data = data.data;
+                var str = '';
+                for (var i = 0; i < data.length; i++) {
+                    if (i == 0) {
+                        str += '<option value="' + data[i].mn + '" selected>' + data[i].ename + '</option>';
+                    } else {
+                        str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
+                    }
+                }
+                layui.$('#qylist').append(str);
+                form.render();
+                rder($('#qylist').val())
+            }
+        });
+        form.on('submit(sub)', function (data) {
+            table.reload('tableid', {
+                where: { mn: $('#qylist').val() }//设定异步数据接口的额外参数，任意设
+
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+        //第一个实例
+        function rder(mn) {
+            table.render({
+                elem: '#demo'
+                , height: 'full-170'
+                , url: httpUrl + '/rtds/mcodeStaut' //数据接口
+                , limit: 10000,
+                where: { mn: $('#qylist').val() }
+                , cols: [[ //表头
+                    //   {field: 'id', title: 'ID', width:'5%', fixed: 'left'}
+                    { field: 'ename', title: '企业名称' }
+                    , { field: 'uname', title: '设备名称' }
+                    , {
+                        field: 'stute', title: '在线状态', templet: function (datas) {
+                            if (datas.stute === "在线") {
+                                datas.stute = datas.stute + '<img src="../images/img/zx.png" style="padding-left:10px">'
+                            } else if (datas.stute === "离线") {
+                                datas.stute = datas.stute + '<img src="../images/img/lx.png" style="padding-left:10px">'
+                            }
+                            return datas.stute
+                        }
+                    }
+                    , { field: 'datatime', title: '时间' }
+                    , { field: 'right', title: '操作', toolbar: '#barDemo', width: 150 }
+
+                ]],
+                id: 'tableid',
+                done: function (res, curr, count) {
+                    layui.$('th').css({
+                        'background-color': '#1492ff',
+                        'color': '#fff',
+                        'font-weight': 'bold',
+                        'text-align': 'center'
+                    })
+                    layui.$('td').css({ 'text-align': 'center' })
+
+                }
+            });
+        }
+
+        laydate.render({
+            elem: '#stime'
+            , type: 'date'
+        });
+        laydate.render({
+            elem: '#etime'
+            , type: 'date'
+        });
+
+        //监听行工具事件
+        table.on('tool(demo)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'del') {
+                layer.confirm('确定删除', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    layer.msg('删除失败,您不具备该权限');
+
+                }, function () {
+                    layer.msg('取消删除', { time: 1000, icon: 2 });
+                });
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>

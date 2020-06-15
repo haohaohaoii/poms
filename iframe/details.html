@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/map.css">
+    <style>
+
+    </style>
+</head>
+
+<div class="container">
+    <div class="layui-row lrow">
+ <span class="layui-breadcrumb" lay-separator=">">
+     <a href="javascript:;">当前位置</a>
+  <a href="../index.html"  target="_top">首页</a>
+  <a href="javascript:;">企业详情</a>
+</span>
+    </div>
+    <div class="padd"></div>
+    <div id="quree" class="">
+        <ul class="" id="ul1">
+
+            <!--<li><p>流量检测口&nbsp;&nbsp;(<b>22</b>)&nbsp;&nbsp; 进口:&nbsp;<span>xxxxml</span>&nbsp;&nbsp;出口:-->
+                <!--<span>xxxxml</span></p></li>-->
+            <!--<li><p>液位&nbsp;&nbsp;(<b>1</b>)&nbsp;&nbsp;:&nbsp;<span>xxxxml</span></p></li>-->
+
+        </ul>
+        <ul class="" id="ul2">
+            <!--<div><img src="../images/img/ll.png" alt=""></div>-->
+            <!--<li><p>流量检测口&nbsp;&nbsp;(<b>22</b>)&nbsp;&nbsp; 进口:&nbsp;<span>xxxxml</span>&nbsp;&nbsp;出口:-->
+                <!--<span>xxxxml</span></p></li>-->
+
+            <!--<div><img src="../images/img/yw.png" alt=""></div>-->
+            <!--<ul class="both">-->
+                <!--<li><p>液位&nbsp;&nbsp;(<b>1</b>)&nbsp;&nbsp;:&nbsp;<span>xxxxml</span></p></li>-->
+            <!--</ul>-->
+
+
+        </ul>
+        <span class="" id="open"><img src="../images/img/open.png" alt=""></span>
+    </div>
+
+
+    <div class="map">
+ 
+	
+        <!--<div class="alt">-->
+        <!--<p>(ex10100)流量监测口(2)</p>-->
+        <!--<p>进口流量：222ml</p>-->
+        <!--<p>出口流量：111ml</p>-->
+        <!--</div>-->
+        <ul>
+            <li nm="e10101"></li>
+            <li nm="e10102"></li>
+            <li nm="e10103"></li>
+            <li nm="e10104"></li>
+            <li nm="e10105"></li>
+            <li nm="e10106"></li>
+            <li nm="e10107"></li>
+            <li nm="e10108"></li>
+
+            <li nm="e20101"></li>
+            <li nm="e20102"></li>
+            <li nm="e20103"></li>
+            <li nm="e20104"></li>
+            <li nm="e20105"></li>
+            <li nm="e20106"></li>
+            <li nm="e20107"></li>
+            <li nm="e20108"></li>
+            <li nm="e20109"></li>
+            <li nm="e20110"></li>
+            <li nm="e20111"></li>
+            <li nm="e20112"></li>
+            <li nm="e20113"></li>
+            <li nm="e20114"></li>
+            <li nm="y30101"></li>
+            <li nm="y30102"></li>
+            <li nm="y30103"></li>
+            <li nm="y30104"></li>
+            <li nm="y30105"></li>
+            <li nm="y30106"></li>
+            <li nm="y30107"></li>
+        </ul>
+        <img src="../images/city/xx.jpg" alt="">
+    </div>
+
+</div>
+<script src="../js/layui.js"></script>
+<script>
+    layui.use('element', function () {
+
+        var element = layui.element;
+        var t;
+        var router = layui.router();
+
+        console.log(router.search.mn);
+
+layui.$('.map').append('<a style="position: absolute;top: 52px;right: 20px; display: block; width: 100px;height: 40px;color: royalblue;" href="./his.html#/mn='+router.search.mn+'">历史数据</a>')
+        //折疊
+        layui.$('#open').click(function () {
+
+            layui.$(this).toggleClass('openl');
+            layui.$('#quree').toggleClass('openl');
+            layui.$('#ul2').toggleClass('openl');
+            layui.$('#ul1').toggleClass('hd');
+            if (layui.$(this).hasClass('openl')) {
+                clearInterval(t);
+            } else {
+                t = setInterval(move, 10);
+            }
+        });
+
+        layui.$('#quree #ul1').hover(function () {
+                    clearInterval(t)
+                }, function () {
+                    if (layui.$(this).hasClass('openl')) {
+                        clearInterval(t);
+                    } else {
+                        t = setInterval(move, 10);
+                    }
+                }
+        );
+        var speed = 0;
+
+        function move() {
+
+            speed += 1;
+            var width = layui.$('#quree #ul1 li').eq(0).width();
+            var left = layui.$('#quree #ul1 li').eq(0);
+            if (speed >= width) {
+                var node = layui.$('#quree #ul1 li').eq(0);
+                node.remove();
+                layui.$('#quree #ul1').append(node);
+                var lnt = -layui.$('#quree #ul1').width();
+                layui.$('#quree #ul1 li').last().css('marginLeft', '10px');
+                speed = -11;
+            } else {
+                left.css('marginLeft', -speed + 'px')
+            }
+        }
+        layui.$.ajax({
+            url:httpUrl+ '../js/data.json',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                var model = data.data;
+//                console.log(data.data);
+                var strl='';
+                var stry='';
+var jk='';
+                for (let i = 0; i < model.length; i++) {
+if(model[i].mcode.substr(0,1)=='e'){
+
+    if(model[i].mcode.substr(1,1)=='1') {
+
+        jk = '进口:';
+    }else if(model[i].mcode.substr(1,1)=='2'){
+        jk = '出口:';
+    }
+    strl+='<li><p>&nbsp;&nbsp;'+model[i].uname+jk+'&nbsp;&nbsp; 实时值:&nbsp;<span>'+Number(model[i].rtd).toFixed(2)+'</span>&nbsp;&nbsp;累计值:<span>'+model[i].cou+'</span></p></li>'
+
+
+}else if(model[i].mcode.substr(0,1)=='y'){
+
+
+    stry+='<li><p>&nbsp;&nbsp;'+model[i].uname+'液位实时值&nbsp;&nbsp;:&nbsp;<span>'+model[i].rtd+'</span></p></li>'
+
+
+}
+
+
+                }
+                layui.$('#ul1').append(strl+stry);
+                layui.$('#ul2').append('<div><img src="../images/img/ll.png" alt=""></div>'+strl+'<div><img src="../images/img/yw.png" alt=""></div><ul class="both">'+stry+'</ul>');
+
+                t = setInterval(move, 10);
+            }});
+//获取模拟数据
+        layui.$.ajax({
+            url:httpUrl+ '../js/data.json',
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                var model = data.data;
+                var lt = layui.$(".map ul li");
+                for (let i = 0; i < model.length; i++) {
+                    for (let n = 0; n < lt.length; n++) {
+                        var atr = lt.eq(n);
+
+                        if (model[i].mcode == atr.attr('nm')) {
+
+
+                            if(model[i].mcode.substr(0,1)=='e'){
+                                atr.css({
+                                    "background": "url(../images/img/llj.png) no-repeat center",
+                                    "backgroundSize": "contain"
+                                });
+                            }else if(model[i].mcode.substr(0,1)=='y'){
+                                atr.css({
+                                    "background": "url(../images/img/ywj.png) no-repeat center",
+                                    "backgroundSize": "contain"
+                                });
+                            }
+
+
+                            atr.attr('a', model[i].rtd);//进
+                            atr.attr('b', model[i].cou);//出
+                            atr.attr('c', model[i].uname);//名字
+                            atr.attr('typ', model[i].mcode.substr(0,1));//类型
+                            atr.attr('bm', model[i].mcode);//类型
+
+                            atr.hover(function () {
+                                var offset = layui.$(this).offset();
+                                var str;
+if(layui.$(this).attr('typ')=='e'){
+     str = '<div class="alt">' +
+            '<p>(&nbsp;' +layui.$(this).attr('bm')+'&nbsp;)'+ layui.$(this).attr('c') + '</p>' +
+            '<p>进口流量：' + layui.$(this).attr('a') + '</p>' +
+            '<p>出口流量：' + layui.$(this).attr('b') + '</p>' +
+            '</div>';
+}else if(layui.$(this).attr('typ')=='y'){
+     str = '<div class="alt">' +
+            '<p>(&nbsp;' +layui.$(this).attr('bm')+'&nbsp;)'+ layui.$(this).attr('c') + '</p>' +
+            '<p>液位：' + layui.$(this).attr('a') + '</p>' +
+            '</div>';
+}
+
+
+                                layui.$('.map').stop().append(str);
+                                layui.$('.alt').css({
+                                    "top":offset.top-220+'px',
+                                    "left":offset.left-layui.$('.alt').width()/2-45+'px'
+                                });
+
+                            }, function () {
+                                layui.$('.alt').remove();
+
+                            })
+
+                        }
+                    }
+                }
+            }
+        });
+        //流程图
+//        layui.$(".map ul li").click(function () {
+//            alert(layui.$(this).attr('nm'))
+//        })
+
+
+
+    });
+</script>
+</body>
+</html>

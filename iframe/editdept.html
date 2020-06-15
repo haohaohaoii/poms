@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/modules/layer/default/layer.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        #mn .layui-form-checkbox {
+            float: left;
+            width: 20%;
+            min-width: 230px;
+        }
+    </style>
+</head>
+
+<div class="container cont">
+    <div class="layui-row lrow">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a href="javascript:;">当前位置</a>
+            <a href="../index.html" target="_top">首页</a>
+            <a href="javascript:;">系统设置</a>
+            <a href="javascript:;">部门列表</a>
+            <a href="javascript:;">编辑部门</a>
+        </span>
+    </div>
+    <div class="padd"></div>
+
+    <div class="layui-row layui-col-space5">
+        <form class="layui-form layuiform " action="" lay-filter="example">
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">部门名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="deptname" lay-verify="required" lay-verType="tips" placeholder="请输入"
+                        autocomplete="off" class="layui-input"><b>*</b>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">部门地址</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="deptaddr" lay-verify="required" lay-verType="tips" placeholder="请输入"
+                        autocomplete="off" class="layui-input"><b>*</b>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">部门电话</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="depttel" lay-verify="phone" lay-verType="tips" placeholder="请输入"
+                        autocomplete="off" class="layui-input"><b>*</b>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">部门联系人</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="deptlinkman" lay-verify="required" lay-verType="tips" placeholder="请输入"
+                        autocomplete="off" class="layui-input"><b>*</b>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">企业名称</label>
+                <div class="layui-input-block">
+                    <div id="mn">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xls" lay-submit=""
+                        lay-filter="sub">保存</button>
+                    <button class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xls"
+                        onclick="window.history.back(); return false">返回</button>
+                </div>
+            </div>
+        </form>
+
+
+
+    </div>
+</div>
+<script src="../js/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use(['form', 'laydate', 'layer', 'laypage', 'element', 'table'], function () {
+        var $ = layui.jquery;
+        var form = layui.form;
+        var layer = layui.layer;
+        var element = layui.element;
+        var router = layui.router();
+        obj = router.search;
+        form.verify({
+            phone: [
+                /^1[34578]\d{9}$/
+                , '手机号码格式不正确'
+            ]
+        });
+        var editobj = {
+            "deptname": decodeURI(obj.dept_name),
+            "deptaddr": decodeURI(obj.dept_addr),
+            "depttel": decodeURI(obj.dept_tel),
+            "deptlinkman": decodeURI(obj.dept_linkman)
+
+        };
+
+        $.ajax({
+            url: httpUrl + 'dept/chooies',
+            data: {
+                deptid: obj.id
+            },
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                var model = data.data.allErps;
+
+                var str = '';
+                for (var i = 0; i < model.length; i++) {
+                    str += '<input type="checkbox" class="relimit"  name="' + model[i].mn + '"  value="' + model[i].mn + '" lay-skin="primary" title="' + model[i].ename + '">';
+                    if (model[i].choise == 1) {
+                        editobj[model[i].mn + ''] = true;
+                    }
+                }
+                $('#mn').append(str);
+                form.val('example', editobj);
+                form.render();
+
+            }
+        })
+        //监听提交
+        form.on('submit(sub)', function (data) {
+            var relimit = [];
+            $('.relimit').each(function (i, item) {
+
+                if ($(item).is(':checked')) {
+                    relimit.push($(item).val())
+                }
+            });
+
+            //            data.field.mn=router.search.mn;
+            data.field.sitemn = relimit;
+            data.field.id = obj.id;
+            $.ajax({
+                url: httpUrl + 'dept/update',
+                type: 'get',
+                data: data.field,
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data.code);
+                    if (data.code == 0) {
+                        alert(data.message);
+                        window.location.href = 'deptlist.html'
+                    }
+                    else {
+                        alert(data.message);
+                        return false;
+                    }
+                }
+            });
+            return false;
+        });
+
+
+    });
+</script>
+</body>
+
+</html>

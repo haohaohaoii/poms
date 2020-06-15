@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/modules/laydate/default/laydate.css">
+    <link rel="stylesheet" href="../css/modules/layer/default/layer.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/map.css">
+    <style>
+        .sm {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            font-weight: bolder;
+            font-size: 48px;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="layui-row lrow">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a href="javascript:;">当前位置</a>
+            <a href="../index.html" target="_top">首页</a>
+            <a href="javascript:;">状态监控</a>
+            <a href="javascript:;">视频状态</a>
+        </span>
+    </div>
+    <p class="sm">建设中......</p>
+</div>
+
+<script src="../js/layui.js"></script>
+<script>
+    layui.use(['form', 'laydate', 'layer', 'laypage', 'element', 'table'], function () {
+        var $ = layui.jquery;
+        var element = layui.element;
+        var laypage = layui.laypage;
+
+        var laydate = layui.laydate;
+        var table = layui.table;
+        var form = layui.form;
+        var layer = layui.layer;
+
+
+
+    });
+</script>
+
+</body>
+
+</html>

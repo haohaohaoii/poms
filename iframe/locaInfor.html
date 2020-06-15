@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/modules/laydate/default/laydate.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/map.css">
+    <link rel="stylesheet" href="../css/modules/layer/default/layer.css">
+    <style>
+        .layui-form-item {
+            clear: none;
+        }
+
+        .layui-table-cell {
+            height: inherit;
+        }
+
+        /* .changeS {
+            position: fixed;
+            right: 5px;
+        } */
+    </style>
+</head>
+
+<div class="container">
+    <div class="layui-row lrow">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a href="javascript:;">当前位置</a>
+            <a href="../index.html" target="_top">首页</a>
+            <a href="javascript:;">信息管理</a>
+            <a href="javascript:;">单元信息</a>
+
+        </span>
+    </div>
+    <div class="padd"></div>
+    <form class="layui-form" lay-filter="example">
+        <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+        <div class="layui-row">
+            <div class="layui-form-item">
+                <label class="layui-form-label">选择企业</label>
+                <div class="layui-input-block">
+
+                    <select name="mcodes" lay-filter="qy" id="qylist">
+                        <option value="" selected>请选择</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item" id="hide">
+                <div class="layui-input-block">
+                    <button class="layui-btn  layui-btn-radius  layui-btn-normal " lay-submit
+                        lay-filter="sub">查询</button>
+                    <!-- <button type="reset" class="layui-btn  layui-btn-radius  layui-btn-normal  ">重置</button> -->
+                </div>
+            </div>
+            <div class="layui-col-md2 layui-col-md-offset4">
+                <div class="layui-form-item">
+                    <div class="layui-input-block" style="margin-left: 170px;">
+                        <button type="button" class="layui-btn  layui-btn-radius  layui-btn-normal changeS" lay-submit
+                            lay-filter="add" id="add">添加单元</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+
+    <div class="layui-form" style="clear: both;">
+        <table id="demo" lay-filter="demo">
+
+
+        </table>
+
+    </div>
+    <div id="page"></div>
+</div>
+<script src="../js/layui.js"></script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xxs" lay-event="edit">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-xxs" lay-event="del" id="delhide">删除</a>
+</script>
+
+<script>
+
+    layui.use(['form', 'layer', 'laypage', 'element', 'table'], function () {
+        var element = layui.element;
+        var laypage = layui.laypage;
+        var laydate = layui.laydate;
+        var table = layui.table;
+        var form = layui.form;
+        var $ = layui.$;
+
+        form.on('submit(sub)', function (data) {
+
+            table.reload('tableid', {
+                where: {
+                    mn: $('#qylist').val()
+                } //设定异步数据接口的额外参数，任意设
+
+                , page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+
+        });
+        //添加单元
+        $('#add').click(function () {
+
+            window.location.href = 'localAdd.html'
+        });
+        //第一个实例
+        //获取企业列表
+        $.ajax({
+            url: httpUrl + 'manage/erpsnamelist',
+
+            data: {
+                deptid: localStorage.getItem('deptid')
+            },
+            dataType: 'json',
+            success: function (data) {
+
+                var data = data.data;
+                var str = '';
+                for (var i = 0; i < data.length; i++) {
+                    str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
+                }
+                layui.$('#qylist').append(str);
+                form.render();
+                rder($('#qylist').val())
+            }
+        });
+        function rder(mn) {
+
+            table.render({
+                elem: '#demo',
+                height: 'full-134'
+                , url: httpUrl + 'unitInfo/list' //数据接口
+                , limit: 17,
+                where: {
+                    etime: layui.$('#etime').val(),
+                    stime: layui.$('#stime').val(),
+                    mn: mn,
+                    mcodes: layui.$('#mcodes').val()
+                },
+                request: {
+                    pageName: 'curr' //页码的参数名称，默认：page
+                    , limitName: 'nums' //每页数据量的参数名，默认：limit
+                }
+                , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+
+                    layout: ['prev', 'page', 'next', 'count'] //自定义分页布局
+                    , curr: 1 //设定初始在第 1 页
+                    , groups: 7 //只显示 1 个连续页码
+                    , first: '首页' //不显示首页
+                    , last: '末页' //不显示尾页
+
+                } //开启分页
+                , cols: [[ //表头
+                    { field: 'id', style: 'display:none;', type: 'space', width: '0%', minWidth: '0%' },
+                    { field: 'ename', title: '企业名称' }
+                    , { field: 'unitName', title: '单元名称' }
+                    , { field: 'unitCode', title: '单元编码' }
+                    , { field: 'upUnit', title: '上游单元' }
+                    , {
+                        field: 'isMate', title: '是否配对', templet: function (data) {
+                            var isMate = data.isMate;
+                            switch (isMate) {
+                                case 0:
+                                    isMate = '否';
+                                    break;
+                                case 1:
+                                    isMate = '是';
+                                    break;
+                            }
+                            return isMate;
+                        }
+                    }
+                    , {
+                        field: 'isDownEnter', title: '是否下游入口', templet: function (data) {
+                            var isDownEnter = data.isDownEnter;
+                            switch (isDownEnter) {
+                                case 0:
+                                    isDownEnter = '否';
+                                    break;
+                                case 1:
+                                    isDownEnter = '是';
+                                    break;
+                            }
+                            return isDownEnter;
+                        }
+                    }
+                    , { field: 'bzVal', title: '异常标准' }
+                    , {
+                        field: 'devsIn', title: '进口因子', templet: function (data) {
+
+                            return data.devsIn
+                        }
+                    }
+                    , {
+                        field: 'devsOut', title: '出口因子', templet: function (data) {
+                            return data.devsOut
+                        }
+                    }
+                    , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 150 }
+
+                ]],
+                id: 'tableid',
+                done: function (res, curr, count) {
+
+                    layui.$('th').css({
+                        'background-color': '#4265ed',
+                        'color': '#fff',
+                        'font-weight': 'bold',
+                        'text-align': 'center'
+                    })
+                    layui.$('td').css({
+                        'text-align': 'center'
+                    })
+                    //            layui.$('#mcodes').empty();
+                    //            var data = res.mcodes;
+                    //            layui.$('#erpsname').text(res.erpsname);
+                    //            var str = '<option value="" selected>请选择</option>';
+                    //            for (var i = 0; i < data.length; i++) {
+                    //                str += '<option value="' + data[i].mcode + '">' + data[i].uname + '</option>';
+                    //            }
+                    //
+                    //            layui.$('#mcodes').append(str);
+
+                    form.render();
+                    layui.$('th').css({ 'background-color': '#1492ff', 'color': '#fff', 'font-weight': 'bold' });
+                }
+            });
+        }
+        //监听行工具事件
+        table.on('tool(demo)', function (obj) {
+
+            var data = obj.data;
+            //            console.log(data);
+            var url = '';
+            for (var index in data) {
+                url += '/' + index + '=' + data[index]
+            }
+
+
+            if (obj.event === 'del') {
+                layer.confirm('确定删除', {
+                    btn: ['确定', '取消'] //按钮
+                }, function () {
+                    $.ajax({
+                        url: httpUrl + 'unitInfo/unitInfo_del',
+                        type: 'post',
+                        data: {
+                            id: obj.data.id
+                        },
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data.code == 0) {
+                                layer.msg('删除成功', { time: 1000, icon: 1 }, function () {
+                                    window.location.href = 'locaInfor.html'
+                                });
+
+                            } else {
+                                layer.msg('删除失败', { time: 1000, icon: 2 });
+                            }
+
+                        }
+                    })
+
+                }, function () {
+                    layer.msg('取消删除', { time: 1000, icon: 2 });
+                });
+
+            } else if (obj.event === 'edit') {
+
+                window.location.href = 'localEdit.html#/' + url
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

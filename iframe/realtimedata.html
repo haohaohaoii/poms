@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/modules/laydate/default/laydate.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/map.css">
+    <style>
+        .layui-form-item{
+            clear: none;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="layui-row lrow">
+ <span class="layui-breadcrumb" lay-separator=">">
+     <a href="javascript:;">当前位置</a>
+  <a href="../index.html" target="_top">首页</a>
+  <a href="javascript:;">实时数据</a>
+     <a href="javascript:;" id="erpsname"></a>
+</span>
+    </div>
+    <div class="padd"></div>
+    <form class="layui-form" lay-filter="example"> <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择企业</label>
+            <div class="layui-input-block">
+                <select name="mcodes" lay-filter="qy" id="qylist">
+                  <option value="" selected>请选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择设备</label>
+            <div class="layui-input-block">
+                <select name="mcodes" lay-filter="seb" id="mcodes">
+
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn  layui-btn-radius  layui-btn-normal " lay-submit lay-filter="sub">查询</button>
+                <button type="reset" class="layui-btn  layui-btn-radius  layui-btn-normal  ">重置</button>
+            </div>
+        </div>
+
+    </form>
+
+
+    <div class="layui-form" style="clear: both;">
+        <table id="demo"></table>
+
+    </div>
+    <div id="page"></div>
+</div>
+<script src="../js/layui.js"></script>
+<!--<script src="../js/laydate/laydate.js"></script>-->
+<script>
+
+    layui.use(['form', 'laydate', 'layer', 'laypage', 'element', 'table'], function () {
+        var element = layui.element;
+        var laypage = layui.laypage;
+//        var router = layui.router();
+        var laydate = layui.laydate;
+        var table = layui.table;
+        var form = layui.form;
+        var $=layui.$;
+
+        //form.render();
+        //console.log(form);
+
+
+        form.on('submit(sub)', function (data) {
+
+            table.reload('tableid', {
+                where: {
+                    mn: $('#qylist').val(),
+                    mcodes: layui.$('#mcodes').val()
+                } //设定异步数据接口的额外参数，任意设
+
+                , page: {
+                    curr: 1 //重新从第 1 页开始
+                }
+            });
+
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+
+        });
+        //第一个实例
+//获取企业列表
+        $.ajax({
+            url:httpUrl+'manage/erpsnamelist',
+            data:{
+                deptid:localStorage.getItem('deptid')
+            },
+            dataType:'json',
+            success:function(data){
+                var data=data.data;
+                var str='';
+                for (var i = 0; i < data.length; i++) {
+                    str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
+                }
+                layui.$('#qylist').append(str);
+                form.render();
+                form.on('select(qy)',function(){
+                    getdevlist($('#qylist').val())
+                });
+                rder($('#qylist').val())
+                getdevlist($('#qylist').val())
+
+
+
+            }
+        });
+//获取企业设备列表
+        function getdevlist(mn){
+            $.ajax({
+                url:httpUrl+'rtds/hdslist',
+                data:{
+                    mn:mn
+                },
+                dataType:'json',
+                success:function(res){
+                    layui.$('#mcodes').empty();
+                    var data = res.mcodes;
+                    layui.$('#erpsname').text(res.erpsname);
+                    var str = '<option value="" selected>请选择</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        str += '<option value="' + data[i].mcode + '">' + data[i].uname + '</option>';
+                    }
+
+                    layui.$('#mcodes').append(str);
+
+                    form.render();
+
+
+                }
+            });
+        }
+        function rder(mn){
+            table.render({
+                elem: '#demo'
+                , height: 'full-220'
+                //,url:httpUrl+ '../js/list.json' //数据接口
+                , url:httpUrl+ 'rtds/rtdsList'
+                , limit: 20,
+                where: {
+                    mn:mn,
+                    mcodes: layui.$('#mcodes').val()
+                },
+                request: {
+                    pageName: 'curr' //页码的参数名称，默认：page
+                    , limitName: 'pagesize' //每页数据量的参数名，默认：limit
+                }
+//                , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+//                    layout: ['prev', 'page', 'count', 'next'] //自定义分页布局
+//                    , curr: 1 //设定初始在第 1 页
+//                    , groups: 7 //只显示 1 个连续页码
+//                    , first: '首页' //不显示首页
+//                    , last: '末页' //不显示尾页
+//
+//                } //开启分页
+                , cols: [[ //表头
+                    {field: 'uname', title: '设备名称'}
+                    , {field: 'mcode', title: '设备代码'}
+                    , {field: 'rtd', title: '即时值'}
+                    , {field: 'cou', title: '累计值'}
+                    , {field: 'ct', title: '数据采集时间',templet:function(time){
+                        return time.ct.substr(0,19).replace('T',' ')
+                    }}
+
+                ]],
+                id: 'tableid',
+                done: function (res, curr, count) {
+                    console.log(res);
+                    layui.$('th').css({
+                        'background-color': '#4265ed',
+                        'color': '#fff',
+                        'font-weight': 'bold',
+                        'text-align': 'center'
+                    })
+                    layui.$('td').css({
+                        'text-align': 'center'
+                    })
+                    layui.$('th').css({'background-color': '#1492ff', 'color': '#fff', 'font-weight': 'bold'});
+                }
+            });
+        }
+
+        //console.log(router.search.mn);
+    });
+</script>
+</body>
+</html>

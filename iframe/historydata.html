@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/modules/laydate/default/laydate.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/map.css">
+    <style>
+        .layui-form-item {
+            clear: none;
+        }
+
+        .layui-table-cell {
+            height: inherit;
+        }
+
+        .layui-table-box {
+            border-bottom: 1px solid #ccc
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="layui-row lrow">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a href="javascript:;">当前位置</a>
+            <a href="../index.html" target="_top">首页</a>
+            <a href="javascript:;">数据查询</a>
+            <a href="javascript:;">设备数据</a>
+        </span>
+    </div>
+    <div class="padd"></div>
+    <form class="layui-form" lay-filter="example" style="display: flex;">
+        <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择企业</label>
+            <div class="layui-input-block">
+
+                <select name="mn" lay-filter="qy" id="qylist">
+                    <option value="" selected>请选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择设备</label>
+            <div class="layui-input-block">
+                <select name="mcodes" lay-filter="seb" id="mcodes">
+
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">开始时间</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" id="stime" name="stime" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">结束时间</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" id="etime" name="etime" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="layui-form-item" id="hide" style="margin-left: 25px;">
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn  layui-btn-radius  layui-btn-normal " lay-submit
+                    lay-filter="sub">查询</button>
+                <button type="reset" class="layui-btn layui-btn-radius layui-btn-normal" lay-submit
+                    lay-filter="reset">重置
+                </button>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="layui-form" style="clear: both;">
+        <table id="demo" lay-filter="demo">
+            <!-- <thead>
+                <tr>
+                    <th lay-data="{field:'uname'}" rowspan="2">设备名称</th>
+                    <th lay-data="{align:'center'}" colspan="2">地址</th>
+                    <th lay-data="{align:'center'}" colspan="2">金额</th>
+                    <th lay-data="{align:'center'}" colspan="2">地址</th>
+                    <th lay-data="{align:'center'}" colspan="2">金额</th>
+                    <th lay-data="{align:'center'}" colspan="2">地址</th>
+                    <th lay-data="{align:'center'}" colspan="2">金额</th>
+                    </th>
+                </tr>
+                <tr>
+                    <th lay-data="{field:'province'}">省</th>
+                    <th lay-data="{field:'city'}">市</th>
+
+                    <th lay-data="{field:'province'}">省</th>
+                    <th lay-data="{field:'city'}">市</th>
+
+                    <th lay-data="{field:'province'}">省</th>
+                    <th lay-data="{field:'city'}">市</th>
+
+                    <th lay-data="{field:'province'}">省</th>
+                    <th lay-data="{field:'city'}">市</th>
+
+                    <th lay-data="{field:'province'}">省</th>
+                    <th lay-data="{field:'city'}">市</th>
+
+                    <th lay-data="{field:'province'}">省</th>
+                    <th lay-data="{field:'city'}">市</th>
+                </tr>
+            </thead> -->
+        </table>
+
+    </div>
+    <div id="page"></div>
+</div>
+<script src="../js/layui.js"></script>
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+<!--<script src="../js/laydate/laydate.js"></script>-->
+<script>
+
+    layui.use(['form', 'laydate', 'layer', 'laypage', 'element', 'table'], function () {
+        /*初始化模块*/
+        var element = layui.element;
+        var laypage = layui.laypage;
+        var layer = layui.layer;
+        //        var router = layui.router();
+        var laydate = layui.laydate;
+        var table = layui.table;
+        var form = layui.form;
+        var $ = layui.$;
+        //获取企业列表
+        $.ajax({
+            url: httpUrl + 'manage/erpsnamelist',
+            data: {
+                deptid: localStorage.getItem('deptid')
+            },
+            dataType: 'json',
+            success: function (data) {
+                var data = data.data;
+                var str = '';
+                for (var i = 0; i < data.length; i++) {
+                    str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
+                }
+                layui.$('#qylist').append(str);
+
+                form.render();
+                form.on('select(qy)', function () {
+                    getdevlist($('#qylist').val())
+                })
+            }
+        });
+        //获取企业设备列表
+        function getdevlist(mn) {
+            $.ajax({
+                url: httpUrl + 'rtds/factorList',
+                data: {
+                    mn: mn
+                },
+                dataType: 'json',
+                success: function (res) {
+                    layui.$('#mcodes').empty();
+                    var data = res.data;
+                    layui.$('#erpsname').text(res.erpsname);
+                    var str = '<option value="" selected>请选择</option>';
+                    for (var i = 0; i < data.length; i++) {
+                        str += '<option value="' + data[i].mcode + '">' + data[i].uname + '</option>';
+                    }
+
+                    layui.$('#mcodes').append(str);
+
+                    form.render();
+
+
+                }
+            });
+        }
+        /*全局变量*/
+        var num   //有多少分页
+        var newAr = []  //查询条件中间的所有时间集合
+        var flag = false //flag为false是有分页，flag为true是首次进入或者是没有分页
+        var ym = false  //用户是都点击了搜索，点击了则index重置
+
+        /*设置默认时间（当前日期向前推5天）*/
+
+        var day1 = new Date();
+        var day2 = new Date();
+        var y1 = day1.getFullYear()
+        var m1 = day1.getMonth() + 1
+        var d1 = day1.getDate()
+        var h1 = day1.getHours();
+        var mi1 = day1.getMinutes();
+        var ys = mi1 % 5
+        if (ys != 0) {
+            day1 = new Date(day1.getTime() - ys * 60 * 1000)
+            y1 = day1.getFullYear()
+            m1 = day1.getMonth() + 1
+            d1 = day1.getDate()
+            h1 = day1.getHours();
+            mi1 = day1.getMinutes();
+        }
+        day2 = new Date(day1.getTime() - 25 * 60 * 1000)
+        var y2 = day2.getFullYear()
+        var m2 = day2.getMonth() + 1
+        var d2 = day2.getDate()
+        var h2 = day2.getHours();
+        var mi2 = day2.getMinutes();
+        if (m1 <= 9) {
+            m1 = "0" + m1;
+        }
+        if (d1 <= 9) {
+            d1 = "0" + d1;
+        }
+        if (h1 <= 9) {
+            h1 = "0" + h1
+        }
+        if (mi1 <= 9) {
+            mi1 = "0" + mi1
+        }
+        if (m2 <= 9) {
+            m2 = "0" + m2;
+        }
+        if (d2 <= 9) {
+            d2 = "0" + d2;
+        }
+        if (h2 <= 9) {
+            h2 = "0" + h2
+        }
+        if (mi2 <= 9) {
+            mi2 = "0" + mi2
+        }
+        var s1 = y1 + "-" + m1 + "-" + d1 + ' ' + h1 + ":" + mi1 + ':00';
+        var s2 = y2 + "-" + m2 + "-" + d2 + ' ' + h2 + ":" + mi2 + ':00';
+        $('#stime').val(s2)
+        $('#etime').val(s1)
+        num = 0;
+        AddDays($('#stime').val(), $('#etime').val()).then(function (arr) {
+            if ($('#stime').val() && $('#etime').val()) {
+                flag = true
+                rder()
+            }
+        })
+
+
+
+        /*判断开始时间和结束时间是否大于6天,是否有分页*/
+        function pdFivedays(startTime, endTime) {
+            return new Promise(function (resolve, reject) {
+
+                startTime = startTime.replace(new RegExp(/-/gm), "/");
+                endTime = endTime.replace(new RegExp(/-/gm), "/");
+                var sdate = new Date(startTime);
+                var now = new Date(endTime);
+                var b = now.getMinutes()
+                var a = sdate.getMinutes()
+                var ysa = a % 5
+                var ysb = b % 5
+                var asd
+                var bsd
+                var ass
+                var bss
+                if (ysa != 0) {
+                    asd = new Date(sdate.getTime() + (5 - ysa) * 60 * 1000)
+                    ass = sdate.getTime() + (5 - ysa) * 60 * 1000
+                } else {
+                    asd = new Date(sdate.getTime())
+                    ass = sdate.getTime()
+                }
+                if (ysb != 0) {
+                    bsd = new Date(now.getTime() - ysb * 60 * 1000)
+                    bss = now.getTime() - ysb * 60 * 1000
+                } else {
+                    bsd = new Date(now.getTime())
+                    bss = now.getTime()
+                }
+                var asdA = asd.getFullYear()
+                var asdB = asd.getMonth() + 1
+                var asdC = asd.getDate()
+                var asdD = asd.getHours();
+                var asdE = asd.getMinutes()
+                if (asdB <= 9) {
+                    asdB = "0" + asdB;
+                }
+                if (asdC <= 9) {
+                    asdC = "0" + asdC;
+                }
+                if (asdD <= 9) {
+                    asdD = "0" + asdD
+                }
+                if (asdE <= 9) {
+                    asdE = "0" + asdE
+                }
+                var newStart = asdA + "-" + asdB + "-" + asdC + ' ' + asdD + ":" + asdE + ':00';
+
+                var bsdA = bsd.getFullYear()
+                var bsdB = bsd.getMonth() + 1
+                var bsdC = bsd.getDate()
+                var bsdD = bsd.getHours();
+                var bsdE = bsd.getMinutes()
+                if (bsdB <= 9) {
+                    bsdB = "0" + bsdB;
+                }
+                if (bsdC <= 9) {
+                    bsdC = "0" + bsdC;
+                }
+                if (bsdD <= 9) {
+                    bsdD = "0" + bsdD
+                }
+                if (bsdE <= 9) {
+                    bsdE = "0" + bsdE
+                }
+                var newEnd = bsdA + "-" + bsdB + "-" + bsdC + ' ' + bsdD + ":" + bsdE + ':00';
+
+                var days = bss - ass + Number(1000 * 60 * 5);
+                var day = parseInt(days / (1000 * 60 * 5));
+                console.log(parseInt(day));
+                var arr = [day, newStart, newEnd]
+                resolve(arr);
+            })
+
+        }
+
+        //获取所有时间并每6个分组
+        function AddDays(start, end) {
+            return new Promise(function (resolve) {
+
+                start = start.replace(new RegExp(/-/gm), "/");
+                end = end.replace(new RegExp(/-/gm), "/");
+                var ar = []
+                var nd = new Date(start);
+                var en = new Date(end);
+                nd = nd.getTime();
+                en = en.getTime();
+                var jl = en - nd
+                jl = jl / (5 * 60 * 1000)
+                for (var k = 0; k < jl + 1; k++) {
+                    var oa = nd + (k * 5 * 60 * 1000);
+                    var dnd = new Date(oa);
+                    var y = dnd.getFullYear();
+                    var m = dnd.getMonth() + 1;
+                    var d = dnd.getDate();
+                    var h = dnd.getHours()
+                    var mi = dnd.getMinutes()
+                    if (m <= 9) m = "0" + m;
+                    if (d <= 9) d = "0" + d;
+                    if (h <= 9) h = "0" + h;
+                    if (mi <= 9) mi = "0" + mi;
+                    var cdate = y + "-" + m + "-" + d + ' ' + h + ":" + mi + ':00';
+                    ar.push(cdate)
+                }
+                //有无分页
+                if (num) {
+                    for (let m = 0; m < num; m++) {
+                        var o = ar.splice(0, 6)
+                        o.reverse()
+                        newAr.push(o)
+                    }
+                } else {
+                    newAr = ar
+                }
+                resolve(newAr)
+
+                console.log(newAr)
+                newAr.reverse()
+            })
+
+        }
+        //重置
+        form.on('submit(reset)', function (data) {
+            ym = true
+
+            $('#qylist').val('')
+            $('#mcodes').val('')
+            table.reload('tableid', {
+                where: {
+                    etime: layui.$('#etime').val(),
+                    stime: layui.$('#stime').val(),
+                    mn: layui.$('#qylist').val(),
+                    mcode: layui.$('#mcodes').val()
+                }
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+        /*点击搜索*/
+        form.on('submit(sub)', function (data) {
+
+            if (data.field.stime && data.field.etime) {
+                newAr = []
+                ym = true
+                pdFivedays(data.field.stime, data.field.etime).then(function (arrL) {
+                    /*此处判断有多少分页（num）*/
+                    if (arrL[0] > 6) {
+                        flag = false
+                        var opt = arrL[0] / 6 + "";
+                        if (opt.indexOf(".") == -1) {
+                            num = parseInt(Number(opt))
+                        } else {
+                            num = parseInt(Number(opt) + Number(1))
+                            console.log(num)
+                        }
+
+                    } else {
+                        num = 0;
+                        flag = true
+                    }
+
+                    AddDays(arrL[1], arrL[2]).then(function (arr) {
+
+                        if (num) {
+                            var objW = {
+                                etime: arr[0][arr[0].length - 1],
+                                stime: arr[0][0],
+                                mn: $('#qylist').val(),
+                                mcode: layui.$('#mcodes').val()
+                            }
+                        } else {
+                            var objW = {
+                                etime: arr[0],
+                                stime: arr[arr.length - 1],
+                                mn: $('#qylist').val(),
+                                mcode: layui.$('#mcodes').val()
+                            }
+                        }
+
+                        table.reload('tableid', {
+                            where: objW
+                        });
+                        return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+                    })
+
+                })
+
+            } else {
+                layer.msg('开始时间或结束时间不能为空')
+            }
+        });
+
+
+        /*index代表页码*/
+        function rder(index, sTime, endTime) {
+
+            var whereObj
+
+            if (index == undefined) {
+                index = 1
+                whereObj = {
+                    etime: layui.$('#etime').val(),
+                    stime: layui.$('#stime').val(),
+                    mn: layui.$('#qylist').val(),
+                    mcode: layui.$('#mcodes').val()
+                }
+            } else {
+                whereObj = {
+                    etime: endTime,
+                    stime: sTime,
+                    mn: layui.$('#qylist').val(),
+                    mcode: layui.$('#mcodes').val()
+                }
+            }
+            table.render({
+                elem: '#demo'
+                , url: httpUrl + 'record/fiveMinute' //数据接口
+                , where: whereObj
+                , height: 'full-125'
+                , page: false
+                , cols: [],
+                id: 'tableid',
+                done: function (res, curr, count) {
+
+                    var arrDa = res.data
+                    var colArr = []
+                    var co = [{ field: 'uname', title: '设备' }
+                        , { field: 'day1', title: '' }
+                        , { field: 'day2', title: '' }
+                        , { field: 'day3', title: '' }
+                        , { field: 'day4', title: '' }
+                        , { field: 'day5', title: '' }
+                        , { field: 'day6', title: '' }]
+                    if (ym) {
+                        index = 1
+                    }
+                    if (!flag) {
+
+                        colArr = newAr[index - 1]
+                        if (colArr && colArr.length > 0) {
+                            for (var p = 0; p < colArr.length; p++) {
+                                for (var y = 1; y < co.length; y++) {
+                                    if (y == p + 1) {
+                                        co[y].title = colArr[p]
+
+                                    } else {
+                                        if (y == co.length - 1) {
+                                            break
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                    if (flag) {
+                        colArr = newAr
+                        if (colArr && colArr.length > 0) {
+                            for (var p = 0; p < colArr.length; p++) {
+                                for (var y = 1; y < co.length; y++) {
+                                    if (y == p + 1) {
+                                        co[y].title = colArr[p]
+
+                                    } else {
+                                        if (y == co.length - 1) {
+                                            break
+                                        }
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+
+                    var allD = []
+                    for (var v = 0; v < arrDa.length; v++) {
+
+                        var objI = {}
+                        objI.uname = arrDa[v].uname
+                        var arriD = arrDa[v].DayNumberList
+                        var day = 'day'
+
+                        for (var z = 0; z < co.length; z++) {
+                            for (var c = 0; c < arriD.length; c++) {
+                                var dda = arriD[c].datatime
+                                dda = dda.split('.')
+                                if (dda[0] == co[z].title) {
+                                    var it = day + z
+                                    objI[it] = arriD[c].cou
+                                    break
+                                }
+                                if (c == arriD.length - 1) {
+                                    var it = day + z
+                                    objI[it] = '-'
+                                }
+                            }
+
+                        }
+
+                        allD.push(objI)
+                    }
+                    console.log(allD)
+                    laypage.render({
+                        elem: 'page'
+                        , count: Number(num * 10000)
+                        , curr: ym ? 1 : index //如何点击搜索就是1
+                        , limit: 10000
+                        , groups: 7 //只显示 1 个连续页码
+                        , first: '首页' //不显示首页
+                        , last: '末页' //不显示尾页
+                        , layout: ['prev', 'page', 'next'] //自定义分页布局
+                        , jump: function (obj, first) {
+
+                            if (!first) {
+                                if (flag) {
+                                    var sTime = newAr[0]
+                                    var endTime = newAr[newAr.length - 1]
+                                    rder(obj.curr, sTime, endTime)
+                                } else {
+                                    var arN = newAr[obj.curr - 1]
+                                    var sTime = arN[arN.length - 1]
+                                    var endTime = arN[0]
+                                    rder(obj.curr, sTime, endTime)
+                                }
+                            }
+                        }
+                    })
+
+                    table.init('demo', {//转换成静态表格
+                        cols: [co],
+                        data: allD
+                        , limit: 10000
+                        , height: 'full-185'
+                    });
+
+                    layui.$('th').css({
+                        'background-color': '#4265ed',
+                        'color': '#fff',
+                        'font-weight': 'bold',
+                        'text-align': 'center'
+                    })
+                    layui.$('td').css({
+                        'text-align': 'center'
+                    })
+
+                    form.render();
+                    layui.$('th').css({ 'background-color': '#1492ff', 'color': '#fff', 'font-weight': 'bold' });
+                    ym = false
+                }
+            });
+        }
+
+        laydate.render({
+            elem: '#stime'
+            , type: 'datetime'
+        });
+        laydate.render({
+            elem: '#etime'
+            , type: 'datetime'
+        });
+        //console.log(router.search.mn);
+    });
+</script>
+</body>
+
+</html>

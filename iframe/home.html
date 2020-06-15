@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+
+    </style>
+</head>
+
+<div class="container cont">
+    <div class="layui-row lrow">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a href="javascript:;">当前位置</a>
+            <a href="../index.html" target="_top">首页</a>
+
+        </span>
+    </div>
+    <div class="padd"></div>
+
+    <div class="layui-row layui-col-space5">
+        <!--<div class="layui-col-sm4 layui-col-md3 layui-col-lg2 msg_con">-->
+        <!--<div class="cc">-->
+        <!--<p class="p1">'+model[i].ename+'</p>-->
+        <!--<p class="p2">-->
+        <!--<span class="sp1">阀门状态 <br><i>开</i></span>-->
+        <!--<span>在线状态 <br><i style="background: url(../images/img/wifi_on.png) no-repeat center; background-size: contain;"></i></span>-->
+        <!--</p>-->
+        <!--&lt;!&ndash;<p class="">接入状态：<span>已接入</span></p>&ndash;&gt;-->
+        <!--<p class=""><a  href="./city/l000000.html#/mn=" target="ifrm"><span class="lk">点击查看企业详情>></span></a></p>-->
+        <!--</div>-->
+        <!--</div>-->
+
+
+
+    </div>
+</div>
+<script src="../js/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    var obj = {
+        'L0373032600004': 'L0373032600004',
+        'L0373032600005': 'L0373032600005',
+        'L0373032600006': 'L0373032600006',
+        'L0373032600007': 'L0373032600007',
+        'L0373032600008': 'L0373032600008',
+        'L0373032600009': 'L0373032600009',
+        'L0373032600011': 'L0373032600011',
+        'L0373032600012': 'L0373032600012',
+        'L0373032600013': 'L0373032600013',
+        'L0373032600014': 'L0373032600014',
+        'L0373032600015': 'L0373032600015',
+        'L0373032666666': 'L0373032666666',
+        'L0373032600016': 'L0373032600016',
+        'L0373032600017': 'L0373032600017',
+        'L0373032600018': 'L0373032600018'
+
+    };
+    function tz(mn) {
+        window.parent.at(mn);
+    }
+
+    layui.use(['form', 'laydate', 'layer', 'laypage', 'element', 'table'], function () {
+        var element = layui.element;
+        var router = layui.router();
+        var city = obj.city ? obj.city : ''
+        var province = obj.province ? obj.province : ''
+        layui.$.ajax({
+            url: httpUrl + 'manage/erps',
+            type: 'get',
+            data: {
+                deptid: localStorage.getItem('deptid'),
+                city: router.search.city,
+                province: router.search.province
+            },
+            dataType: 'json',
+            success: function (data) {
+
+                var model = data.data;
+                var str = '';
+                for (var i = 0; i < model.length; i++) {
+                    str += '<div class="layui-col-sm4 layui-col-md3 layui-col-lg2 msg_con">' +
+                        '<a href="./city/' + (obj[model[i].mn] ? obj[model[i].mn] : "l000000") + '.html#/mn=' + model[i].mn + '">' +
+                        '<div class="cc">' +
+                        '<p class="p1">' + model[i].ename + '</p>' +
+                        //                            '<p class="p2">在线状态：<span style="background: url(../images/img/wifi_'+(model[i].lstate==1?'on':'of')+'.png) no-repeat center; background-size: contain;"></span></p>'+
+                        '<p class="p2">' +
+                        '<span class="sp1">阀门状态 <br><i>' + (model[i].valvestatus == 0 ? '关' : '开') + '</i></span>' +
+                        ' <span>在线状态 <br><i style="background: url(../images/img/wifi_' + (model[i].lstate == 1 ? 'on' : 'of') + '.png) no-repeat center; background-size: contain;"></i></span>' +
+                        ' </p>' +
+                        '<p class=""><a onclick="tz(\'' + model[i].mn + '\')"  href="./city/' + (obj[model[i].mn] ? obj[model[i].mn] : "l000000") + '.html#/mn=' + model[i].mn + '" target="ifrm"><span class="lk">点击查看企业实时数据>></span></a></p>' +
+                        '</div>' +
+                        '</a>' +
+                        '</div>'
+                }
+                layui.$('.layui-col-space5').append(str);
+            }
+        })
+    });
+</script>
+</body>
+
+</html>

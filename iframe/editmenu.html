@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/modules/layer/default/layer.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <style>
+        #mn .layui-form-checkbox {
+            float: left;
+            width: 20%;
+            min-width: 230px;
+        }
+    </style>
+</head>
+
+<div class="container cont">
+    <div class="layui-row lrow">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a href="javascript:;">当前位置</a>
+            <a href="../index.html" target="_top">首页</a>
+            <a href="javascript:;">系统设置</a>
+            <a href="javascript:;">菜单列表</a>
+            <a href="javascript:;">编辑菜单</a>
+        </span>
+    </div>
+    <div class="padd"></div>
+
+    <div class="layui-row layui-col-space5">
+        <form class="layui-form layuiform " action="" lay-filter="example">
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">菜单名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="menuname" lay-verify="required" lay-verType="tips" placeholder="请输入"
+                        autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">访问代码</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="menulink" lay-verify="required" lay-verType="tips" placeholder="请输入"
+                        autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">菜单级别</label>
+                <div class="layui-input-inline">
+                    <select id="leval" name="leval" lay-verify="required" lay-filter="levaltype">
+                        <option value="2">二级菜单</option>
+                        <option value="1">一级菜单</option>
+                    </select>
+                    <b>*</b>
+                </div>
+            </div>
+
+            <div class="layui-form-item" id="reason">
+                <label class="layui-form-label">上级菜单</label>
+                <div class="layui-input-inline">
+                    <select id="pid" name="pid" lay-verify="required">
+                        <option value="1"></option>
+                    </select><b>*</b>
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xls" lay-submit=""
+                        lay-filter="sub">保存</button>
+                    <button class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xls"
+                        onclick="window.history.back(); return false">返回</button>
+                </div>
+            </div>
+
+        </form>
+
+
+
+    </div>
+</div>
+<script src="../js/layui.js"></script>
+<script>
+    //JavaScript代码区域
+    layui.use(['form', 'laydate', 'layer', 'laypage', 'element', 'table'], function () {
+        var $ = layui.jquery;
+        var form = layui.form;
+        var layer = layui.layer;
+        var element = layui.element;
+        var router = layui.router();
+        obj = router.search;
+        //        console.log(obj);
+        var editobj = {
+            "menuname": decodeURI(obj.menu_name),
+            "menulink": decodeURI(obj.menu_link.replace('\\', '/')),
+            "leval": decodeURI(obj.leval)
+            //            "deptlinkman": decodeURI(obj.deptlinkman)
+
+        };
+
+        //        form.render();
+        form.on('select(levaltype)', function (data) {
+            if (data.value != 2) {
+                $("#reason").css("display", "none");
+            } else {
+                $("#reason").css("display", "block");
+            }
+            form.render()
+        })
+        $.ajax({
+            url: httpUrl + 'menu/edit',
+            data: {
+                menuid: obj.id
+            },
+            type: 'get',
+            dataType: 'json',
+            success: function (data) {
+                console.log(data);
+                var model = data.data;
+                var str = '';
+                for (var i = 0; i < model.length; i++) {
+                    str += '<option value="' + model[i].id + '">' + model[i].menuname + '</option>';
+                    if (model[i].choise == 1) {
+                        editobj['pid'] = model[i].id;
+                    }
+                }
+                $('#pid').append(str);
+                form.val('example', editobj);
+                if (obj.leval != 2) {
+                    $("#reason").css("display", "none");
+                } else {
+                    $("#reason").css("display", "block");
+                }
+                form.render();
+
+            }
+        })
+        //监听提交
+        form.on('submit(sub)', function (data) {
+            var relimit = [];
+            $('.relimit').each(function (i, item) {
+
+                if ($(item).is(':checked')) {
+                    relimit.push($(item).val())
+                }
+            });
+
+            //            data.field.mn=router.search.mn;
+            data.field.sitemn = relimit;
+            data.field.id = obj.id;
+            $.ajax({
+                url: httpUrl + 'menu/update',
+                type: 'get',
+                data: data.field,
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data.code);
+                    if (data.code == 0) {
+                        alert(data.message);
+                        window.location.href = 'menulist.html'
+                    }
+                    else {
+                        alert(data.message);
+                        return false;
+                    }
+                }
+            });
+            return false;
+        });
+
+
+    });
+</script>
+</body>
+
+</html>
