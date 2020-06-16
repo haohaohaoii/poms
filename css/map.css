@@ -1252,6 +1252,19 @@
     left: 90%;
 
 }
+.map #ljt li:nth-child(20){
+
+    top: 31.5%;
+    left: 5.5%;
+
+
+}
+.map #ljt li:nth-child(21){
+
+    left: 11.2%;
+    top: 47.5%;
+
+}
 
 /*六通单元信息*/
 .map #dy li:nth-child(1){
@@ -1689,106 +1702,114 @@
 
 .map #hxl li:nth-child(1){
 
-    top: 21.5%;
+    top: 19.5%;
     left: 12.2%;
 
 }
 .map #hxl li:nth-child(2){
 
-    top: 29%;
+    top: 26.5%;
     left: 29.5%;
 
 }
 .map #hxl li:nth-child(3){
 
-    top: 40.5%;
+    top: 37%;
     left: 12.2%;
 }
 
 
 .map #hxl li:nth-child(4){
-    top: 40.5%;
+    top: 37%;
     left: 30%;
 
 }
 .map #hxl li:nth-child(5){
 
-    top: 40.5%;
+    top: 37%;
     left: 68.5%;
 
 }
 .map #hxl li:nth-child(6){
 
-    top: 21.5%;
+    top: 19.5%;
     left: 27%;
 
 }
 .map #hxl li:nth-child(7){
 
-    top: 35%;
+    top: 32%;
     left: 29.5%;
 
 }
 .map #hxl li:nth-child(8){
 
-    top: 76.8%;
+    top: 70.2%;
     left: 24.5%;
 
 }
 .map #hxl li:nth-child(9){
 
-    top: 40.5%;
+    top: 37%;
     left: 26.4%;
 
 }
 .map #hxl li:nth-child(10){
 
-    top: 57.5%;
+    top: 52.7%;
     left: 24.5%;
 
 }
 .map #hxl li:nth-child(11){
 
-    top: 49%;
+    top: 45%;
     left: 26.3%;
 
 }
 .map #hxl li:nth-child(12){
 
-    top: 67.5%;
+    top: 61.7%;
     left: 48.5%;
 
 }
 .map #hxl li:nth-child(13){
 
-    top: 67.5%;
+    top: 61.7%;
     left: 24.5%;
 
 }
 .map #hxl li:nth-child(14){
 
-    top: 86%;
+    top: 78.9%;
     left: 24.5%;
 
 }
 .map #hxl li:nth-child(15){
 
-    top: 40.5%;
+    top: 37%;
     left: 44%;
 
 }
 .map #hxl li:nth-child(16){
 
-    top: 40.5%;
+    top: 37%;
     left: 54.5%;
 
 }
 .map #hxl li:nth-child(17){
 
-    top: 67.5%;
+    top: 61.7%;
     left: 87.4%;
 }
+.map #hxl li:nth-child(18){
 
+    top: 87.3%;
+    left: 12.1%;
+}
+.map #hxl li:nth-child(19){
+    top: 87.3%;
+    left: 24.5%;
+}
 /*华幸生物摄像头*/
 
 .map ul.hx li:nth-child(20){
@@ -2787,25 +2808,33 @@
 /*巨人逻辑图*/
 
 .map #jrl li:nth-child(1){
-    top: 50%;
-    left: 57.1%;
+    top: 66%;
+    left: 56%;
 
 }
 .map #jrl li:nth-child(2){
-    top: 50%;
-    left: 59.8%;    
+    top: 66%;
+    left: 59.8%; 
 }
 .map #jrl li:nth-child(3){
-    top: 43%;
+    top: 59%;
     left: 23%;
 }
 .map #jrl li:nth-child(4){
-	top: 50%;
-    left: 41%;
+    top: 66%;
+    left: 39.8%;
 }
 .map #jrl li:nth-child(5){
-    top: 50%;
-    left: 69.2%;
+    top: 66%;
+    left: 69.1%;
+}
+.map #jrl li:nth-child(6){
+    top: 66%;
+    left: 47.2%;
+}
+.map #jrl li:nth-child(7){
+    top: 73%;
+    left: 23%;
 }
 
 /*巨人工贸摄像头*/
@@ -2941,15 +2970,19 @@
 }
 .map #jsjl li:nth-child(3){
     left: 27.5%;
-    top: 50.5%; 
+    top: 51%; 
 }
 
 .map #jsjl li:nth-child(4){
     left: 27.5%;
-    top: 68.5%; 
+    top: 66%;
 }
 .map #jsjl li:nth-child(5){
     left: 66.5%;
     top: 56%;
+}
+.map #jsjl li:nth-child(6){
+    top: 80%;
+    left: 56.5%;
 }
 

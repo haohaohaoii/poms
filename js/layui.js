@@ -3,8 +3,8 @@
 
 
 
-window.httpUrl = 'http://116.255.130.173:8080/poms/';
-// window.httpUrl = 'http://172.16.23.11:8081/';
+// window.httpUrl = 'http://116.255.130.173:8080/poms/';
+window.httpUrl = 'http://172.16.23.11:8081/';
 layui.use('element', function () {
     var token = localStorage.getItem('token');
     var $ = layui.$;
