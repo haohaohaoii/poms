@@ -83,8 +83,9 @@
                 var model = data.data;
                 var str = '';
                 for (var i = 0; i < model.length; i++) {
+                    var sitename = model[i].ename;
                     str += '<div class="layui-col-sm4 layui-col-md3 layui-col-lg2 msg_con">' +
-                        '<a href="./city/' + (obj[model[i].mn] ? obj[model[i].mn] : "l000000") + '.html#/mn=' + model[i].mn + '">' +
+                        '<a href="./city/' + (obj[model[i].mn] ? obj[model[i].mn] : "l000000") + '.html#/mn=' + model[i].mn + '/ename=' + sitename + '">' +
                         '<div class="cc">' +
                         '<p class="p1">' + model[i].ename + '</p>' +
                         //                            '<p class="p2">在线状态：<span style="background: url(../images/img/wifi_'+(model[i].lstate==1?'on':'of')+'.png) no-repeat center; background-size: contain;"></span></p>'+
@@ -92,7 +93,7 @@
                         '<span class="sp1">阀门状态 <br><i>' + (model[i].valvestatus == 0 ? '关' : '开') + '</i></span>' +
                         ' <span>在线状态 <br><i style="background: url(../images/img/wifi_' + (model[i].lstate == 1 ? 'on' : 'of') + '.png) no-repeat center; background-size: contain;"></i></span>' +
                         ' </p>' +
-                        '<p class=""><a onclick="tz(\'' + model[i].mn + '\')"  href="./city/' + (obj[model[i].mn] ? obj[model[i].mn] : "l000000") + '.html#/mn=' + model[i].mn + '" target="ifrm"><span class="lk">点击查看企业实时数据>></span></a></p>' +
+                        '<p class=""><a onclick="tz(\'' + model[i].mn + '\')"  href="./city/' + (obj[model[i].mn] ? obj[model[i].mn] : "l000000") + '.html#/mn=' + model[i].mn + '/ename=' + sitename + '" target="ifrm"><span class="lk">点击查看企业实时数据>></span></a></p>' +
                         '</div>' +
                         '</a>' +
                         '</div>'

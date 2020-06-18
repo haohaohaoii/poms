@@ -25,12 +25,20 @@
 </head>
 
 <div class="container">
-    <div class="layui-row lrow">
+    <div class="layui-row lrow" id="one" style="display: none;">
         <span class="layui-breadcrumb" lay-separator=">">
             <a href="javascript:;">当前位置</a>
             <a href="../index.html" target="_top">首页</a>
             <a href="javascript:;">数据查询</a>
             <a href="javascript:;">设备数据</a>
+        </span>
+    </div>
+    <div class="layui-row lrow" id="two" style="display: none;">
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a href="javascript:;">当前位置</a>
+            <a href="../index.html" target="_top">首页</a>
+            <a href="javascript:;">历史数据</a>
+            <a href="javascript:;" id="witchqy"></a>
         </span>
     </div>
     <div class="padd"></div>
@@ -128,32 +136,21 @@
         var element = layui.element;
         var laypage = layui.laypage;
         var layer = layui.layer;
-        //        var router = layui.router();
+        var router = layui.router();
         var laydate = layui.laydate;
         var table = layui.table;
         var form = layui.form;
         var $ = layui.$;
-        //获取企业列表
-        $.ajax({
-            url: httpUrl + 'manage/erpsnamelist',
-            data: {
-                deptid: localStorage.getItem('deptid')
-            },
-            dataType: 'json',
-            success: function (data) {
-                var data = data.data;
-                var str = '';
-                for (var i = 0; i < data.length; i++) {
-                    str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
-                }
-                layui.$('#qylist').append(str);
 
-                form.render();
-                form.on('select(qy)', function () {
-                    getdevlist($('#qylist').val())
-                })
-            }
-        });
+        var ename = decodeURI(router.search.ename)
+        if (router.search.mn) {
+            $('#one').css('display', 'none')
+            $('#two').css('display', 'block')
+            $('#witchqy').text(ename)
+        } else {
+            $('#two').css('display', 'none')
+            $('#one').css('display', 'block')
+        }
         //获取企业设备列表
         function getdevlist(mn) {
             $.ajax({
@@ -241,7 +238,32 @@
         AddDays($('#stime').val(), $('#etime').val()).then(function (arr) {
             if ($('#stime').val() && $('#etime').val()) {
                 flag = true
-                rder()
+                //获取企业列表
+                $.ajax({
+                    url: httpUrl + 'manage/erpsnamelist',
+                    data: {
+                        deptid: localStorage.getItem('deptid')
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        var data = data.data;
+                        var str = '';
+                        for (var i = 0; i < data.length; i++) {
+                            str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
+                        }
+                        layui.$('#qylist').append(str);
+                        $('#qylist').val(router.search.mn)
+                        if (router.search.mn) {
+                            getdevlist($('#qylist').val())
+                        }
+                        form.render();
+                        form.on('select(qy)', function () {
+                            getdevlist($('#qylist').val())
+                        })
+                        rder()
+                    }
+                });
+
             }
         })
 
@@ -412,8 +434,8 @@
 
                         if (num) {
                             var objW = {
-                                etime: arr[0][arr[0].length - 1],
-                                stime: arr[0][0],
+                                etime: arr[0][0],
+                                stime: arr[0][arr[0].length - 1],
                                 mn: $('#qylist').val(),
                                 mcode: layui.$('#mcodes').val()
                             }
@@ -473,13 +495,14 @@
 
                     var arrDa = res.data
                     var colArr = []
-                    var co = [{ field: 'uname', title: '设备' }
-                        , { field: 'day1', title: '' }
+                    var co = [{ field: 'ename', title: '企业名称', width: 240 }
+                        , { field: 'uname', title: '设备' }
                         , { field: 'day2', title: '' }
                         , { field: 'day3', title: '' }
                         , { field: 'day4', title: '' }
                         , { field: 'day5', title: '' }
-                        , { field: 'day6', title: '' }]
+                        , { field: 'day6', title: '' }
+                        , { field: 'day7', title: '' }]
                     if (ym) {
                         index = 1
                     }
@@ -488,8 +511,8 @@
                         colArr = newAr[index - 1]
                         if (colArr && colArr.length > 0) {
                             for (var p = 0; p < colArr.length; p++) {
-                                for (var y = 1; y < co.length; y++) {
-                                    if (y == p + 1) {
+                                for (var y = 2; y < co.length; y++) {
+                                    if (y == p + 2) {
                                         co[y].title = colArr[p]
 
                                     } else {
@@ -503,11 +526,12 @@
                         }
                     }
                     if (flag) {
+
                         colArr = newAr
                         if (colArr && colArr.length > 0) {
                             for (var p = 0; p < colArr.length; p++) {
-                                for (var y = 1; y < co.length; y++) {
-                                    if (y == p + 1) {
+                                for (var y = 2; y < co.length; y++) {
+                                    if (y == p + 2) {
                                         co[y].title = colArr[p]
 
                                     } else {
@@ -526,6 +550,7 @@
 
                         var objI = {}
                         objI.uname = arrDa[v].uname
+                        objI.ename = arrDa[v].ename
                         var arriD = arrDa[v].DayNumberList
                         var day = 'day'
 
@@ -533,6 +558,7 @@
                             for (var c = 0; c < arriD.length; c++) {
                                 var dda = arriD[c].datatime
                                 dda = dda.split('.')
+
                                 if (dda[0] == co[z].title) {
                                     var it = day + z
                                     objI[it] = arriD[c].cou

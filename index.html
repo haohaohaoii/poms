@@ -668,7 +668,7 @@
               for (var k = 0; k < model[i].city[j].sitelist.length; k++) {
                 var mn = model[i].city[j].sitelist[k].mn;
                 var sitename = model[i].city[j].sitelist[k].ename;
-                str += '<li title="' + sitename + '" class="' + (i == -1 && j == -1 && k == -1 ? 'ona' : '') + '"><a class="enterprise ' + mn + '" href="./iframe/city/' + (obj[mn] ? obj[mn] : "l000000") + '.html#/mn=' + mn + '" target="ifrm">' + sitename + '</a></li>'
+                str += '<li title="' + sitename + '" class="' + (i == -1 && j == -1 && k == -1 ? 'ona' : '') + '"><a class="enterprise ' + mn + '" href="./iframe/city/' + (obj[mn] ? obj[mn] : "l000000") + '.html#/mn=' + mn + '/ename=' + sitename + '" target="ifrm">' + sitename + '</a></li>'
               }
               str += '</ul><li>'
             }

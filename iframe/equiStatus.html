@@ -46,7 +46,7 @@
                 </select>
             </div>
         </div>
-        <div class="layui-form-item">
+        <!-- <div class="layui-form-item">
             <label class="layui-form-label">开始时间</label>
             <div class="layui-input-block">
                 <input type="text" class="layui-input" id="stime" name="stime" autocomplete="off">
@@ -62,9 +62,9 @@
         <div class="layui-form-item" id="hide">
             <div class="layui-input-block">
                 <button class="layui-btn  layui-btn-radius  layui-btn-normal " lay-submit lay-filter="sub">查询</button>
-                <!-- <button type="reset" class="layui-btn  layui-btn-radius  layui-btn-normal  ">重置</button> -->
+
             </div>
-        </div>
+        </div> -->
     </form>
 
 
@@ -110,28 +110,58 @@
                 }
                 layui.$('#qylist').append(str);
                 form.render();
+                form.on('select(qy)', function () {
+                    rder($('#qylist').val())
+                })
                 rder($('#qylist').val())
             }
         });
-        form.on('submit(sub)', function (data) {
-            table.reload('tableid', {
-                where: { mn: $('#qylist').val() }//设定异步数据接口的额外参数，任意设
+        // form.on('submit(sub)', function (data) {
+        //     table.reload('tableid', {
+        //         where: { mn: $('#qylist').val() }//设定异步数据接口的额外参数，任意设
 
-            });
-            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-        });
+        //     });
+        //     return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        // });
         //第一个实例
         function rder(mn) {
             table.render({
                 elem: '#demo'
-                , height: 'full-170'
-                , url: httpUrl + '/rtds/mcodeStaut' //数据接口
-                , limit: 10000,
+                , height: 'full-130'
+                , url: httpUrl + 'rtds/mcodeStaut' //数据接口
+                , limit: 17,
                 where: { mn: $('#qylist').val() }
+                , request: {
+                    pageName: 'curr' //页码的参数名称，默认：page
+                    , limitName: 'nums' //每页数据量的参数名，默认：limit
+                }
+                , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                    layout: ['prev', 'page', 'next', 'count'] //自定义分页布局
+                    , curr: 1 //设定初始在第 1 页
+                    , groups: 7 //只显示 7 个连续页码
+                    , first: '首页' //显示首页
+                    , last: '末页' //显示尾页
+
+                } //开启分页
                 , cols: [[ //表头
                     //   {field: 'id', title: 'ID', width:'5%', fixed: 'left'}
                     { field: 'ename', title: '企业名称' }
                     , { field: 'uname', title: '设备名称' }
+                    , {
+                        field: 'unType', title: '设备类型', templet: function (data) {
+                            var typestr = data.mcode.substr(0, 1)
+                            var untype
+                            if (typestr == 'e') {
+                                untype = '流量计'
+                            } else if (typestr == 'y') {
+                                untype = '液位计'
+                            } else if (typestr == 'q') {
+                                untype = '电表'
+                            }
+                            return untype
+                        }
+                    }
+                    , { field: 'mcode', title: '设备编码' }
                     , {
                         field: 'stute', title: '在线状态', templet: function (datas) {
                             if (datas.stute === "在线") {
@@ -148,6 +178,7 @@
                 ]],
                 id: 'tableid',
                 done: function (res, curr, count) {
+
                     layui.$('th').css({
                         'background-color': '#1492ff',
                         'color': '#fff',

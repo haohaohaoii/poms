@@ -147,24 +147,14 @@
       elem: '#demo'
       , height: 'full-134'
       , url: httpUrl + 'manage/erplists' //数据接口
-      , limit: 17,
+
       //            toolbar: '#barDemo',
-      where: {
+      , where: {
         rolelimit: localStorage.getItem('rolelimit'),
         deptid: localStorage.getItem('deptid')
-      },
-      request: {
-        pageName: 'curr' //页码的参数名称，默认：page
-        , limitName: 'nums' //每页数据量的参数名，默认：limit
       }
-      , page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
-        layout: ['prev', 'page', 'next', 'count'] //自定义分页布局
-        , curr: 1 //设定初始在第 1 页
-        , groups: 7 //只显示 1 个连续页码
-        , first: '首页' //不显示首页
-        , last: '末页' //不显示尾页
 
-      } //开启分页
+      , page: false
       , cols: [[ //表头
 
         //                {field: 'id', title: 'ID', width:'5%', fixed: 'left'}

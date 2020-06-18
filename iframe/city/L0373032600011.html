@@ -129,9 +129,8 @@
     var element = layui.element;
     var t;
     var router = layui.router();
-
-    //        console.log(router.search.mn);
-    layui.$('.map').append('<a style="position: absolute;top:  26px;right: 20px; display: block; width: 100px;height: 40px;color: royalblue;" href="../his.html#/mn=' + router.search.mn + '">历史数据</a>')
+    var name = decodeURI(router.search.ename)
+    layui.$('.map').append('<a style="position: absolute;top: 26px;right: 20px; display: block; width: 100px;height: 40px;color: royalblue;" href="../historydata.html#/mn=' + router.search.mn + '/ename=' + name + '">历史数据</a>')
     //折疊
     getdata(router, '.hx')
     //流程图
