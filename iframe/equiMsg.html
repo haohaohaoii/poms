@@ -48,13 +48,7 @@
                     </select>
                 </div>
             </div>
-            <div class="layui-form-item" id="hide">
-                <div class="layui-input-block">
-                    <button class="layui-btn  layui-btn-radius  layui-btn-normal " lay-submit
-                        lay-filter="sub">查询</button>
-                    <!-- <button type="reset" class="layui-btn  layui-btn-radius  layui-btn-normal  ">重置</button> -->
-                </div>
-            </div>
+
             <div class="layui-col-md2 layui-col-md-offset4">
                 <div class="layui-form-item">
                     <div class="layui-input-block" style="margin-left: 170px;">
@@ -120,16 +114,13 @@
                 }
                 layui.$('#qylist').append(str);
                 form.render();
+                form.on('select(qy)', function () {
+                    rder($('#qylist').val())
+                })
                 rder($('#qylist').val())
             }
         });
-        form.on('submit(sub)', function (data) {
-            table.reload('tableid', {
-                where: { mn: $('#qylist').val() }//设定异步数据接口的额外参数，任意设
 
-            });
-            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-        });
         $('#add').click(function () {
             window.location.href = 'equiAdd.html#/mn=' + $('#qylist').val()
         })

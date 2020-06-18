@@ -46,12 +46,6 @@
                 </select>
             </div>
         </div>
-        <div class="layui-form-item" id="hide">
-            <div class="layui-input-block">
-                <button class="layui-btn  layui-btn-radius  layui-btn-normal " lay-submit lay-filter="sub">查询</button>
-                <!-- <button type="reset" class="layui-btn  layui-btn-radius  layui-btn-normal  ">重置</button> -->
-            </div>
-        </div>
 
     </form>
 
@@ -98,6 +92,9 @@
                 }
                 layui.$('#qylist').append(str);
                 form.render();
+                form.on('select(qy)', function () {
+                    rder($('#qylist').val())
+                })
                 rder($('#qylist').val())
             }
         });

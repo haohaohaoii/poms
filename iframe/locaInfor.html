@@ -50,13 +50,7 @@
                 </div>
             </div>
 
-            <div class="layui-form-item" id="hide">
-                <div class="layui-input-block">
-                    <button class="layui-btn  layui-btn-radius  layui-btn-normal " lay-submit
-                        lay-filter="sub">查询</button>
-                    <!-- <button type="reset" class="layui-btn  layui-btn-radius  layui-btn-normal  ">重置</button> -->
-                </div>
-            </div>
+
             <div class="layui-col-md2 layui-col-md-offset4">
                 <div class="layui-form-item">
                     <div class="layui-input-block" style="margin-left: 170px;">
@@ -132,10 +126,17 @@
                 var data = data.data;
                 var str = '';
                 for (var i = 0; i < data.length; i++) {
-                    str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
+                    if (i == 0) {
+                        str += '<option value="' + data[i].mn + '" selected>' + data[i].ename + '</option>';
+                    } else {
+                        str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
+                    }
                 }
                 layui.$('#qylist').append(str);
                 form.render();
+                form.on('select(qy)', function () {
+                    rder($('#qylist').val())
+                })
                 rder($('#qylist').val())
             }
         });
