@@ -22,6 +22,18 @@
         .layui-table-box {
             border-bottom: 1px solid #ccc
         }
+
+        #ui .layui-table-view {
+            margin: 0 auto;
+        }
+
+        #ui .layui-form-item {
+            margin: 4px -10px !important;
+        }
+
+        #ui .layui-form-label {
+            padding: 9px 7px;
+        }
     </style>
 </head>
 
@@ -73,8 +85,51 @@
     </div>
     <div id="page"></div>
 </div>
+<!--历史数据-->
+<div id="ui" style="display: none;">
+
+    <form class="layui-form" id="enterprise-form">
+
+        <div class="layui-row">
+            <div class="layui-form-item">
+                <label class="layui-form-label">开始时间</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" id="stime" name="stime" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">结束时间</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" id="etime" name="etime" autocomplete="off">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline" id="hide">
+                    <div class="layui-input-block">
+                        <button class="layui-btn  layui-btn-radius layui-btn-normal" lay-submit lay-filter="hisSub"
+                            style="width: 90px;margin-left: 30px;">查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </form>
+    <p style="height: 30px;line-height: 30px;">
+        <span style="position: absolute;left: 20px;">当前企业：
+            <span id="nowQy" style="color:red"></span>
+        </span>
+        <span style="position: absolute;right: 200px;">当前设备：
+            <span id="nowSb" style="color:red"></span>
+        </span>
+    </p>
+    <table id="openDanyuan" lay-filter="openDanyuan"></table>
+</div>
 <script type="text/html" id="barDemo">
-    <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-xxs" lay-event="del">删除</a>
+    <!-- <a class="layui-btn layui-btn-normal layui-btn-xs " lay-event="his">历史数据</a> -->
+<a class="layui-btn layui-btn-danger layui-btn-xs " lay-event="del">删除</a>
 </script>
 <script src="../js/layui.js"></script>
 <script>
@@ -116,13 +171,7 @@
                 rder($('#qylist').val())
             }
         });
-        // form.on('submit(sub)', function (data) {
-        //     table.reload('tableid', {
-        //         where: { mn: $('#qylist').val() }//设定异步数据接口的额外参数，任意设
 
-        //     });
-        //     return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-        // });
         //第一个实例
         function rder(mn) {
             table.render({
@@ -173,7 +222,7 @@
                         }
                     }
                     , { field: 'datatime', title: '时间' }
-                    , { field: 'right', title: '操作', toolbar: '#barDemo', width: 150 }
+                    , { field: 'right', title: '操作', toolbar: '#barDemo' }
 
                 ]],
                 id: 'tableid',
@@ -193,16 +242,18 @@
 
         laydate.render({
             elem: '#stime'
-            , type: 'date'
+            , type: 'datetime'
         });
         laydate.render({
             elem: '#etime'
-            , type: 'date'
+            , type: 'datetime'
         });
+
 
         //监听行工具事件
         table.on('tool(demo)', function (obj) {
             var data = obj.data;
+
             if (obj.event === 'del') {
                 layer.confirm('确定删除', {
                     btn: ['确定', '取消'] //按钮
@@ -211,6 +262,77 @@
 
                 }, function () {
                     layer.msg('取消删除', { time: 1000, icon: 2 });
+                });
+            } else if (obj.event === 'his') {
+                form.on('submit(hisSub)', function (data) {
+                    table.reload('openDanyuan', {
+                        where: {
+                            mn: data.mn,
+                            mcode: data.mcode,
+                            stime: $('#stime').val(),
+                            etime: $('#etime').val()
+                        }
+
+                    });
+                    return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+                });
+                $('#nowQy').text(data.ename)
+                $('#nowSb').text(data.uname)
+                layer.open({
+                    title: ['设备历史数据', 'background:#1492FF;color:white'],
+                    type: 1,
+                    content: $('#ui'),
+                    area: ['840px', '480px'], //宽高
+                    success: function () {
+
+                        $('#ui').css('display', 'block');
+                        table.render({
+                            elem: '#openDanyuan' //指定原始表格元素选择器（推荐id选择器）
+                            , id: 'openDanyuan'
+                            , method: 'get' //接口http请求类型，默认：get
+                            , url: httpUrl + 'hdsMcode/mcodesthisList'
+                            , width: 800
+                            , height: 'full-560'
+                            , where: {
+                                mn: data.mn,
+                                mcode: data.mcode,
+                                stime: $('#stime').val(),
+                                etime: $('#etime').val()
+                            }
+                            , cols: [
+                                [{ field: 'datatime', title: '时间', align: 'center' }
+                                    , {
+                                    field: 'stute', title: '在线状态', templet: function (datas) {
+                                        if (datas.stute === "在线") {
+                                            datas.stute = datas.stute + '<img src="../images/img/zx.png" style="padding-left:10px">'
+                                        } else if (datas.stute === "离线") {
+                                            datas.stute = datas.stute + '<img src="../images/img/lx.png" style="padding-left:10px">'
+                                        }
+                                        return datas.stute
+                                    }
+                                }
+                                    , { field: 'mcode', title: '设备编码', align: 'center' }
+                                ]
+                            ],
+                            done: function (res, curr, count) {
+                                layui.$('th').css({
+                                    'background-color': '#1492ff',
+                                    'color': '#fff',
+                                    'font-weight': 'bold',
+                                    'text-align': 'center'
+                                })
+                                layui.$('td').css({ 'text-align': 'center' })
+
+                            }
+
+                        });
+                    },
+                    cancel: function () {
+                        $('#stime').val('')
+                        $('#etime').val('')
+                        $('#ui').css('display', 'none')
+                    }
+
                 });
             }
         });
