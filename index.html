@@ -88,8 +88,9 @@
       font-size: 16px;
       padding-left: 45px;
       color: #242422;
-      background: url("images/img/listico.png") no-repeat left 20px center, url("images/img/lselecton.png") no-repeat right 12px center;
-      background-size: 6%, 5%;
+      background: url("images/img/listico.png") no-repeat left 20px center/6%, 5%, url("images/img/rsj.png") no-repeat right 12px center/3.5%, 5%;
+      /* background-size: 6%, 5%; */
+
     }
 
     .province.on {
@@ -125,23 +126,25 @@
       white-space: nowrap;
     }
 
-    li.on {
+    /* li.on {
       background: #e7f3ff;
-    }
+    } */
 
     li.ona {
-      background: #e0ecf8;
+      width: 80%;
+      margin: 0 auto;
+      background: #1492ff
     }
 
     li.ona a {
-      color: #006cc7 !important;
+      color: #fff !important;
     }
 
     .enterprise:hover {
       color: #006cc7;
     }
 
-    .layui-side:after {
+    /* .layui-side:after {
       content: '';
       width: 20px;
       height: 100%;
@@ -155,19 +158,18 @@
       border-bottom-left-radius: 0px;
       border-bottom-right-radius: 25px;
       box-shadow: 0 0 5px #e9e9e9;
-    }
+    } */
 
-    #chos {
+    /* #chos {
       display: block;
       width: 20px;
       position: absolute;
       top: 47%;
       height: 50px;
-      /*background: red;*/
       z-index: 9;
       right: -20px;
       cursor: pointer;
-    }
+    } */
 
     #flexbox {
       position: absolute;
@@ -183,12 +185,13 @@
     }
 
     .logo {
-      background: url("images/img/logotitie.png") no-repeat left 63px top 21px;
+
+      background: url(images/img/logo1.png) no-repeat left 42px top 21px;
       height: 100%;
       display: block;
       line-height: 72px;
       padding-left: 50px;
-      background-size: 8.8%;
+      background-size: 16%;
     }
 
     .searchbar {
@@ -232,6 +235,12 @@
 
     .ull a:hover {
       color: #006cc7;
+    }
+
+    /*新增*/
+    .ull {
+      height: calc(100% - 60px);
+      background-color: #DCEFFF;
     }
   </style>
 </head>
@@ -296,7 +305,7 @@
     </div>
 
     <div class="layui-side layui-bg-black" id="qy">
-      <span id="chos"></span>
+      <!-- <span id="chos"></span> -->
       <div class="layui-side-scroll layui-bg-black">
         <div class="search">
           <input type="text" id="search" autocomplete="off" placeholder="请输入想搜的内容">
@@ -484,9 +493,10 @@
           var model = []
           if (localStorage.rolelimit == 1) {
             for (var k = 0; k < mo.length; k++) {
+
               if (mo[k].pmenu.menu_name === "信息管理" && mo[k].pmenu.menu_link === "javascript:;") {
                 model[0] = mo[k]
-              } else if (mo[k].pmenu.menu_name === "数据查询" && mo[k].pmenu.menu_link === "index.html") {
+              } else if (mo[k].pmenu.menu_name === "数据查询" && mo[k].pmenu.menu_link === "javascript:;") {
                 model[1] = mo[k]
               }
               else if (mo[k].pmenu.menu_name === "数据报表" && mo[k].pmenu.menu_link === "javascript:;") {
@@ -683,6 +693,7 @@
 
           $('#homepage').attr('href', './iframe/home.html');
           $(function () {
+
             $(".ull li >ul").addClass("hidden");
             $(".ull span").click(function () {
 
@@ -695,11 +706,16 @@
               $(this).parent().addClass('ona');
             })
             $('.ull .province').click(function () {
-
-              $(this).parents('.ull').find('span.province').removeClass('on');
+              // debugger
+              // $(this).parents('.ull').find('span.province').removeClass('on');
               $(this).parent().siblings().removeClass('on');
               $(this).parent().addClass('on');
-              $(this).addClass('on')
+              if ($(this).hasClass('on')) {
+                $(this).removeClass('on')
+              } else {
+                $(this).addClass('on')
+              }
+
             })
             $('.city').click(function () {
 

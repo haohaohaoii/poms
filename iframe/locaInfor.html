@@ -126,11 +126,12 @@
                 var data = data.data;
                 var str = '';
                 for (var i = 0; i < data.length; i++) {
-                    if (i == 0) {
-                        str += '<option value="' + data[i].mn + '" selected>' + data[i].ename + '</option>';
-                    } else {
-                        str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
-                    }
+                    // if (i == 0) {
+                    //     str += '<option value="' + data[i].mn + '" selected>' + data[i].ename + '</option>';
+                    // } else {
+                    //     str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
+                    // }
+                    str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
                 }
                 layui.$('#qylist').append(str);
                 form.render();

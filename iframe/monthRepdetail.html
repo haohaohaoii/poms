@@ -109,6 +109,7 @@
             "unitDate": decodeURI(obj.reportDate), // 报表生成日期
             "dateC": decodeURI(obj.dateC),   //选择的日期
             "mn": decodeURI(obj.mn),  //选中的企业mn
+            "id": decodeURI(obj.id),  //选中的企业mn
         };
         $('#aod').text(eidtobj.name)
         // $('#titL').text(eidtobj.unitName)
@@ -120,7 +121,8 @@
             table.reload('tableid', {
                 where: {
                     datatime: layui.$('#etime').val(),
-                    mn: eidtobj.mn
+                    mn: eidtobj.mn,
+                    id: eidtobj.id
                 } //设定异步数据接口的额外参数，任意设
             });
 
@@ -145,7 +147,8 @@
                 , url: httpUrl + 'report_forms/hdsMonthreportTetail' //数据接口
                 , where: {
                     datatime: layui.$('#etime').val(),
-                    mn: mn
+                    mn: mn,
+                    id: eidtobj.id
                 }
                 , page: false//开启分页
                 , cols: [[ //表头

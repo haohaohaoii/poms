@@ -116,8 +116,11 @@ html, body {
 
     width: 285px;
     /*box-shadow: 0px 0 35px #cfd0d2;*/
-    border: 2px solid #b1bdc9;
+    /* border: 2px solid #b1bdc9; */
     overflow: visible;
+    background:rgba(255,255,255,1);
+    box-shadow:0px 2px 10px 0px rgba(0, 0, 0, 0.4);
+    border-radius:1px 1px 1px 1px;
 
 }
 
@@ -141,7 +144,7 @@ html, body {
 }
 
 .layui-body {
-    left: 310px;
+    left: 285px;
 }
 
 iframe {
