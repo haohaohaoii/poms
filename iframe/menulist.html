@@ -10,12 +10,16 @@
     <link rel="stylesheet" href="../css/modules/layer/default/layer.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/map.css">
-
+    <style>
+        .layui-form-item {
+            margin: 4px -10px
+        }
+    </style>
 </head>
 
 <div class="container">
     <div class="layui-row lrow">
-        <span class="layui-breadcrumb" lay-separator=">">
+        <span class="layui-breadcrumb" lay-separator=":">
             <a href="javascript:;">当前位置</a>
             <a href="../index.html" target="_top">首页</a>
             <a href="javascript:;">系统设置</a>
@@ -104,7 +108,11 @@
             //            } //开启分页
             , cols: [[ //表头
                 // {field: 'id', title: 'ID', width:'5%', fixed: 'left'},
-                { field: 'menu_name', title: '菜单名称', width: '22%' },
+                {
+                    field: 'menu_name', title: '菜单名称', width: '22%', align: 'center', templet: function (d) {
+                        return '<div style="text-align:left">' + d.menu_name + '</div>'
+                    }
+                },
                 { field: 'menu_link', title: '访问地址', width: '25%' },
                 {
                     field: 'leval', title: '菜单级别', width: '20%', templet: function (leval) {

@@ -19,7 +19,7 @@
 
 <div class="container">
   <div class="layui-row lrow">
-    <span class="layui-breadcrumb" lay-separator=">">
+    <span class="layui-breadcrumb" lay-separator=":">
       <a href="javascript:;">当前位置</a>
       <a href="../index.html" target="_top">首页</a>
       <a href="javascript:;">信息管理</a>
@@ -47,8 +47,8 @@
           <div class="layui-input-block">
             <button class="layui-btn  layui-btn-radius layui-btn-normal" lay-submit lay-filter="sub">查询
             </button>
-            <button type="reset" class="layui-btn layui-btn-radius layui-btn-normal" lay-submit lay-filter="reset">重置
-            </button>
+            <!-- <button type="reset" class="layui-btn layui-btn-radius layui-btn-normal" lay-submit lay-filter="reset">重置
+            </button> -->
           </div>
         </div>
       </div>
@@ -127,20 +127,20 @@
       });
     }
 
-    form.on('submit(reset)', function (data) {
-      $('#ename').val('');
-      $('#mn').val('');
-      table.reload('tableid', {
-        where: {
-          ename: '',
-          mn: ''
-        } //设定异步数据接口的额外参数，任意设
-        , page: {
-          curr: 1 //重新从第 1 页开始
-        }
-      });
-      return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
-    });
+    // form.on('submit(reset)', function (data) {
+    //   $('#ename').val('');
+    //   $('#mn').val('');
+    //   table.reload('tableid', {
+    //     where: {
+    //       ename: '',
+    //       mn: ''
+    //     } //设定异步数据接口的额外参数，任意设
+    //     , page: {
+    //       curr: 1 //重新从第 1 页开始
+    //     }
+    //   });
+    //   return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+    // });
 
     //第一个实例
     table.render({
@@ -159,10 +159,18 @@
 
         //                {field: 'id', title: 'ID', width:'5%', fixed: 'left'}
         { field: 'ename', title: '企业名称', width: 220 }
-        , { field: 'linkman', title: '联系人' }
+        , {
+          field: 'linkman', title: '联系人', align: 'center', templet: function (d) {
+            return '<div style="text-align:left">' + d.linkman + '</div>'
+          }
+        }
         , { field: 'username', title: '企业登录名' }
         , { field: 'linktel', title: '联系电话' }
-        , { field: 'addr', title: '企业地址' }
+        , {
+          field: 'addr', title: '企业地址', width: 220, align: 'center', templet: function (d) {
+            return '<div style="text-align:left">' + d.addr + '</div>'
+          }
+        }
         , { field: 'mn', title: 'MN号' }
         , { field: 'pw', title: '上传密码' }
         , {

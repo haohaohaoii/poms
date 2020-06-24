@@ -10,11 +10,16 @@
     <link rel="stylesheet" href="../css/modules/layer/default/layer.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/map.css">
+    <style>
+        .layui-form-item {
+            margin: 4px -10px
+        }
+    </style>
 </head>
 
 <div class="container">
     <div class="layui-row lrow">
-        <span class="layui-breadcrumb" lay-separator=">">
+        <span class="layui-breadcrumb" lay-separator=":">
             <a href="javascript:;">当前位置</a>
             <a href="../index.html" target="_top">首页</a>
             <a href="javascript:;">系统设置</a>
@@ -103,10 +108,14 @@
             //
             //            } //开启分页
             , cols: [[ //表头
-                { field: 'id', title: 'ID', width: '5%', fixed: 'left' },
-                { field: 'role_name', title: '角色名称', width: '45%' },
+                { field: 'id', title: 'ID', width: '10%', fixed: 'left' },
                 {
-                    field: 'create_time', title: '时间', width: '40%', templet: function (time) {
+                    field: 'role_name', title: '角色名称', align: 'center', templet: function (d) {
+                        return '<div style="text-align:left">' + d.role_name + '</div>'
+                    }
+                },
+                {
+                    field: 'create_time', title: '时间', templet: function (time) {
                         return time.create_time.substr(0, 10)
                     }
                 }

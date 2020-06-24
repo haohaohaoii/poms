@@ -10,12 +10,16 @@
     <link rel="stylesheet" href="../css/modules/layer/default/layer.css">
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/map.css">
-
+    <style>
+        .layui-form-item {
+            margin: 4px -10px
+        }
+    </style>
 </head>
 
 <div class="container">
     <div class="layui-row lrow">
-        <span class="layui-breadcrumb" lay-separator=">">
+        <span class="layui-breadcrumb" lay-separator=":">
             <a href="javascript:;">当前位置</a>
             <a href="../index.html" target="_top">首页</a>
             <a href="javascript:;">系统设置</a>
@@ -108,10 +112,22 @@
             //            } //开启分页
             , cols: [[ //表头
                 // {field: 'id', title: 'ID', width:'5%', fixed: 'left'},
-                { field: 'dept_name', title: '部门名称', width: '22%' },
-                { field: 'dept_addr', title: '部门地址', width: '23%' },
+                {
+                    field: 'dept_name', title: '部门名称', width: '22%', align: 'center', templet: function (d) {
+                        return '<div style="text-align:left">' + d.dept_name + '</div>'
+                    }
+                },
+                {
+                    field: 'dept_addr', title: '部门地址', width: '23%', align: 'center', templet: function (d) {
+                        return '<div style="text-align:left">' + d.dept_addr + '</div>'
+                    }
+                },
                 { field: 'dept_tel', title: '部门电话', width: '15%' },
-                { field: 'dept_linkman', title: '部门联系人', width: '14%' },
+                {
+                    field: 'dept_linkman', title: '部门联系人', width: '14%', align: 'center', templet: function (d) {
+                        return '<div style="text-align:left">' + d.dept_linkman + '</div>'
+                    }
+                },
                 {
                     field: 'create_time', title: '时间', width: '16%', templet: function (time) {
                         return time.create_time.substr(0, 10)

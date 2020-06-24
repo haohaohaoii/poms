@@ -10,12 +10,16 @@
   <link rel="stylesheet" href="../css/modules/layer/default/layer.css">
   <link rel="stylesheet" href="../css/reset.css">
   <link rel="stylesheet" href="../css/map.css">
-
+  <style>
+    .layui-form-item {
+      margin: 4px -10px
+    }
+  </style>
 </head>
 
 <div class="container">
   <div class="layui-row lrow">
-    <span class="layui-breadcrumb" lay-separator=">">
+    <span class="layui-breadcrumb" lay-separator=":">
       <a href="javascript:;">当前位置</a>
       <a href="../index.html" target="_top">首页</a>
       <a href="javascript:;">系统设置</a>
@@ -111,7 +115,11 @@
       //            } //开启分页
       , cols: [[ //表头
         { field: 'username', title: '用户名', fixed: 'left' },
-        { field: 'realname', title: '真实名称' },
+        {
+          field: 'realname', title: '真实名称', align: 'center', templet: function (d) {
+            return '<div style="text-align:left">' + d.realname + '</div>'
+          }
+        },
         { field: 'linktel', title: '电话' },
         { field: 'emails', title: '邮箱' },
         // {field: 'dept_name', title: '所属部门', width: '13%'},

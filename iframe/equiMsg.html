@@ -28,7 +28,7 @@
 
 <div class="container">
     <div class="layui-row lrow">
-        <span class="layui-breadcrumb" lay-separator=">">
+        <span class="layui-breadcrumb" lay-separator=":">
             <a href="javascript:;">当前位置</a>
             <a href="../index.html" target="_top">首页</a>
             <a href="javascript:;">信息管理</a>
@@ -135,7 +135,11 @@
                 where: { mn: $('#qylist').val() }
                 , cols: [[ //表头
                     //   {field: 'id', title: 'ID', width:'5%', fixed: 'left'}
-                    { field: 'uname', title: '设备名称', width: '15%', fixed: 'left' }
+                    {
+                        field: 'uname', title: '设备名称', width: '15%', fixed: 'left', align: 'center', templet: function (d) {
+                            return '<div style="text-align:left">' + d.uname + '</div>'
+                        }
+                    }
                     , { field: 'mcode', title: '设备编码' }
                     , {
                         field: 'datatime', title: '添加时间', templet: function (time) {
@@ -160,7 +164,7 @@
                                     oiname = '进出同口';
                                     break;
                             }
-                            return oiname;
+                            return '<div style="text-align:left">' + oiname + '</div>'
                         }
 
                     }
@@ -180,7 +184,7 @@
                                     mtypename = '电表';
                                     break;
                             }
-                            return mtypename;
+                            return '<div style="text-align:left">' + mtypename + '</div>'
                         }
 
                     }
