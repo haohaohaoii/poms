@@ -144,12 +144,14 @@
 
         var ename = decodeURI(router.search.ename)
         if (router.search.mn) {
-            $('#one').css('display', 'none')
             $('#two').css('display', 'block')
+            $('#one').css('display', 'none')
+
             $('#witchqy').text(ename)
         } else {
-            $('#two').css('display', 'none')
             $('#one').css('display', 'block')
+            $('#two').css('display', 'none')
+
         }
         //获取企业设备列表
         function getdevlist(mn) {
@@ -385,7 +387,7 @@
                     newAr = ar
                 }
                 resolve(newAr)
-
+                newAr.splice(newAr.length - 1, 1)
                 console.log(newAr)
                 newAr.reverse()
             })
@@ -510,7 +512,7 @@
                         , { field: 'day4', title: '' }
                         , { field: 'day5', title: '' }
                         , { field: 'day6', title: '' }
-                        , { field: 'day7', title: '' }]
+                    ]
                     if (ym) {
                         index = 1
                     }

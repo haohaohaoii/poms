@@ -113,6 +113,7 @@
             margin-left: 20px;
             overflow-y: hidden;
             height: 1000px;
+            position: relative;
         }
 
         .layui-card {
@@ -287,6 +288,114 @@
             right: 10px;
             top: 7px;
             cursor: pointer;
+        }
+
+        .box {
+
+            margin: 100px auto;
+
+            width: 50px;
+
+            height: 60px;
+
+
+            position: absolute;
+            z-index: 999;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+
+        }
+
+        .box>div {
+
+            background-color: rgb(20, 146, 255);
+
+            height: 100%;
+
+            width: 6px;
+
+            display: inline-block;
+
+            -webkit-animation: stretchdelay 1.2s infinite ease-in-out;
+
+            animation: stretchdelay 1.2s infinite ease-in-out;
+
+        }
+
+        .box .r2 {
+
+            -webkit-animation-delay: -1.1s;
+
+            animation-delay: -1.1s;
+
+        }
+
+        .box .r3 {
+
+            -webkit-animation-delay: -1.0s;
+
+            animation-delay: -1.0s;
+
+        }
+
+        .box .r4 {
+
+            -webkit-animation-delay: -0.9s;
+
+            animation-delay: -0.9s;
+
+        }
+
+        .box .r5 {
+
+            -webkit-animation-delay: -0.8s;
+
+            animation-delay: -0.8s;
+
+        }
+
+        @-webkit-keyframes stretchdelay {
+
+            0%,
+
+            40%,
+
+            100% {
+
+                -webkit-transform: scaleY(0.4)
+            }
+
+            20% {
+
+                -webkit-transform: scaleY(1.0)
+            }
+
+        }
+
+        @keyframes stretchdelay {
+
+            0%,
+
+            40%,
+
+            100% {
+
+                transform: scaleY(0.4);
+
+                -webkit-transform: scaleY(0.4);
+
+            }
+
+            20% {
+
+                transform: scaleY(1.0);
+
+                -webkit-transform: scaleY(1.0);
+
+            }
+
         }
 
         @media screen and (max-width:1300px) {
@@ -563,11 +672,15 @@
                             <div class="ms">
                                 <div class="ms_tip">
                                     <span class="ydbs"></span>
-                                    <p>在线：70</p>
+                                    <p>在线：
+                                        <span id="sxt_online"></span>
+                                    </p>
                                 </div>
                                 <div class="ms_tip">
                                     <span class="ydbs2"></span>
-                                    <p>离线：40</p>
+                                    <p>离线：
+                                        <span id="sxt_unline"></span>
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -613,7 +726,7 @@
                         </div>
                     </form>
                     <p class="jzsj">截止时间:
-                        <span>2020-06-23 00:00</span>
+                        <span id="jzrq"></span>
                     </p>
                 </div>
                 <div class="layui-card-body">
@@ -661,552 +774,28 @@
         <div class="homeR layui-card">
             <div class="layui-card-header">
                 <span class="tip"></span>
-                企业实时预警信息： <span style="color:#FF8D1A">12</span>/15
+                企业实时预警信息：
+                <span style="color:#FF8D1A" id="zx">
+                </span><span id="zs"></span>
                 <img class="sx" src="../images/img/sx.png" alt="" title="点击刷新">
 
             </div>
             <div id="d">
+                <div id="lod">
+
+                    <div class="r1"></div>
+
+                    <div class="r2"></div>
+
+                    <div class="r3"></div>
+
+                    <div class="r4"></div>
+
+                    <div class="r5"></div>
+
+                </div>
                 <ul class="roll__list" style="position: relative; top: 0;">
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>康健化工有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">1903.86</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 13:48</span>
-                                </p>
-                            </div>
-                        </div>
 
-                    </li>
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>洁神净化有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">1784.86</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 14:17</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>六通实业有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">1688.95</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 14:29</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>汇丰染化有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">1874.86</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 10:35</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>海华化工有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">1684.74</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 13:08</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>台硝化工有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">1866.43</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 10:05</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>博源生物有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">2359.88</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 15:25</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>红绿蓝燃料有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">1876.86</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 09:55</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>华幸生物有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">1296.35</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 14:47</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>瑞诚科技有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">1109.97</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 10:48</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>群鹏实业有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">2118.56</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 14:17</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>海伦燃料有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">1867.21</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 13:48</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>巨人工贸有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">1964.23</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 11:35</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>双新生物有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">1327.28</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 14:05</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    </li>
-                    <li class="layui-card-body">
-                        <div class="qymc">
-                            <div class="tipName">
-                                <img src="../images/img/sybs.png" alt="">
-                                <span>金三角化工有限公司</span>
-                            </div>
-                            <div class="tipon">
-                                <p>
-                                    联网状态:
-                                    <span>离线</span>
-                                </p>
-                                <p>
-                                    阀门状态:
-                                    <span>关</span>
-                                </p>
-                                <p>
-                                    检测仪表:
-                                    <span>10/14</span>
-                                </p>
-                                <p>
-                                    摄像头:
-                                    <span>8/12</span>
-                                </p>
-                                <p>
-                                    今日排放量:
-                                    <span class="num">1867.98</span> (吨)
-                                </p>
-                            </div>
-                            <div class="tipbottom">
-                                <p>更新时间:
-                                    <span>2020-06-23 15:25</span>
-                                </p>
-                            </div>
-                        </div>
-
-                    </li>
                 </ul>
             </div>
 
@@ -1240,16 +829,11 @@
     function tz(mn) {
         window.parent.at(mn);
     }
-    $('#d').rollSlide({
-        orientation: 'top',
-        num: 1,
-        v: 1500,
-        space: 1000,
-        isRoll: true
-    });
-    layui.use(['form', 'laydate', 'layer', 'laypage', 'element', 'table'], function () {
+
+    layui.use(['form', 'laydate', 'layer', 'laypage', 'element', 'table', 'layer'], function () {
         var element = layui.element;
         var router = layui.router();
+        var layer = layui.layer
         var form = layui.form
         var city = obj.city ? obj.city : ''
         var province = obj.province ? obj.province : ''
@@ -1376,6 +960,7 @@
                     myChart_zxtj.showLoading({
                         text: '',
                         textStyle: { fontSize: 30, color: '#444' },
+                        color: 'rgb(20,146,255)', //加载动画颜色
                         effectOption: { backgroundColor: 'rgba(0, 0, 0, 0)' }
                     });
 
@@ -1527,8 +1112,8 @@
                         avoidLabelOverlap: false,
                         center: ['50%', '50%'],
                         data: [
-                            { value: 70, name: '在线' },
-                            { value: 40, name: '离线' },
+                            { value: '', name: '在线' },
+                            { value: '', name: '离线' }
                         ],
                         emphasis: {
                             itemStyle: {
@@ -1547,7 +1132,37 @@
                     }
                 ]
             };
-            myChart_sxt.setOption(option);
+            layui.$.ajax({
+                url: httpUrl + 'cameraInfo/getCameraOnline',
+                type: 'get',
+                data: {
+                    deptid: localStorage.getItem('deptid'),
+                    city: router.search.city,
+                    province: router.search.province,
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    myChart_sxt.showLoading({
+                        text: '',
+                        textStyle: { fontSize: 30, color: '#444' },
+                        color: 'rgb(20,146,255)', //加载动画颜色
+                        effectOption: { backgroundColor: 'rgba(0, 0, 0, 0)' }
+                    });
+
+                },
+                success: function (data) {
+                    var d = data.data
+                    $('#sxt_online').text(d.online)
+                    $('#sxt_unline').text(d.noline)
+                    option.series[0].data[0].value = d.online
+                    option.series[0].data[1].value = d.noline
+                    myChart_sxt.setOption(option);
+
+                },
+                complete: function () {
+                    myChart_sxt.hideLoading();
+                },
+            })
         })
 
         //阀门状态统计
@@ -1643,6 +1258,7 @@
                     myChart_fm.showLoading({
                         text: '',
                         textStyle: { fontSize: 30, color: '#444' },
+                        color: 'rgb(20,146,255)', //加载动画颜色
                         effectOption: { backgroundColor: 'rgba(0, 0, 0, 0)' }
                     });
 
@@ -1662,28 +1278,29 @@
             })
 
         })
-        //实时排放统计
-        // form.on('select(nowpf)', function (data) {        //对应lay-filter
-        //     debugger
-        //     console.log(data)
-        // })
-        $(function () {
 
+        // 实时排放统计
+        pftj()
+        form.on('select(nowpf)', function (data) {        //对应lay-filter
+            console.log(data)
+            pftj()
+        })
+        function pftj() {
             var myChart_pf = echarts.init(document.getElementById('canvas_pf'));
             var option = {
 
                 grid: {
-
                     left: '2%',
-                    right: '4%',
-
+                    right: '2%',
+                    top: '4%',
+                    bottom: '4%',
                     containLabel: true
                 },
 
                 tooltip: {
                     trigger: "axis", //坐标轴触发提示框
                     axisPointer: {
-
+                        type: "shadow",
                         lineStyle: {
                             color: '#C3CBD6'
                         }
@@ -1710,34 +1327,20 @@
                     },
                     axisLabel: {
                         interval: 0,//横轴信息全部显示
-                        rotate: 45,//度角倾斜显示
+                        rotate: -45,//度角倾斜显示
                         formatter: function (value) {//只显示五个字 其余省略号
-                            return value.length > 5 ? value.substring(0, 5) + '...' : value;
+                            return value.length > 7 ? value.substring(0, 7) + '...' : value;
                         }
                     },
-                    // axisLabel: {
-                    //     show: true,
-                    //     interval: 0,
-                    //     rotate: 40,
-                    //     textStyle: {
-                    //         fontSize: 14
-                    //     }
-                    // },
                     data: []
                 }],
                 yAxis: [{
                     type: 'value',
                     max: '',
-                    axisTick: {
-                        show: false
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: '#999999'
-                        }
-                    },
+                    min: 0,
+                    splitNumber: 7,
                     axisLabel: {
-                        margin: 10,
+
                         textStyle: {
                             fontSize: 14
                         }
@@ -1780,8 +1383,6 @@
                                     }
                                 }
                             }
-
-
                         },
                         emphasis: {
                             itemStyle: {
@@ -1795,6 +1396,38 @@
                                 )
                             }
                         },
+                        // markArea: {
+                        //     data: [
+                        //         [{
+                        //             yAxis: 0,
+                        //             itemStyle: {
+                        //                 color: '#fff'
+
+                        //             }
+                        //         }, {
+                        //             yAxis: '20000'
+                        //         }],
+                        //         [{
+                        //             yAxis: '20000',
+                        //             itemStyle: {
+                        //                 color: '#F8F8FA'
+
+                        //             }
+                        //         }, {
+                        //             yAxis: '40000'
+                        //         }],
+                        //         [{
+                        //             yAxis: '40000',
+                        //             itemStyle: {
+                        //                 color: '#fff'
+
+                        //             }
+                        //         }, {
+                        //             yAxis: '60000'
+                        //         }]
+                        //     ]
+                        // },
+
                         data: []
                     }
                 ]
@@ -1813,12 +1446,13 @@
                     myChart_pf.showLoading({
                         text: '',
                         textStyle: { fontSize: 30, color: '#444' },
+                        color: 'rgb(20,146,255)', //加载动画颜色
                         effectOption: { backgroundColor: 'rgba(0, 0, 0, 0)' }
                     });
 
                 },
                 success: function (data) {
-
+                    $('#jzrq').text(data.erpsname)
                     var d = data.data
                     if (d && d.length > 0) {
                         var xData = []  //x轴企业
@@ -1834,6 +1468,7 @@
                         }
 
                         max = Math.ceil(max)
+                        max = max + 10000
                         option.xAxis[0].data = xData
                         option.series[0].data = yData
                         option.yAxis[0].max = max
@@ -1844,8 +1479,9 @@
                     myChart_pf.hideLoading();
                 },
             })
-        })
+        }
 
+        //企业排放预警走势
         $(function () {
             var myChart_yj = echarts.init(document.getElementById('canvas_yj'));
             var option = {
@@ -1942,11 +1578,113 @@
                                 borderWidth: 12
                             }
                         },
+
                         data: [5, 25, 13, 15, 18, 14, 20, 25, 22, 27, 18, 28]
                     }
                 ]
             }
             myChart_yj.setOption(option);
+        })
+
+        //企业实时预警信息
+        function qyList(t) {
+            layer.load();
+            layui.$.ajax({
+                url: httpUrl + 'erps/real_time_warning',
+                type: 'get',
+                data: {
+                    deptid: localStorage.getItem('deptid'),
+                    city: router.search.city,
+                    province: router.search.province
+                },
+                dataType: 'json',
+                beforeSend: function () {
+                    $('#lod').addClass('box')
+                },
+                success: function (data) {
+
+                    $('#zx').text(data.code)
+                    $('#zs').text('/' + data.count)
+                    var d = data.data
+                    if (d && d.length > 0) {
+                        var opt = ''
+
+                        for (var m = 0; m < d.length; m++) {
+                            opt +=
+                                `<li class="layui-card-body" mn=${d[m].mn} name=${d[m].ename}>
+                                    <div class="qymc">
+                                        <div class="tipName">
+                                            <img src="../images/img/sybs.png" alt="">
+                                            <span>${d[m].ename}</span>
+                                        </div>
+                                        <div class="tipon">
+                                            <p>
+                                                联网状态:
+                                                <span>${d[m].erponline}</span>
+                                            </p>
+                                            <p>
+                                                阀门状态:
+                                                <span>${d[m].valvestatus == 1 ? '开' : '关'}</span>
+                                            </p>
+                                            <p>
+                                                检测仪表:
+                                                <span>
+                                                    <span>${d[m].rtdsOnline}</span>/<span>${d[m].rtdsCount}</span>
+                                                </span>
+                                            </p>
+                                            <p>
+                                                摄像头:
+                                                <span>
+                                                    <span>${d[m].CameraonliCount}</span>/<span>${d[m].CameraCount}</span>
+                                                </span>
+                                            </p>
+                                            <p>
+                                                今日排放量:
+                                                <span class="num">${d[m].hdsCount}</span> (吨)
+                                            </p>
+                                        </div>
+                                        <div class="tipbottom">
+                                            <p>更新时间:
+                                                <span>${d[m].datatime}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                </li>`
+                        }
+                        $('.roll__list').html(opt)
+                        if (t == '1') {
+                            $('#d').rollSlide({
+                                orientation: 'top',
+                                num: 1,
+                                v: 1500,
+                                space: 1000,
+                                isRoll: true
+                            });
+                        }
+
+                    }
+                },
+                complete: function () {
+                    $('#lod').removeClass('box')
+                }
+            })
+        }
+        qyList('1')
+
+        //跳转企业
+        $(".roll__list").on("click", "li", function () {
+            console.log($(this).attr('mn'))
+            var mn = $(this).attr('mn')
+            var name = $(this).attr('name')
+            window.location.href = './city/' + (mn ? mn : "l000000") + '.html#/mn=' + mn + '/ename=' + name
+        })
+        //刷新
+        $('.sx').click(function () {
+
+            $('.roll__list').html('')
+
+            qyList('2')
         })
     });
 </script>
