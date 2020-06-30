@@ -1,11 +1,14 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN” “http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>新乡流量监控平台</title>
     <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/modules/laydate/default/laydate.css">
+    <link rel="stylesheet" href="../css/modules/layer/default/layer.css">
     <link rel="stylesheet" href="../css/reset.css">
     <style>
         html {
@@ -114,6 +117,7 @@
             overflow-y: hidden;
             height: 1000px;
             position: relative;
+            border-radius: 10px;
         }
 
         .layui-card {
@@ -169,10 +173,11 @@
 
         .ms {
             height: 50px;
+            margin-bottom: 10px;
             /* background: antiquewhite; */
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: space-around;
         }
 
         .ms .ms_tip {
@@ -235,7 +240,10 @@
 
         .tipName img {
             width: 24px;
-            margin-left: 10px;
+            /* margin-left: 10px; */
+            position: absolute;
+            left: 30px;
+            top: 20px;
         }
 
         .tipName span {
@@ -416,9 +424,9 @@
                 height: 130px;
             }
 
-            .ms .ms_tip {
+            /* .ms .ms_tip {
                 margin-left: 50px;
-            }
+            } */
 
             .homeL_c {
                 height: 360px;
@@ -474,9 +482,9 @@
                 height: 140px;
             }
 
-            .ms .ms_tip {
+            /* .ms .ms_tip {
                 margin-left: 50px;
-            }
+            } */
 
             .homeL_c {
                 height: 380px;
@@ -514,9 +522,9 @@
                 height: 140px;
             }
 
-            .ms .ms_tip {
+            /* .ms .ms_tip {
                 margin-left: 60px;
-            }
+            } */
 
             .homeL_c {
                 height: 400px;
@@ -550,9 +558,9 @@
                 height: 180px;
             }
 
-            .ms .ms_tip {
+            /* .ms .ms_tip {
                 margin-left: 60px;
-            }
+            } */
 
             .homeL_c {
                 height: 470px;
@@ -591,9 +599,9 @@
                 height: 160px;
             }
 
-            .ms .ms_tip {
+            /* .ms .ms_tip {
                 margin-left: 60px;
-            }
+            } */
 
             .homeL_c {
                 height: 440px;
@@ -608,10 +616,103 @@
                 height: 380px;
             }
         }
+
+        #ui,
+        #fmDetail {
+            height: 100%;
+        }
+
+        #fmDetail .ydbs {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: rgba(76, 162, 254, 1);
+            border-radius: 50%;
+            vertical-align: text-bottom;
+            margin-left: 5px;
+        }
+
+        #fmDetail .ydbs2 {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: rgba(255, 141, 26, 1);
+            border-radius: 50%;
+            vertical-align: text-bottom;
+            margin-left: 5px;
+
+        }
+
+        #ui .name {
+            display: inline-block;
+            width: 250px;
+        }
+
+        #fmDetail .name {
+            display: inline-block;
+            width: 250px;
+        }
+
+        #ui ul {
+            width: 90%;
+            height: 90%;
+            border: 1px solid #C3C3C3;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px;
+        }
+
+        #fmDetail ul {
+            width: 90%;
+            height: 90%;
+            border: 1px solid #C3C3C3;
+            position: relative;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px;
+        }
+
+        #ui li p {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 31px;
+            line-height: 31px;
+        }
+
+        #fmDetail li p {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 31px;
+            line-height: 31px;
+        }
+
+        #ui li p .tz {
+            font-size: 14px;
+            font-family: Microsoft YaHei;
+            font-weight: 400;
+            color: rgba(102, 102, 102, 1);
+        }
+
+        #fmDetail li p .tz {
+            font-size: 14px;
+            font-family: Microsoft YaHei;
+            font-weight: 400;
+            color: rgba(102, 102, 102, 1);
+        }
+
+        .tz:hover {
+            color: #1492ff !important;
+        }
     </style>
 </head>
 
 <div class="container">
+
     <div class="layui-row lrow">
         <span class="layui-breadcrumb" lay-separator=":">
             <a href="javascript:;">当前位置</a>
@@ -622,6 +723,7 @@
     <div class="padd"></div>
 
     <div class="home">
+
         <div class="homeL">
             <div class="homeL_t layui-card">
 
@@ -634,18 +736,21 @@
                         <div class="itemC">
                             <div class="canv" id="canvas_zxtj"></div>
                             <div class="ms">
-                                <div class="ms_tip">
-                                    <span class="ydbs"></span>
-                                    <p>在线：
-                                        <span id="qy_online"></span>
-                                    </p>
+                                <div style="display: flex;justify-content: space-around;">
+                                    <div class="ms_tip">
+                                        <span class="ydbs"></span>
+                                        <span>在线：
+                                            <span id="qy_online"></span>
+                                        </span>
+                                    </div>
+                                    <div class="ms_tip">
+                                        <span class="ydbs2"></span>
+                                        <span>离线：
+                                            <span id="qy_unline"></span>
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="ms_tip">
-                                    <span class="ydbs2"></span>
-                                    <p>离线：
-                                        <span id="qy_unline"></span>
-                                    </p>
-                                </div>
+                                <p style="text-align: center;color: #1492ff;cursor: pointer;" id="qyline">点击查看详情</p>
                             </div>
                         </div>
                     </div>
@@ -654,13 +759,15 @@
                         <div class="itemC">
                             <div class="canv" id="canvas_pfyj"></div>
                             <div class="ms">
-                                <div class="ms_tip">
-                                    <span class="ydbs"></span>
-                                    <p>正常：30</p>
-                                </div>
-                                <div class="ms_tip">
-                                    <span class="yjtip"></span>
-                                    <p>异常：80</p>
+                                <div style="display: flex;justify-content: space-around;">
+                                    <div class="ms_tip">
+                                        <span class="ydbs"></span>
+                                        <p>正常：30</p>
+                                    </div>
+                                    <div class="ms_tip">
+                                        <span class="yjtip"></span>
+                                        <p>异常：80</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -670,17 +777,19 @@
                         <div class="itemC">
                             <div class="canv" id="canvas_sxt"></div>
                             <div class="ms">
-                                <div class="ms_tip">
-                                    <span class="ydbs"></span>
-                                    <p>在线：
-                                        <span id="sxt_online"></span>
-                                    </p>
-                                </div>
-                                <div class="ms_tip">
-                                    <span class="ydbs2"></span>
-                                    <p>离线：
-                                        <span id="sxt_unline"></span>
-                                    </p>
+                                <div style="display: flex;justify-content: space-around;">
+                                    <div class="ms_tip">
+                                        <span class="ydbs"></span>
+                                        <p>在线：
+                                            <span id="sxt_online"></span>
+                                        </p>
+                                    </div>
+                                    <div class="ms_tip">
+                                        <span class="ydbs2"></span>
+                                        <p>离线：
+                                            <span id="sxt_unline"></span>
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -690,18 +799,21 @@
                         <div class="itemC">
                             <div class="canv" id="canvas_fm"></div>
                             <div class="ms">
-                                <div class="ms_tip">
-                                    <span class="ydbs"></span>
-                                    <p>开启：
-                                        <span id="fm_open"></span>
-                                    </p>
+                                <div style="display: flex;justify-content: space-around;">
+                                    <div class="ms_tip">
+                                        <span class="ydbs"></span>
+                                        <p>开启：
+                                            <span id="fm_open"></span>
+                                        </p>
+                                    </div>
+                                    <div class="ms_tip">
+                                        <span class="fmtip"></span>
+                                        <p>关闭：
+                                            <span id="fm_close"></span>
+                                        </p>
+                                    </div>
                                 </div>
-                                <div class="ms_tip">
-                                    <span class="fmtip"></span>
-                                    <p>关闭：
-                                        <span id="fm_close"></span>
-                                    </p>
-                                </div>
+                                <p style="text-align: center;color: #1492ff;cursor: pointer;" id="xqfm">点击查看详情</p>
                             </div>
                         </div>
                     </div>
@@ -801,6 +913,20 @@
 
         </div>
     </div>
+</div>
+<!--企业在线统计详情弹窗-->
+<div id="ui" style="display: none;">
+    <ul id="uil">
+
+    </ul>
+
+</div>
+<!--阀门状态统计详情弹窗-->
+<div id="fmDetail" style="display: none;">
+    <ul id="fmList">
+
+    </ul>
+
 </div>
 <script src="../js/ztree/jquery.min.js"></script>
 <script src="../js/rollSlide.js"></script>
@@ -978,6 +1104,61 @@
                 },
             })
         })
+
+        //企业在线详情
+        $('#qyline').click(function () {
+
+            layer.open({
+                title: ['企业在线统计', 'background:#1492FF;color:white;font-size:18px;font-weight:400;'],
+                type: 1,
+                content: $('#ui'),
+                area: ['500px', '568px'], //宽高
+                success: function () {
+
+                    $('#ui').css('display', 'block');
+                    layui.$.ajax({
+                        url: httpUrl + 'erps/StuteErpsDetail',
+                        type: 'get',
+                        data: {
+                            deptid: localStorage.getItem('deptid'),
+                            city: router.search.city,
+                            province: router.search.province
+                        },
+                        dataType: 'json',
+
+                        success: function (data) {
+
+                            var d = data.data
+                            if (d && d.length > 0) {
+                                var opt = ''
+                                for (var n = 0; n < d.length; n++) {
+                                    opt +=
+                                        '<li>' +
+                                        '<p>' +
+                                        '<span class="name">' + d[n].ename + '</span>' +
+                                        '<span style="position: relative;">' +
+                                        '<span>' + d[n].onlinestat + '</span>' +
+                                        '<img src=' + (d[n].onlinestat == "在线" ? "../images/img/zx.png" : "../images/img/lx.png") + ' ' + 'style="position: absolute;left: 32px;top: 7px;">' +
+
+                                        '</span>' +
+                                        '<span class="tz" atr=' + d[n].mn + ' name=' + d[n].ename + '' + ' style="cursor: pointer;">点击进入</span>' +
+                                        '</p>' +
+                                        '</li>'
+                                }
+                                $('#uil').html(opt)
+                            }
+                        },
+
+                    })
+
+                },
+                cancel: function () {
+                    $('#ui').css('display', 'none')
+                }
+
+            });
+        })
+
         //排放预警统计
         $(function () {
             var myChart_pfyj = echarts.init(document.getElementById('canvas_pfyj'));
@@ -1279,6 +1460,58 @@
 
         })
 
+        //阀门状态详情
+        $('#xqfm').click(function () {
+
+            layer.open({
+                title: ['阀门状态统计', 'background:#1492FF;color:white;font-size:18px;font-weight:400;'],
+                type: 1,
+                content: $('#fmDetail'),
+                area: ['500px', '568px'], //宽高
+                success: function () {
+
+                    $('#fmDetail').css('display', 'block');
+                    layui.$.ajax({
+                        url: httpUrl + 'erps/getvalvestatusDetail',
+                        type: 'get',
+                        data: {
+                            deptid: localStorage.getItem('deptid'),
+                            city: router.search.city,
+                            province: router.search.province
+                        },
+                        dataType: 'json',
+
+                        success: function (data) {
+
+                            var d = data.data
+                            if (d && d.length > 0) {
+                                var opt = ''
+                                for (var n = 0; n < d.length; n++) {
+                                    opt +=
+                                        '<li>' +
+                                        '<p>' +
+                                        '<span class="name">' + d[n].ename + '</span>' +
+                                        '<span>' +
+                                        '<span>' + d[n].valves + '</span>' +
+                                        '<span class=' + (d[n].valves == "开启" ? "ydbs" : "ydbs2") + '></span>' +
+                                        '</span>' +
+                                        '<span class="tz" atr=' + d[n].mn + ' name=' + d[n].ename + '' + ' style="cursor: pointer;">点击进入</span>' +
+                                        '</p>' +
+                                        '</li>'
+                                }
+                                $('#fmList').html(opt)
+                            }
+                        },
+
+                    })
+
+                },
+                cancel: function () {
+                    $('#fmDetail').css('display', 'none')
+                }
+
+            });
+        })
         // 实时排放统计
         pftj()
         form.on('select(nowpf)', function (data) {        //对应lay-filter
@@ -1588,7 +1821,7 @@
 
         //企业实时预警信息
         function qyList(t) {
-            layer.load();
+
             layui.$.ajax({
                 url: httpUrl + 'erps/real_time_warning',
                 type: 'get',
@@ -1611,46 +1844,21 @@
 
                         for (var m = 0; m < d.length; m++) {
                             opt +=
-                                `<li class="layui-card-body" mn=${d[m].mn} name=${d[m].ename}>
-                                    <div class="qymc">
-                                        <div class="tipName">
-                                            <img src="../images/img/sybs.png" alt="">
-                                            <span>${d[m].ename}</span>
-                                        </div>
-                                        <div class="tipon">
-                                            <p>
-                                                联网状态:
-                                                <span>${d[m].erponline}</span>
-                                            </p>
-                                            <p>
-                                                阀门状态:
-                                                <span>${d[m].valvestatus == 1 ? '开' : '关'}</span>
-                                            </p>
-                                            <p>
-                                                检测仪表:
-                                                <span>
-                                                    <span>${d[m].rtdsOnline}</span>/<span>${d[m].rtdsCount}</span>
-                                                </span>
-                                            </p>
-                                            <p>
-                                                摄像头:
-                                                <span>
-                                                    <span>${d[m].CameraonliCount}</span>/<span>${d[m].CameraCount}</span>
-                                                </span>
-                                            </p>
-                                            <p>
-                                                今日排放量:
-                                                <span class="num">${d[m].hdsCount}</span> (吨)
-                                            </p>
-                                        </div>
-                                        <div class="tipbottom">
-                                            <p>更新时间:
-                                                <span>${d[m].datatime}</span>
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </li>`
+                                '<li class="layui-card-body" mn=' + d[m].mn + ' ' + 'name=' + d[m].ename + '>' +
+                                '<div class="qymc">' +
+                                '<div class="tipName"><img src="../images/img/sybs.png" alt=""><span>' + d[m].ename + '</span></div>' +
+                                '<div class="tipon">' +
+                                '<p>联网状态:<span>' + d[m].erponline + '</span></p>' +
+                                '<p>阀门状态:<span>' + (d[m].valvestatus == 1 ? "开" : "关") + '</span></p>' +
+                                '<p>检测仪表:<span><span>' + d[m].rtdsOnline + '</span>/<span>' + d[m].rtdsCount + '</span></span></p>' +
+                                '<p>摄像头:<span><span>' + d[m].CameraonliCount + '</span>/<span>' + d[m].CameraCount + '</span></span></p>' +
+                                '<p>今日排放量:<span class="num">' + d[m].hdsCount + '</span> (吨)</p>' +
+                                '</div>' +
+                                '<div class="tipbottom">' +
+                                '<p>更新时间:<span>' + d[m].datatime + '</span></p>' +
+                                '</div>' +
+                                '</div>' +
+                                '</li>'
                         }
                         $('.roll__list').html(opt)
                         if (t == '1') {
@@ -1672,10 +1880,26 @@
         }
         qyList('1')
 
-        //跳转企业
+        //从企业实时预警信息跳转企业
         $(".roll__list").on("click", "li", function () {
             console.log($(this).attr('mn'))
             var mn = $(this).attr('mn')
+            var name = $(this).attr('name')
+            window.location.href = './city/' + (mn ? mn : "l000000") + '.html#/mn=' + mn + '/ename=' + name
+        })
+        //从阀门状态统计详情跳转企业
+        $("#fmList").on("click", '.tz', function () {
+
+            console.log($(this).attr('atr'))
+            var mn = $(this).attr('atr')
+            var name = $(this).attr('name')
+            window.location.href = './city/' + (mn ? mn : "l000000") + '.html#/mn=' + mn + '/ename=' + name
+        })
+        //从阀门状态统计详情跳转企业
+        $("#ui").on("click", '.tz', function () {
+
+            console.log($(this).attr('atr'))
+            var mn = $(this).attr('atr')
             var name = $(this).attr('name')
             window.location.href = './city/' + (mn ? mn : "l000000") + '.html#/mn=' + mn + '/ename=' + name
         })

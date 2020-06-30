@@ -46,6 +46,29 @@
                 </select>
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">开始时间</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" id="stime" name="stime" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">结束时间</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" id="etime" name="etime" autocomplete="off">
+            </div>
+        </div>
+
+        <div class="layui-form-item" id="hide" style="margin-left: 25px;">
+            <div class="layui-input-inline">
+                <button type="button" class="layui-btn  layui-btn-radius  layui-btn-normal " lay-submit
+                    lay-filter="sub">查询</button>
+                <!-- <button type="reset" class="layui-btn layui-btn-radius layui-btn-normal" lay-submit
+                    lay-filter="reset">重置
+                </button> -->
+            </div>
+        </div>
 
     </form>
 
@@ -92,15 +115,19 @@
                 }
                 layui.$('#qylist').append(str);
                 form.render();
-                form.on('select(qy)', function () {
-                    rder($('#qylist').val())
-                })
+                // form.on('select(qy)', function () {
+                //     rder($('#qylist').val())
+                // })
                 rder($('#qylist').val())
             }
         });
         form.on('submit(sub)', function (data) {
             table.reload('tableid', {
-                where: { mn: $('#qylist').val() }//设定异步数据接口的额外参数，任意设
+                where: {
+                    mn: $('#qylist').val(),
+                    stime: $('#stime').val(),
+                    etime: $('#etime').val()
+                }
 
             });
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
@@ -110,9 +137,13 @@
             table.render({
                 elem: '#demo'
                 , height: 'full-130'
-                , url: httpUrl + 'cameraInfo/getCameraOnline' //数据接口
+                , url: httpUrl + 'cameraInfo/getCameraTimeDate' //数据接口
                 , limit: 10000,
-                where: { mn: $('#qylist').val() }
+                where: {
+                    mn: $('#qylist').val(),
+                    stime: $('#stime').val(),
+                    etime: $('#etime').val()
+                }
                 , cols: [[ //表头
                     //   {field: 'id', title: 'ID', width:'5%', fixed: 'left'}
                     {
@@ -126,25 +157,24 @@
                             return '<div style="text-align:left">' + d.camera_name + '</div>'
                         }
                     }
-                    , { field: 'region_index_code', title: '企业编码' }
-                    , { field: 'camera_index_code', title: '设备编码' }
+                    , { field: 'erp_index', title: '企业编码' }
+                    , { field: 'camera_index', title: '设备编码' }
                     , {
-                        field: 'status_code', title: '在线状态', templet: function (datas) {
-                            if (datas.status_code === 1) {
-                                datas.status_code = '在线'
-                                datas.status_code = datas.status_code + '<img src="../images/img/zx.png" style="padding-left:10px">'
-                            } else if (datas.status_code === "离线") {
-                                5
+                        field: 'stat', title: '在线状态', templet: function (datas) {
+                            if (datas.stat === 1) {
+                                datas.stat = '在线'
+                                datas.stat = datas.stat + '<img src="../images/img/zx.png" style="padding-left:10px">'
+                            } else if (datas.stat === "离线") {
 
-                                datas.status_code = '离线'
-                                datas.status_code = datas.status_code + '<img src="../images/img/lx.png" style="padding-left:10px">'
+                                datas.stat = '离线'
+                                datas.stat = datas.stat + '<img src="../images/img/lx.png" style="padding-left:10px">'
                             }
-                            return datas.status_code
+                            return datas.stat
                         }
                     }
                     , {
-                        field: 'datatime', title: '时间', templet: function (d) {
-                            var tim = new Date(d.datatime)
+                        field: 'ck_time', title: '时间', templet: function (d) {
+                            var tim = new Date(d.ck_time)
                             var y = tim.getFullYear();
                             var m = tim.getMonth() + 1
                             var d = tim.getDate()
@@ -175,6 +205,7 @@
                 ]],
                 id: 'tableid',
                 done: function (res, curr, count) {
+
                     layui.$('th').css({
                         'background-color': '#1492ff',
                         'color': '#fff',
