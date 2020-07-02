@@ -174,7 +174,13 @@
                     }
                     , {
                         field: 'ck_time', title: '时间', templet: function (d) {
-                            var tim = new Date(d.ck_time)
+                            var strTime = d.ck_time;
+                            strTime = strTime.replace(/T/g, ' ');
+                            strTime = strTime.replace(/-/g, '/');
+                            strTime = strTime.replace(/\.\d+/, ' ');//去掉毫秒
+                            strTime = strTime.split('+')
+                            var myDate = new Date(strTime[0] + '+0800');
+                            var tim = new Date(myDate)
                             var y = tim.getFullYear();
                             var m = tim.getMonth() + 1
                             var d = tim.getDate()

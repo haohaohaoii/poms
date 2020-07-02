@@ -28,7 +28,8 @@
             padding: 0 !important;
         }
 
-        .layui-table-cell:first-child {
+
+        .layui-table-view .layui-table th:first-child .laytable-cell-2-0-0 {
             padding: 0 !important;
         }
 
@@ -37,7 +38,7 @@
         }
 
         .canv {
-            width: 800px;
+            width: 840px;
             height: 400px;
         }
 
@@ -58,6 +59,8 @@
         #sbC {
             height: 160px;
             overflow-y: auto;
+            width: 98%;
+            margin-left: 2%;
         }
     </style>
 </head>
@@ -198,11 +201,12 @@
     </form>
     <div id="canvas_qxt" class="canv"></div>
     <form class="layui-form" id="sbC">
-        <span>
+        <!-- <div class="layui-form-item" style="margin: 0;"></div> -->
+        <!-- <span>
             <input type="checkbox" name="" value="123" title="写作写作写作" lay-skin="primary" checked lay-filter="c">
-        </span>
+        </span> -->
 
-        <input type="checkbox" name="" title="写作" lay-skin="primary" checked>
+        <!-- <input type="checkbox" name="" title="写作" lay-skin="primary" checked>
         <input type="checkbox" name="" title="写作写作" lay-skin="primary" checked>
         <input type="checkbox" name="" title="写作" lay-skin="primary" checked>
         <input type="checkbox" name="" title="写作" lay-skin="primary" checked>
@@ -272,7 +276,7 @@
         <input type="checkbox" name="" title="写作" lay-skin="primary" checked>
         <input type="checkbox" name="" title="写作" lay-skin="primary" checked>
         <input type="checkbox" name="" title="写作" lay-skin="primary" checked>
-        <input type="checkbox" name="" title="写作" lay-skin="primary" checked>
+        <input type="checkbox" name="" title="写作" lay-skin="primary" checked> -->
     </form>
 </div>
 <script src="../js/layui.js"></script>
@@ -303,6 +307,77 @@
             $('#two').css('display', 'none')
 
         }
+
+        //声明echarts配置项
+        var canvas_qxt
+        var resData = []   //后台总数据
+        var d    //rowdata数据
+        var xData = [];
+        var morDataY = []
+        var option = {
+            grid: {
+                left: '4%',
+                right: '4%',
+                containLabel: true
+            },
+            color: [],
+            tooltip: {
+                trigger: "axis", //坐标轴触发提示框
+                axisPointer: {
+                    lineStyle: {
+                        color: '#C3CBD6'
+                    }
+                }
+
+            },
+            dataZoom: [
+
+                {
+                    type: "inside",
+                    realtime: true,
+                    start: 0,
+                    end: 100
+                },
+
+            ],
+            xAxis: [{
+                type: 'category',
+                boundaryGap: false,
+                axisLine: {
+                    lineStyle: {
+                        color: '#57617B'
+                    }
+                },
+                data: []
+            }],
+            yAxis: [{
+                type: 'value',
+                max: '',
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#57617B'
+                    }
+                },
+                axisLabel: {
+                    margin: 10,
+                    textStyle: {
+                        fontSize: 14
+                    }
+                },
+                splitLine: {
+                    lineStyle: {
+                        color: '#57617B'
+                    }
+                }
+            }],
+            series: [
+
+            ]
+        };
+
         //获取企业设备列表
         function getdevlist(mn) {
             $.ajax({
@@ -839,6 +914,14 @@
             var rowData = obj.data;
             /*点击搜索*/
             form.on('submit(canvSub)', function (d) {
+                option.yAxis[0].max = ''
+                option.xAxis[0].data = []
+                morDataY = []
+                xData = []
+                option.color = []
+                option.series = []
+                canvas_qxt.clear()
+                canvas_qxt.setOption(option);
                 qxDetail(rowData)
                 return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
             });
@@ -849,123 +932,90 @@
                 area: ['880px', '680px'], //宽高
                 success: function () {
                     $('#ui').css('display', 'block');
-                    qxDetail(rowData)
+                    canvas_qxt = echarts.init(document.getElementById('canvas_qxt'));
+                    //结束时间
+                    var sn = new Date();
+                    var snY = sn.getFullYear();
+                    var snM = sn.getMonth() + 1;
+                    var snD = sn.getDate();
+                    var snH = sn.getHours();
+                    var snMi = sn.getMinutes();
+                    var snS = sn.getSeconds();
+                    //开始时间
+                    var ot = new Date(sn.getTime() - 12 * 60 * 60 * 1000)
+                    var otY = ot.getFullYear()
+                    var otM = ot.getMonth() + 1
+                    var otD = ot.getDate()
+                    var otH = ot.getHours();
+                    var otMi = ot.getMinutes();
+                    var otS = ot.getSeconds();
+
+                    if (snM <= 9) {
+                        snM = "0" + snM;
+                    }
+                    if (snD <= 9) {
+                        snD = "0" + snD;
+                    }
+                    if (snH <= 9) {
+                        snH = "0" + snH
+                    }
+                    if (snMi <= 9) {
+                        snMi = "0" + snMi
+                    }
+                    if (snS <= 9) {
+                        snS = "0" + snS
+                    }
+
+                    if (otM <= 9) {
+                        otM = "0" + otM;
+                    }
+                    if (otD <= 9) {
+                        otD = "0" + otD;
+                    }
+                    if (otH <= 9) {
+                        otH = "0" + otH
+                    }
+                    if (otMi <= 9) {
+                        otMi = "0" + otMi
+                    }
+                    if (otS <= 9) {
+                        otS = "0" + otS
+                    }
+                    var eti = snY + "-" + snM + "-" + snD + ' ' + snH + ":" + snMi + ':' + snS;
+                    var sti = otY + "-" + otM + "-" + otD + ' ' + otH + ":" + otMi + ':' + otS;
+                    $('#stimeCanvs').val(sti);
+                    $('#etimeCanvs').val(eti)
+                    if ($('#stimeCanvs').val() && $('#etimeCanvs').val()) {
+                        qxDetail(rowData)
+                    }
+
                 },
                 cancel: function () {
+
                     $('#stimeCanvs').val('')
                     $('#etimeCanvs').val('')
+                    option.yAxis[0].max = ''
+                    option.xAxis[0].data = []
+                    morDataY = []
+                    xData = []
+                    option.color = []
+                    option.series = []
+                    canvas_qxt.clear()
+                    canvas_qxt.setOption(option);
+                    $('#sbC').html('')
                     $('#ui').css('display', 'none')
                 }
             });
         });
+
+        var resData = []   //后台相应的总数组
+
         //折线图canvas请求数据
+        var d
+
         function qxDetail(rowData) {
-            var canvas_qxt = echarts.init(document.getElementById('canvas_qxt'));
-            var option = {
-                grid: {
-                    left: '2%',
-                    right: '2%',
-                    top: '4%',
-                    bottom: '4%',
-                    containLabel: true
-                },
+            d = rowData
 
-                tooltip: {
-                    trigger: "axis", //坐标轴触发提示框
-                    axisPointer: {
-                        type: "shadow",
-                        lineStyle: {
-                            color: '#C3CBD6'
-                        }
-                    }
-
-                },
-                dataZoom: [
-
-                    {
-                        type: "inside",
-
-                        start: 0,
-                        end: 100
-                    },
-
-                ],
-                xAxis: [{
-                    type: 'category',
-                    boundaryGap: true,
-                    axisLine: {
-                        lineStyle: {
-                            color: '#999999'
-                        }
-                    },
-                    data: []
-                }],
-                yAxis: [{
-                    type: 'value',
-                    max: '',
-                    min: 0,
-                    splitNumber: 7,
-                    axisLabel: {
-
-                        textStyle: {
-                            fontSize: 14
-                        }
-                    },
-                    splitLine: {
-                        lineStyle: {
-                            color: '#999999'
-                        }
-                    }
-                }],
-                series: [
-                    {
-                        name: '设备数据',
-                        type: 'bar',
-                        barWidth: 15, // 柱图宽度
-                        barMaxWidth: 40, // 最大宽度
-                        legendHoverLink: true,  // 是否启用图列 hover 时的联动高亮
-                        itemStyle: {
-
-                            emphasis: {
-                                barBorderRadius: 30
-                            },
-                            normal: {
-                                //柱形图圆角，初始化效果
-                                color: new echarts.graphic.LinearGradient(
-                                    0, 0, 0, 1,
-                                    [
-                                        { offset: 0, color: '#83bff6' },
-                                        { offset: 0.5, color: '#188df0' },
-                                        { offset: 1, color: '#188df0' }
-                                    ]
-                                ),
-                                barBorderRadius: [10, 10, 0, 0],
-                                label: {
-
-                                    textStyle: {
-                                        fontWeight: 'bolder',
-                                        fontSize: '12',
-                                        fontFamily: '微软雅黑',
-                                    }
-                                }
-                            }
-                        },
-                        emphasis: {
-                            itemStyle: {
-                                color: new echarts.graphic.LinearGradient(
-                                    0, 0, 0, 1,
-                                    [
-                                        { offset: 0, color: '#2378f7' },
-                                        { offset: 0.7, color: '#2378f7' },
-                                        { offset: 1, color: '#83bff6' }
-                                    ]
-                                )
-                            }
-                        },
-                        data: []
-                    }
-                ]
-            };
             layui.$.ajax({
                 url: httpUrl + 'erps/getdiagramData',
                 type: 'get',
@@ -985,26 +1035,161 @@
 
                 },
                 success: function (dataC) {
-                    debugger
+                    resData = dataC.data;
+                    if (resData && resData.length > 0) {
+
+                        var list = []
+                        for (var j = 0; j < resData.length; j++) {
+                            var obj = {
+                                name: resData[j].uname,
+                                code: resData[j].unamee
+                            }
+                            list.push(obj)
+                        }
+                        var oad = ''
+                        for (var m = 0; m < list.length; m++) {
+
+                            if (rowData.unamee == list[m].code) {  //说明默认的选中是这个设备
+                                oad += '<span>' +
+                                    '<input type="checkbox" value="' + list[m].code + '" title="' + list[m].name + '" lay-skin="primary" lay-filter="c" checked>' +
+                                    '</span>'
+                            } else {
+                                oad += '<span>' +
+                                    '<input type="checkbox" value="' + list[m].code + '" title="' + list[m].name + '" lay-skin="primary" lay-filter="c">' +
+                                    '</span>'
+                            }
+                        }
+                        $('#sbC').html(oad)
+                        form.render()
+                        // debugger
+                        //勾画默认设备的曲线图
+                        for (var l = 0; l < resData.length; l++) {
+                            if (rowData.unamee == resData[l].unamee) {
+                                for (var t = 0; t < resData[l].DayNumberList.length; t++) {
+                                    xData.push(resData[l].DayNumberList[t].datatime);
+                                    morDataY.push(resData[l].DayNumberList[t].cou)
+                                }
+                            }
+                        }
+                        //循环获取最大值
+                        var max = morDataY[0];
+                        for (let k = 0; k < morDataY.length - 1; k++) {
+                            max = max < morDataY[k + 1] ? morDataY[k + 1] : max
+                        }
+                        max = Math.ceil(max)
+
+                        max = max + 10000
+                        option.yAxis[0].max = max
+                        option.color.push('#1E9FFF');
+                        var obj = {
+                            name: rowData.uname,
+                            type: "line", //折线
+                            animation: true, //是否开启动画
+                            smooth: true, //在这里添加属性,使折线变顺滑
+                            lineStyle: {
+                                width: 2,
+                                color: "#1E9FFF"
+                            },
+                            data: morDataY
+                        }
+                        // console.log(xData)
+                        // console.log(morDataY)
+                        option.xAxis[0].data = xData
+                        option.series.push(obj)
+                        canvas_qxt.setOption(option);
+                    }
+
                 },
                 complete: function () {
                     canvas_qxt.hideLoading();
                 },
             })
+
         }
+        //每选中一个
+        function selectOne(color, val) {
+            var na
+            xData = []
+            morDataY = []
+            for (var l = 0; l < resData.length; l++) {
+                if (val == resData[l].unamee) {
+                    na = resData[l].uname
+                    for (var t = 0; t < resData[l].DayNumberList.length; t++) {
+                        xData.push(resData[l].DayNumberList[t].datatime);
+                        morDataY.push(resData[l].DayNumberList[t].cou)
+                    }
+                }
+            }
+            //循环获取最大值
+            var max = morDataY[0];
+            for (let k = 0; k < morDataY.length - 1; k++) {
+                max = max < morDataY[k + 1] ? morDataY[k + 1] : max
+            }
+            max = Math.ceil(max)
+            if (max != 0) {
+                option.yAxis[0].max = max
+            }
+
+            option.color.push(color);
+
+            var obj = {
+                name: na,
+                type: "line", //折线
+                animation: true, //是否开启动画
+                smooth: true, //在这里添加属性,使折线变顺滑
+                lineStyle: {
+                    width: 2,
+                    color: color
+                },
+                data: morDataY
+            }
+
+            option.xAxis[0].data = xData
+            option.series.push(obj)
+            canvas_qxt.setOption(option);
+        }
+
+        //取消选中一个
+        function cancelOne(overScolor, name) {
+
+            //先删除数据
+            for (let i = 0; i < option.series.length; i++) {
+                if (option.series[i].name == name) {
+                    option.series.splice(i, 1);
+                    break;
+                }
+            }
+            //再删除颜色
+            for (let k = 0; k < option.color.length; k++) {
+                if (option.color[k] == overScolor) {
+                    option.color.splice(k, 1); //再删除颜色
+                    break;
+                }
+            }
+
+            canvas_qxt.setOption(option, true);
+        }
+
         //监听选中的设备设置随机的背景颜色
         form.on('checkbox(c)', function (data) {
-
-            if (data.elem.checked == true) {
+            // debugger
+            var val = data.value
+            var name = data.elem.title
+            if (data.elem.checked == true) {  //选中
                 var r = Math.floor(Math.random() * 255);
                 var g = Math.floor(Math.random() * 255);
                 var b = Math.floor(Math.random() * 255);
-                var color = 'rgb(' + r + ',' + g + ',' + b + ')';
+                var color = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+                // var color = '#' + Math.floor(Math.random() * 0xffffff).toString(16);
+
                 console.log(color)
                 $(this).parent().find('i').css('background', color)
                 $(this).parent().find('i').css('border', '1px solid ' + color)
-            } else {
+                selectOne(color, val)
+            } else {  //取消选中
+                var overScolor = $(this).parent().find('i').css('background-color')   //获取到背景颜色
                 $(this).parent().find('i').removeAttr('style', '')
+                cancelOne(overScolor, name)
             }
 
         });
