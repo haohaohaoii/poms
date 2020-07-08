@@ -704,7 +704,7 @@
 
         /*index代表页码*/
         function rder(index, sTime, endTime) {
-
+            debugger
             var whereObj
 
             if (index == undefined) {
@@ -1126,7 +1126,9 @@
                 max = max < morDataY[k + 1] ? morDataY[k + 1] : max
             }
             max = Math.ceil(max)
-            if (max != 0) {
+
+            if (max != 0 && max > option.yAxis[0].max) {
+                max = max + 10000
                 option.yAxis[0].max = max
             }
 

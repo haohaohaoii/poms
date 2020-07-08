@@ -18,11 +18,6 @@
         .layui-table-cell {
             height: inherit;
         }
-
-        .changeS {
-            position: fixed;
-            right: 5px;
-        }
     </style>
 </head>
 
@@ -32,7 +27,8 @@
         <span class="layui-breadcrumb" lay-separator=">">
             <a href="../index.html" target="_top">首页</a>
             <a href="javascript:;">数据报表</a>
-            <a href="javascript:;">日报表</a>
+            <a href="javascript:;">年报表</a>
+
         </span>
     </div>
     <div class="padd"></div>
@@ -48,9 +44,9 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">日期</label>
+            <label class="layui-form-label">年</label>
             <div class="layui-input-block">
-                <input type="text" class="layui-input" id="etime" name="etime" autocomplete="off">
+                <input type="text" class="layui-input" id="stime" name="stime" autocomplete="off">
             </div>
         </div>
         <div class="layui-form-item" id="hide">
@@ -77,7 +73,7 @@
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xxs" lay-event="detail">详情</a>
-    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xxs" lay-event="export">导出</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xxs" lay-event="expE">导出</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-xxs" lay-event="del" id="delhide">删除</a>
 </script>
 
@@ -92,25 +88,14 @@
         var $ = layui.$;
 
         var day = new Date();
-        var tim = day.getTime() - 24 * 60 * 60 * 1000
-        day = new Date(tim)
-        var yer = day.getFullYear();
-        var mon = day.getMonth() + 1;
-        var dateN = day.getDate();
-        if (mon < 9) {
-            mon = '0' + mon
-        }
-        if (dateN < 10) {
-            dateN = '0' + dateN
-        }
-        var nowDay = yer + '-' + mon + '-' + dateN
-        $('#etime').val(nowDay)
+        var yer = day.getFullYear() - 1;
+        $('#stime').val(yer)
 
         form.on('submit(sub)', function (data) {
 
             table.reload('tableid', {
                 where: {
-                    datatime: layui.$('#etime').val(),
+                    datatime: layui.$('#stime').val(),
                     mn: $('#qylist').val()
                 } //设定异步数据接口的额外参数，任意设
 
@@ -123,7 +108,6 @@
 
         });
 
-        //第一个实例
         //获取企业列表
         $.ajax({
             url: httpUrl + 'manage/erpsnamelist',
@@ -149,30 +133,26 @@
             table.render({
                 elem: '#demo',
                 height: 'full-130'
+                , url: httpUrl + 'report_forms/hdsYearReport' //数据接口
                 , limit: 10000
-                , url: httpUrl + 'reportData/DayReportData' //数据接口
-
                 , where: {
-                    datatime: layui.$('#etime').val(),
+                    datatime: layui.$('#stime').val(),
                     mn: mn
                 }
-
-                , page: false
                 , cols: [[ //表头
-                    { field: 'id', style: 'display:none;', type: 'space', width: '0%', minWidth: '0%' },
-                    {
-                        field: 'erp_name', title: '企业名称', align: 'center', templet: function (d) {
-                            return '<div style="text-align:left">' + d.erp_name + '</div>'
+                    { field: 'id', style: 'display:none;', type: 'space', width: '0%', minWidth: '0%' }
+                    , {
+                        field: 'uname', title: '企业名称', align: 'center', templet: function (d) {
+                            return '<div style="text-align:left">' + d.uname + '</div>'
                         }
                     }
                     , {
-                        field: 'report', title: '报表名称', align: 'center', templet: function (d) {
-                            return '<div style="text-align:left">' + d.report + '</div>'
+                        field: 'reportName', title: '报表名称', align: 'center', templet: function (d) {
+                            return '<div style="text-align:left">' + d.reportName + '</div>'
                         }
                     }
-                    , { field: 'datatime', title: '生成时间' }
+                    , { field: 'reportDate', title: '生成时间' }
                     , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 260 }
-
                 ]],
                 id: 'tableid',
                 done: function (res, curr, count) {
@@ -186,15 +166,6 @@
                     layui.$('td').css({
                         'text-align': 'center'
                     })
-                    //            layui.$('#mcodes').empty();
-                    //            var data = res.mcodes;
-                    //            layui.$('#erpsname').text(res.erpsname);
-                    //            var str = '<option value="" selected>请选择</option>';
-                    //            for (var i = 0; i < data.length; i++) {
-                    //                str += '<option value="' + data[i].mcode + '">' + data[i].uname + '</option>';
-                    //            }
-                    //
-                    //            layui.$('#mcodes').append(str);
 
                     form.render();
                     layui.$('th').css({ 'background-color': '#1492ff', 'color': '#fff', 'font-weight': 'bold' });
@@ -203,38 +174,33 @@
         }
         //监听行工具事件
         table.on('tool(demo)', function (obj) {
-
             var data = obj.data;
             //            console.log(data);
             var url = '';
             for (var index in data) {
                 url += '/' + index + '=' + data[index]
             }
-            url += '/dateC=' + $('#etime').val()
-
+            url += '/dateC=' + $('#stime').val()
             if (obj.event === 'del') {
                 layer.confirm('确定删除', {
                     btn: ['确定', '取消'] //按钮
                 }, function () {
-
                     $.ajax({
-                        url: httpUrl + 'reportData/DeleteDayReportData',
+                        url: httpUrl + 'report_forms/updateYearAndMonthReport',
                         type: 'post',
                         data: {
-                            id: data.id
+                            id: obj.data.id
                         },
                         dataType: 'json',
                         success: function (data) {
-
                             if (data.code == 0) {
                                 layer.msg('删除成功', { time: 1000, icon: 1 }, function () {
-                                    window.location.href = 'dayreport.html'
+                                    window.location.href = 'yearreportform.html'
                                 });
 
                             } else {
                                 layer.msg('删除失败', { time: 1000, icon: 2 });
                             }
-
                         }
                     })
 
@@ -243,20 +209,20 @@
                 });
 
             } else if (obj.event === 'detail') {
-                window.location.href = 'dayNewdetail.html#/' + url;
-            } else if (obj.event === 'export') {
+                window.location.href = 'yearNewdetail.html#/' + url;
+            } else if (obj.event === 'expE') {
 
                 if ('ActiveXObject' in window) {
-                    var urlReport = httpUrl + 'reportData/DayReportDataderive?mn=' + data.mn + '&datatime=' + layui.$('#etime').val()
+                    var urlReport = httpUrl + 'report_forms/hdsYearreport?mn=' + data.mn + '&datatime=' + layui.$('#stime').val()
                 } else {
-                    var urlReport = httpUrl + 'reportData/DayReportDataderive?mn=' + data.mn + '&datatime=' + layui.$('#etime').val()
+                    var urlReport = httpUrl + 'report_forms/hdsYearreport?mn=' + data.mn + '&datatime=' + layui.$('#stime').val()
                 }
                 window.location.href = urlReport;
             }
         });
         laydate.render({
-            elem: '#etime'
-            , type: 'date'
+            elem: '#stime'
+            , type: 'year'
         });
     });
 </script>

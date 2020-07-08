@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>新乡流量监控平台</title>
+    <link rel="stylesheet" href="../css/layui.css">
+    <link rel="stylesheet" href="../css/modules/laydate/default/laydate.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/map.css">
+    <link rel="stylesheet" href="../css/modules/layer/default/layer.css">
+    <style>
+        .layui-form-item {
+            clear: none;
+        }
+
+        .layui-table-cell {
+            height: inherit;
+        }
+
+        .changeS {
+            position: fixed;
+            right: 5px;
+        }
+
+        .topSD {
+            height: 70px;
+        }
+
+        .topmsg {
+            display: flex;
+            justify-content: space-between;
+            padding-left: 29px;
+            padding-right: 30px;
+        }
+
+        .messa {
+            width: 320px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .layui-table-view .layui-table th:first-child {
+            padding: 0 !important;
+        }
+
+
+        .layui-table-view .layui-table th:first-child .laytable-cell-2-0-0 {
+            padding: 0 !important;
+        }
+
+        .layui-table img {
+            max-width: 160px;
+        }
+    </style>
+</head>
+
+<div class="container">
+    <div class="layui-row lrow">
+        <a href="javascript:;">当前位置：</a>
+        <span class="layui-breadcrumb" lay-separator=">">
+            <a href="../index.html" target="_top">首页</a>
+            <a href="javascript:;">数据报表</a>
+            <a href="javascript:;">日报表</a>
+            <a href="javascript:;" id="aod">日报表详情</a>
+        </span>
+    </div>
+    <div class="padd"></div>
+    <form class="layui-form topSD" lay-filter="example">
+        <!-- 提示：如果你不想用form，你可以换成div等任何一个普通元素 -->
+        <div class="layui-form-item">
+            <label class="layui-form-label">选择企业</label>
+            <div class="layui-input-block">
+
+                <select name="mcodes" lay-filter="qy" id="qylist">
+                    <option value="" selected>请选择</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">日期</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" id="etime" name="etime" autocomplete="off">
+            </div>
+        </div>
+        <div class="layui-form-item" id="hide">
+            <div class="layui-input-block">
+                <button class="layui-btn  layui-btn-radius  layui-btn-normal" lay-submit lay-filter="sub">查询</button>
+                <button class="layui-btn  layui-btn-radius  layui-btn-normal" lay-submit lay-filter="export">导出</button>
+            </div>
+        </div>
+
+
+    </form>
+
+    <div class="topmsg">
+        <p id="titL"></p>
+        <div class="messa">
+            <p>
+                报表生成时间：
+                <span id="titR"></span>
+            </p>
+            <p>
+                单位：
+                <span>立方米</span>
+            </p>
+        </div>
+    </div>
+    <div class="layui-form" style="clear: both;">
+        <table id="demo" lay-filter="demo">
+
+
+        </table>
+
+    </div>
+    <div id="page"></div>
+</div>
+<script src="../js/layui.js"></script>
+
+<script type="text/html" id="barDemo">
+    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xxs" lay-event="detail">详情</a>
+    <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xxs" lay-event="export">导出</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs layui-btn-xxs" lay-event="del" id="delhide">删除</a>
+</script>
+
+<script>
+
+    layui.use(['form', 'layer', 'laydate', 'laypage', 'element', 'table'], function () {
+        var element = layui.element;
+        var laypage = layui.laypage;
+        var laydate = layui.laydate;
+        var table = layui.table;
+        var form = layui.form;
+        var $ = layui.$;
+
+        var router = layui.router();
+        obj = router.search;
+
+        var eidtobj = {
+            "name": decodeURI(obj.erp_name), // 企业名称
+            "unitName": decodeURI(obj.report), // 企业报表名称
+            "unitDate": decodeURI(obj.datatime), // 报表生成日期
+            "dateC": decodeURI(obj.dateC),   //选择的日期
+            "mn": decodeURI(obj.mn),  //选中的企业mn
+            "id": decodeURI(obj.id),  //选中的企业mn
+        };
+
+        //全局参数
+        var hoursL = []
+        var listH = []
+
+        $('#aod').text(eidtobj.name)
+        $('#etime').val(eidtobj.dateC)
+
+        //获取小时数组并每8个分组
+        function getHours() {
+
+            for (var h = 1; h < 25; h++) {
+                hoursL.push(h + '点')
+            }
+            //分组
+
+            for (var t = 0; t < 3; t++) {
+                var o = hoursL.splice(0, 8)
+                listH.push(o)
+            }
+
+            console.log(listH)
+        }
+        getHours()
+        //获取企业列表
+        $.ajax({
+            url: httpUrl + 'manage/erpsnamelist',
+
+            data: {
+                deptid: localStorage.getItem('deptid')
+            },
+            dataType: 'json',
+            success: function (data) {
+
+                var data = data.data;
+                var str = '';
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].mn == eidtobj.mn) {
+                        str += '<option value="' + data[i].mn + '" selected>' + data[i].ename + '</option>';
+                    } else {
+                        str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
+                    }
+                }
+                layui.$('#qylist').append(str);
+                form.render();
+                rder()
+            }
+        });
+
+        //点击查询
+        form.on('submit(sub)', function (data) {
+
+            table.reload('tableid', {
+                where: {
+                    etime: la,
+                    stime: fi,
+                    mn: $('#qylist').val(),
+                    datatime: $('#etime').val()
+                } //设定异步数据接口的额外参数，任意设
+            });
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+
+
+        });
+        form.on('submit(export)', function (data) {
+            if ('ActiveXObject' in window) {
+                var urlReport = httpUrl + 'report_forms/hdsMonreport?mn=' + eidtobj.mn + '&datatime=' + layui.$('#etime').val()
+            } else {
+                var urlReport = httpUrl + 'report_forms/hdsMonreport?mn=' + eidtobj.mn + '&datatime=' + layui.$('#etime').val()
+            }
+            window.location.href = urlReport;
+            return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
+        });
+
+        function rder(index, sTime, endTime) {
+
+            var whereObj
+
+
+            table.render({
+                elem: '#demo',
+                height: 'full-210'
+                , limit: 10000
+                , url: httpUrl + '/reportData/MonthReportDataDetail' //数据接口
+                , where: whereObj
+                , page: false//开启分页
+                , cols: [],
+                id: 'tableid',
+                done: function (res, curr, count) {
+
+                    var nowD = $('#etime').val()
+                    var dateArr = nowD.split('-'); //s2当前时间
+                    var year = dateArr[0]; //获取当前日期的年份
+                    var month = dateArr[1]; //获取当前日期的月份
+                    var leftV = res.erpsname + '流量监控报表'
+                    var leftR = year + '年' + month + '月'
+                    $('#titL').text(leftV)
+                    $('#titR').text(leftR)
+
+                    var da = res.data
+                    var co = [
+                        {
+                            field: 'uname', width: 160, title: '<img src="../images/img/sbsj.png">', align: 'left'
+                        }
+                        , { field: 'h1', title: '' }
+                        , { field: 'h2', title: '' }
+                        , { field: 'h3', title: '' }
+                        , { field: 'h4', title: '' }
+                        , { field: 'h5', title: '' }
+                        , { field: 'h6', title: '' }
+                        , { field: 'h7', title: '' }
+                        , { field: 'h8', title: '' }
+                    ]
+                    var dayLI = dayList[index - 1]
+                    for (var t = 1; t < co.length; t++) {
+                        for (var h = 0; h < dayLI.length; h++) {
+                            if (t == h + 1) {
+                                co[t].title = dayLI[h]
+                            } else {
+                                if (h == dayLI.length - 1) {
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    console.log(co)
+
+                    laypage.render({
+                        elem: 'page'
+                        , count: Number(cur * 10000)
+                        , curr: ym ? 1 : index //如何点击搜索就是1
+                        , limit: 10000
+                        , groups: 7 //只显示 1 个连续页码
+                        , first: '首页' //不显示首页
+                        , last: '末页' //不显示尾页
+                        , layout: ['prev', 'page', 'next'] //自定义分页布局
+                        , jump: function (obj, first) {
+
+                            //点击分页
+                            if (!first) {
+
+                                // var sTime = arN[arN.length - 1]
+                                // var endTime = arN[0]
+                                rder(obj.curr, sTime, endTime)
+                            }
+                        }
+                    })
+                    table.init('demo', {//转换成静态表格
+                        cols: [co],
+                        data: newDa
+                        , limit: 10000
+                        , height: 'full-210'
+                    });
+
+                    ym = false
+                    layui.$('th').css({
+                        'background-color': '#4265ed',
+                        'color': '#fff',
+                        'font-weight': 'bold',
+                        'text-align': 'center'
+                    })
+                    layui.$('td').css({
+                        'text-align': 'center'
+                    })
+
+                    form.render();
+                    layui.$('th').css({ 'background-color': '#1492ff', 'color': '#fff', 'font-weight': 'bold' });
+                }
+            });
+        }
+        laydate.render({
+            elem: '#etime'
+            , type: 'month'
+        });
+    });
+</script>
+</body>
+
+</html>

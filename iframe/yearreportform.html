@@ -133,25 +133,25 @@
             table.render({
                 elem: '#demo',
                 height: 'full-130'
-                , url: httpUrl + 'report_forms/hdsYearReport' //数据接口
+                , url: httpUrl + 'reportData/YearReportData' //数据接口
                 , limit: 10000
                 , where: {
-                    datatime: layui.$('#stime').val(),
+                    year: layui.$('#stime').val(),
                     mn: mn
                 }
                 , cols: [[ //表头
                     { field: 'id', style: 'display:none;', type: 'space', width: '0%', minWidth: '0%' }
                     , {
-                        field: 'uname', title: '企业名称', align: 'center', templet: function (d) {
-                            return '<div style="text-align:left">' + d.uname + '</div>'
+                        field: 'erp_name', title: '企业名称', align: 'center', templet: function (d) {
+                            return '<div style="text-align:left">' + d.erp_name + '</div>'
                         }
                     }
                     , {
-                        field: 'reportName', title: '报表名称', align: 'center', templet: function (d) {
-                            return '<div style="text-align:left">' + d.reportName + '</div>'
+                        field: 'report', title: '报表名称', align: 'center', templet: function (d) {
+                            return '<div style="text-align:left">' + d.report + '</div>'
                         }
                     }
-                    , { field: 'reportDate', title: '生成时间' }
+                    , { field: 'datatime', title: '生成时间' }
                     , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 260 }
                 ]],
                 id: 'tableid',
@@ -174,7 +174,6 @@
         }
         //监听行工具事件
         table.on('tool(demo)', function (obj) {
-
             var data = obj.data;
             //            console.log(data);
             var url = '';
@@ -187,7 +186,7 @@
                     btn: ['确定', '取消'] //按钮
                 }, function () {
                     $.ajax({
-                        url: httpUrl + 'report_forms/updateYearAndMonthReport',
+                        url: httpUrl + 'reportData/DeleteYearReportData',
                         type: 'post',
                         data: {
                             id: obj.data.id
@@ -210,13 +209,13 @@
                 });
 
             } else if (obj.event === 'detail') {
-                window.location.href = 'yearRepdetail.html#/' + url;
+                window.location.href = 'yearNewdetail.html#/' + url;
             } else if (obj.event === 'expE') {
 
                 if ('ActiveXObject' in window) {
-                    var urlReport = httpUrl + 'report_forms/hdsYearreport?mn=' + data.mn + '&datatime=' + layui.$('#stime').val()
+                    var urlReport = httpUrl + 'reportData/YearReportDataderive?mn=' + data.mn + '&datatime=' + layui.$('#stime').val()
                 } else {
-                    var urlReport = httpUrl + 'report_forms/hdsYearreport?mn=' + data.mn + '&datatime=' + layui.$('#stime').val()
+                    var urlReport = httpUrl + 'reportData/YearReportDataderive?mn=' + data.mn + '&datatime=' + layui.$('#stime').val()
                 }
                 window.location.href = urlReport;
             }

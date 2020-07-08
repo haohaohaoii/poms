@@ -150,7 +150,7 @@
                 elem: '#demo',
                 height: 'full-130'
                 , limit: 10000
-                , url: httpUrl + 'reportData/DayReportData' //数据接口
+                , url: httpUrl + 'report_forms/hdsDayReport' //数据接口
 
                 , where: {
                     datatime: layui.$('#etime').val(),
@@ -161,16 +161,16 @@
                 , cols: [[ //表头
                     { field: 'id', style: 'display:none;', type: 'space', width: '0%', minWidth: '0%' },
                     {
-                        field: 'erp_name', title: '企业名称', align: 'center', templet: function (d) {
-                            return '<div style="text-align:left">' + d.erp_name + '</div>'
+                        field: 'uname', title: '企业名称', align: 'center', templet: function (d) {
+                            return '<div style="text-align:left">' + d.uname + '</div>'
                         }
                     }
                     , {
-                        field: 'report', title: '报表名称', align: 'center', templet: function (d) {
-                            return '<div style="text-align:left">' + d.report + '</div>'
+                        field: 'reportName', title: '报表名称', align: 'center', templet: function (d) {
+                            return '<div style="text-align:left">' + d.reportName + '</div>'
                         }
                     }
-                    , { field: 'datatime', title: '生成时间' }
+                    , { field: 'reportDate', title: '生成时间' }
                     , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 260 }
 
                 ]],
@@ -218,7 +218,7 @@
                 }, function () {
 
                     $.ajax({
-                        url: httpUrl + 'reportData/DeleteDayReportData',
+                        url: httpUrl + 'report_forms/updateYearAndMonthReport',
                         type: 'post',
                         data: {
                             id: data.id
@@ -243,13 +243,12 @@
                 });
 
             } else if (obj.event === 'detail') {
-                window.location.href = 'dayNewdetail.html#/' + url;
+                window.location.href = 'dayRepdetail.html#/' + url;
             } else if (obj.event === 'export') {
-
                 if ('ActiveXObject' in window) {
-                    var urlReport = httpUrl + 'reportData/DayReportDataderive?mn=' + data.mn + '&datatime=' + layui.$('#etime').val()
+                    var urlReport = httpUrl + 'report_forms/hdsDayreport?mn=' + data.mn + '&datatime=' + layui.$('#etime').val()
                 } else {
-                    var urlReport = httpUrl + 'reportData/DayReportDataderive?mn=' + data.mn + '&datatime=' + layui.$('#etime').val()
+                    var urlReport = httpUrl + 'report_forms/hdsDayreport?mn=' + data.mn + '&datatime=' + layui.$('#etime').val()
                 }
                 window.location.href = urlReport;
             }

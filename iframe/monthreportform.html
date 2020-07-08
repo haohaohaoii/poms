@@ -165,7 +165,7 @@
             table.render({
                 elem: '#demo',
                 height: 'full-130'
-                , url: httpUrl + 'report_forms/hdsMonthreport' //数据接口
+                , url: httpUrl + 'reportData/MonthReportData' //数据接口
                 , limit: 10000
                 , where: {
                     datatime: layui.$('#etime').val(),
@@ -174,16 +174,16 @@
                 , cols: [[ //表头
                     { field: 'id', style: 'display:none;', type: 'space', width: '0%', minWidth: '0%' },
                     {
-                        field: 'uname', title: '企业名称', align: 'center', templet: function (d) {
-                            return '<div style="text-align:left">' + d.uname + '</div>'
+                        field: 'erp_name', title: '企业名称', align: 'center', templet: function (d) {
+                            return '<div style="text-align:left">' + d.erp_name + '</div>'
                         }
                     }
                     , {
-                        field: 'reportName', title: '报表名称', align: 'center', templet: function (d) {
-                            return '<div style="text-align:left">' + d.reportName + '</div>'
+                        field: 'report', title: '报表名称', align: 'center', templet: function (d) {
+                            return '<div style="text-align:left">' + d.report + '</div>'
                         }
                     }
-                    , { field: 'reportDate', title: '生成时间' }
+                    , { field: 'datatime', title: '生成时间' }
                     , { fixed: 'right', title: '操作', toolbar: '#barDemo', width: 260 }
 
                 ]],
@@ -230,7 +230,7 @@
                     btn: ['确定', '取消'] //按钮
                 }, function () {
                     $.ajax({
-                        url: httpUrl + 'report_forms/updateYearAndMonthReport',
+                        url: httpUrl + 'reportData/DeleteMonthReportData',
                         type: 'post',
                         data: {
                             id: data.id
@@ -255,13 +255,14 @@
                 });
 
             } else if (obj.event === 'detail') {
-                window.location.href = 'monthRepdetail.html#/' + url;
+                // window.location.href = 'monthRepdetail.html#/' + url;
+                window.location.href = 'monthNewdetail.html#/' + url;
             } else if (obj.event === 'export') {
 
                 if ('ActiveXObject' in window) {
-                    var urlReport = httpUrl + 'report_forms/hdsMonreport?mn=' + data.mn + '&datatime=' + layui.$('#etime').val()
+                    var urlReport = httpUrl + 'reportData/MonthReportDataderive?mn=' + data.mn + '&datatime=' + layui.$('#etime').val()
                 } else {
-                    var urlReport = httpUrl + 'report_forms/hdsMonreport?mn=' + data.mn + '&datatime=' + layui.$('#etime').val()
+                    var urlReport = httpUrl + 'reportData/MonthReportDataderive?mn=' + data.mn + '&datatime=' + layui.$('#etime').val()
                 }
                 window.location.href = urlReport;
             }
