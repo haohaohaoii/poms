@@ -365,8 +365,10 @@
 
   <script>
     var useriid = localStorage.getItem('userid');
+    var dangeNa
 
     function dy() {
+
       $('.rightcamera').remove();
       $('.leftcamera').remove();
       var dipy = document.getElementById('dipy');
@@ -398,6 +400,7 @@
 
 
     function camer(camerstr, camerobj) {
+
       $('.leftcamera').remove()
       $('.rightcamera').remove()
       $('body').append(camerstr);
@@ -445,6 +448,7 @@
 
     //单个企业登录
     function city(num, citynum) {
+      r
       var cityname = (num == 1 ? 'province' : 'city');
       ifrm.location.reload()
       ifrm.location.replace('iframe/home.html#/' + cityname + '=' + citynum);
@@ -679,6 +683,7 @@
               for (var k = 0; k < model[i].city[j].sitelist.length; k++) {
                 var mn = model[i].city[j].sitelist[k].mn;
                 var sitename = model[i].city[j].sitelist[k].ename;
+                dangeNa = sitename
                 str += '<li title="' + sitename + '" class="' + (i == -1 && j == -1 && k == -1 ? 'ona' : '') + '"><a class="enterprise ' + mn + '" href="./iframe/city/' + (obj[mn] ? obj[mn] : "l000000") + '.html#/mn=' + mn + '/ename=' + sitename + '" target="ifrm">' + sitename + '</a></li>'
               }
               str += '</ul><li>'
@@ -707,7 +712,7 @@
               $(this).parent().addClass('ona');
             })
             $('.ull .province').click(function () {
-              // debugger
+
               // $(this).parents('.ull').find('span.province').removeClass('on');
               $(this).parent().siblings().removeClass('on');
               $(this).parent().addClass('on');
@@ -745,8 +750,8 @@
               left: 0
             });
 
-            $('#homepage').attr('href', './iframe/city/' + (obj[ifrmn] ? obj[ifrmn] : "l000000") + '.html#/mn=' + ifrmn);
-            $('#ifrm').attr('src', './iframe/city/' + (obj[ifrmn] ? obj[ifrmn] : "l000000") + '.html#/mn=' + ifrmn);
+            $('#homepage').attr('href', './iframe/city/' + (obj[ifrmn] ? obj[ifrmn] : "l000000") + '.html#/mn=' + ifrmn + '/ename=' + dangeNa);
+            $('#ifrm').attr('src', './iframe/city/' + (obj[ifrmn] ? obj[ifrmn] : "l000000") + '.html#/mn=' + ifrmn + '/ename=' + dangeNa);
             $.ajax({
               url: httpUrl + 'manage/erps',
               data: {
