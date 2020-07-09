@@ -25,7 +25,7 @@
         }
 
         .homeL {
-            width: 75%;
+            width: 78%;
             height: 100%;
 
             display: flex;
@@ -112,7 +112,7 @@
         }
 
         .homeR {
-            width: 25%;
+            width: 22%;
             margin-left: 20px;
             overflow-y: hidden;
             height: 1000px;
@@ -855,9 +855,8 @@
                             <div class="layui-input-block">
 
                                 <select name="mcodes" lay-filter="qy" id="qylist">
-                                    <option value="" selected>请选择</option>
-                                    <option value="010">日排量</option>
-                                    <option value="0571" selected>全部</option>
+
+                                    <option value="" selected>全部</option>
                                 </select>
                             </div>
                         </div>
@@ -996,7 +995,24 @@
         //         // layui.$('.layui-col-space5').append(str);
         //     }
         // })
+        $.ajax({
+            url: httpUrl + 'manage/erpsnamelist',
 
+            data: {
+                deptid: localStorage.getItem('deptid')
+            },
+            dataType: 'json',
+            success: function (data) {
+
+                var data = data.data;
+                var str = '';
+                for (var i = 0; i < data.length; i++) {
+                    str += '<option value="' + data[i].mn + '">' + data[i].ename + '</option>';
+                }
+                layui.$('#qylist').append(str);
+                form.render();
+            }
+        });
         //企业在线统计
         $(function () {
             var myChart_zxtj = echarts.init(document.getElementById('canvas_zxtj'));

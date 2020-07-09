@@ -46,7 +46,7 @@
         }
 
 
-        .layui-table-view .layui-table th:first-child .laytable-cell-2-0-0 {
+        .layui-table-view .layui-table th:first-child div {
             padding: 0 !important;
         }
 
@@ -117,7 +117,7 @@
     <div id="page"></div>
 </div>
 <script src="../js/layui.js"></script>
-
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xxs" lay-event="detail">详情</a>
     <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xxs" lay-event="export">导出</a>
@@ -149,7 +149,8 @@
         //全局参数
         var hoursL = []
         var listH = []
-
+        var cur
+        var ym = false  //用户是都点击了搜索，点击了则index重置
         $('#aod').text(eidtobj.name)
         $('#etime').val(eidtobj.dateC)
 
@@ -165,7 +166,7 @@
                 var o = hoursL.splice(0, 8)
                 listH.push(o)
             }
-
+            cur = listH.length
             console.log(listH)
         }
         getHours()
@@ -196,11 +197,11 @@
 
         //点击查询
         form.on('submit(sub)', function (data) {
-
+            ym = true
             table.reload('tableid', {
                 where: {
-                    etime: la,
-                    stime: fi,
+                    etime: '0' + listH[0][7].substr(0, 1),
+                    stime: '0' + listH[0][0].substr(0, 1),
                     mn: $('#qylist').val(),
                     datatime: $('#etime').val()
                 } //设定异步数据接口的额外参数，任意设
@@ -211,24 +212,66 @@
         });
         form.on('submit(export)', function (data) {
             if ('ActiveXObject' in window) {
-                var urlReport = httpUrl + 'report_forms/hdsMonreport?mn=' + eidtobj.mn + '&datatime=' + layui.$('#etime').val()
+                var urlReport = httpUrl + 'reportData/DayReportDataderive?mn=' + eidtobj.mn + '&datatime=' + layui.$('#etime').val()
             } else {
-                var urlReport = httpUrl + 'report_forms/hdsMonreport?mn=' + eidtobj.mn + '&datatime=' + layui.$('#etime').val()
+                var urlReport = httpUrl + 'reportData/DayReportDataderive?mn=' + eidtobj.mn + '&datatime=' + layui.$('#etime').val()
             }
             window.location.href = urlReport;
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
         });
 
-        function rder(index, sTime, endTime) {
+        function rder(index) {
 
             var whereObj
+            if (index == undefined) {
+                var fi = '0' + listH[0][0].substr(0, 1)
+                var la = '0' + listH[0][7].substr(0, 1)
+                index = 1,
+                    whereObj = {
+                        etime: la,
+                        stime: fi,
+                        mn: $('#qylist').val(),
+                        datatime: $('#etime').val()
+                    }
+            } else {
+                if (index == 1) {
+                    var fi = '0' + listH[0][0].substr(0, 1)
+                    var la = '0' + listH[0][7].substr(0, 1)
 
+                    whereObj = {
+                        etime: la,
+                        stime: fi,
+                        mn: $('#qylist').val(),
+                        datatime: $('#etime').val()
+                    }
+                } else if (index == 2) {
+                    var fi = '0' + listH[1][0].substr(0, 1)
+                    var la = listH[1][7].substr(0, 2)
+
+                    whereObj = {
+                        etime: la,
+                        stime: fi,
+                        mn: $('#qylist').val(),
+                        datatime: $('#etime').val()
+                    }
+                } else if (index == 3) {
+                    var fi = listH[2][0].substr(0, 2)
+                    var la = listH[2][7].substr(0, 2)
+
+                    whereObj = {
+                        etime: la,
+                        stime: fi,
+                        mn: $('#qylist').val(),
+                        datatime: $('#etime').val()
+                    }
+                }
+            }
 
             table.render({
                 elem: '#demo',
                 height: 'full-210'
                 , limit: 10000
-                , url: httpUrl + '/reportData/MonthReportDataDetail' //数据接口
+                , url: httpUrl + 'reportData/DayReportDataDetail' //数据接口
                 , where: whereObj
                 , page: false//开启分页
                 , cols: [],
@@ -237,13 +280,17 @@
 
                     var nowD = $('#etime').val()
                     var dateArr = nowD.split('-'); //s2当前时间
+
                     var year = dateArr[0]; //获取当前日期的年份
                     var month = dateArr[1]; //获取当前日期的月份
+                    var day = dateArr[2]
                     var leftV = res.erpsname + '流量监控报表'
-                    var leftR = year + '年' + month + '月'
+                    var leftR = year + '年' + month + '月' + day + '日'
                     $('#titL').text(leftV)
                     $('#titR').text(leftR)
-
+                    if (ym) {
+                        index = 1
+                    }
                     var da = res.data
                     var co = [
                         {
@@ -258,7 +305,8 @@
                         , { field: 'h7', title: '' }
                         , { field: 'h8', title: '' }
                     ]
-                    var dayLI = dayList[index - 1]
+
+                    var dayLI = listH[index - 1]
                     for (var t = 1; t < co.length; t++) {
                         for (var h = 0; h < dayLI.length; h++) {
                             if (t == h + 1) {
@@ -271,6 +319,20 @@
                         }
                     }
                     console.log(co)
+
+                    var newDa = []
+                    for (var k = 0; k < da.length; k++) {
+                        var obj = {}
+                        obj.uname = da[k].uname
+                        var m = 'h';
+
+                        for (var j = 0; j < da[k].MonthList.length; j++) {
+                            var it = m + (j + 1)
+                            obj[it] = da[k].MonthList[j].mval
+                        }
+                        newDa.push(obj)
+                    }
+                    console.log(newDa)
 
                     laypage.render({
                         elem: 'page'
@@ -288,7 +350,7 @@
 
                                 // var sTime = arN[arN.length - 1]
                                 // var endTime = arN[0]
-                                rder(obj.curr, sTime, endTime)
+                                rder(obj.curr)
                             }
                         }
                     })
@@ -317,7 +379,7 @@
         }
         laydate.render({
             elem: '#etime'
-            , type: 'month'
+            , type: 'date'
         });
     });
 </script>

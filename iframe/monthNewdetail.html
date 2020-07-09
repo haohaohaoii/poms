@@ -46,7 +46,7 @@
         }
 
 
-        .layui-table-view .layui-table th:first-child .laytable-cell-2-0-0 {
+        .layui-table-view .layui-table th:first-child div {
             padding: 0 !important;
         }
 
@@ -117,6 +117,7 @@
     <div id="page"></div>
 </div>
 <script src="../js/layui.js"></script>
+<script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
 
 <script type="text/html" id="barDemo">
     <a class="layui-btn layui-btn-normal layui-btn-xs layui-btn-xxs" lay-event="detail">详情</a>
@@ -286,9 +287,9 @@
         });
         form.on('submit(export)', function (data) {
             if ('ActiveXObject' in window) {
-                var urlReport = httpUrl + 'report_forms/hdsMonreport?mn=' + eidtobj.mn + '&datatime=' + layui.$('#etime').val()
+                var urlReport = httpUrl + 'reportData/MonthReportDataderive?mn=' + eidtobj.mn + '&datatime=' + layui.$('#etime').val()
             } else {
-                var urlReport = httpUrl + 'report_forms/hdsMonreport?mn=' + eidtobj.mn + '&datatime=' + layui.$('#etime').val()
+                var urlReport = httpUrl + 'reportData/MonthReportDataderive?mn=' + eidtobj.mn + '&datatime=' + layui.$('#etime').val()
             }
             window.location.href = urlReport;
             return false; //阻止表单跳转。如果需要表单跳转，去掉这段即可。
@@ -362,7 +363,9 @@
                     var leftR = year + '年' + month + '月'
                     $('#titL').text(leftV)
                     $('#titR').text(leftR)
-
+                    if (ym) {
+                        index = 1
+                    }
                     var da = res.data
                     var co = [
                         {
